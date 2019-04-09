@@ -1,10 +1,4 @@
 // functions
-// function setCookie(cname, cvalue, exdays) {
-//     var d = new Date();
-//     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-//     var expires = "expires="+d.toUTCString();
-//     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-// }
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -290,6 +284,7 @@ $(document).ready(function() {
           // setCookie('sbm_token',data.cookie,1);
 
           Cookies.set('sbm_token',data.cookie, { expires: 1, path: '' });
+          Cookies.set('dId',data.dId, { expires: 365, path: '' });
 
 
           var currentUrl = window.location.href;
