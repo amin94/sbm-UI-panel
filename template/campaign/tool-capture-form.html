@@ -1,0 +1,289 @@
+<script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/campaignModal.js"></script>
+
+<script type="text/javascript">
+
+  var captureCardData;
+
+  function submitCaptureLinks() {
+
+    captureCardData = { 'formLink' : $('input[name=siteInput1]').val(), 'emailField' : $('input[name=emailField1]').val(), 'nameField' : $('input[name=nameField1]').val() };
+
+    var customForm = {'customForm' : captureCardData};
+
+    var sbmToken = getCookie('sbm_token');
+
+    var submitCaptureDatas = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'), 'connectionSettings' : customForm, 'operation' : 'submitConnectionSettings' };
+
+    ajaxReq(submitCaptureDatas,'http://api.sabetmikonim.com:8004/panel/complete-information/','submitCaptureDatas');
+
+  }
+
+  $(document).ready(function() {
+
+
+
+  });
+</script>
+
+<div class="domainForm">
+
+  <div class="section marginTopAuto" id="helpBoxBody">
+
+
+
+  </div> <!-- section -->
+
+
+
+
+  <div class="section campaignSteps toolPage toolSettingsBody">
+
+    <div class="card cardBox">
+
+      <div class="header notifPrev">
+
+        <h4 class="title"> لینک صفحه وبسایت‌تان را وارد نمایید </h4>
+
+
+        <div class="clear"></div>
+      </div>
+
+
+      <div class="content">
+
+
+            <div class="row campaignSteps captureForms campaignForms">
+
+
+
+              <div class="content">
+
+                <div id="captureCardContent">
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group" id="siteInputFormGroup1" style="margin-bottom: 45px">
+                        <label>
+                           لینک صفحه حاوی فرم
+
+                           <div class="siteStatus" style="display:none" id="status1">
+
+                             <p class="statusText statusSuccess" style="display:none">
+                               <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640;}.cls-2{fill:#fff;}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg>
+                                اتصال برقرار شد
+                             </p>
+
+                             <p class="statusText statusUnSuccess" style="display:none">
+                               <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><defs><style>.clsss-1{fill:#d75a4a;}.clsss-2{fill:none;stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:2px;}</style></defs><title>flaticon1533587820-svg</title><circle class="clsss-1" cx="25" cy="25" r="25"/><polyline class="clsss-2" points="16 34 25 25 34 16"/><polyline class="clsss-2" points="16 16 25 25 34 34"/></svg>
+                               اتصال برقرار نشد
+                             </p>
+
+                             <p class="statusText statusLoading" style="display:none">
+                               <img src="../assets/img/inputLoader.svg" alt="input loader">
+                                در حال بررسی
+                             </p>
+
+                           </div> <!-- site status -->
+
+                           <div class="clear"></div>
+                         </label>
+
+                        <div class="inputs">
+
+                          <!-- <div class="selectBody">
+
+                            <select class="conditionsSelect" name="captureConditionsInput1">
+
+                              <option value="include"> شامل شود </option>
+                              <option value="exact"> دقیقا </option>
+
+                            </select>
+
+                          </div>  -->
+
+                        <input type="text" autocomplete="off" class="form-control ltrInput captureSiteInput" onfocus="clearActions(1,1)" onkeyup="realType(this.value,1,1)" name="siteInput1" id="siteInput1" placeholder="https://blinkco.net/order-instagram-packages/">
+
+                        <div class="clear"></div>
+
+
+                      </div> <!-- inputs -->
+
+
+                        <div onclick="test(1,1,1)" class="selectLink selectLink1" style="display:none">
+
+                          <p id="siteInputLink1">
+                          </p>
+
+                          <span>
+                            ثبت لینک
+                          </span>
+
+                          <div class="clear"></div>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div> <!-- captureCardContent -->
+
+              </div>
+
+
+
+
+            </div> <!-- row -->
+
+
+      </div> <!-- content -->
+
+
+
+
+    </div> <!-- card -->
+
+
+
+
+
+
+
+
+    <div class="indentifyFieldsBody disn" id="indentifyFieldsBody">
+
+    <div class="card cardBox">
+
+      <div class="header notifPrev">
+
+        <h4 class="title"> فیلدهای نام و ایمیل را مشخص نمایید! </h4>
+
+
+        <button id="submitCaptureFieldData" onclick="submitCaptureLinks()" class="nextBtn btn btn-success btn-fill pullLeft" disabled> ثبت و ادامه </button>
+
+        <div class="clear"></div>
+
+
+      </div>
+
+
+
+                <div class="title">
+
+                   <p> فرم‌تان را در صفحه وبسایت‌تان پیدا نمایید و با کلیک بر روی فیلد‌های ایمیل و نام، آن‌ها را مشخص نمایید. </p>
+
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+
+
+                      <label>
+
+                         آیدی فیلد ایمیل
+
+                           <span class="info input" id="campaignEmailIdSelector" data-tippy> <i class="fas fa-question"></i> </span>
+
+                           <div id="campaignEmailIdHelp" class="disn">
+                             <p> <a href="#" class="helpLink"> لینک آموزش پیدا کردن آیدی فیلد  </a> </p>
+                           </div>
+
+                      </label>
+
+
+
+                      <input type="text" disabled class="form-control" name="emailField1">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+
+
+                      <label>
+
+                         آیدی فیلد نام (و نام خانوادگی)
+
+                           <span class="info input" id="campaignNameIdSelector" data-tippy> <i class="fas fa-question"></i> </span>
+
+                           <div id="campaignNameIdHelp" class="disn">
+                             <p> <a href="#" class="helpLink"> لینک آموزش پیدا کردن آیدی فیلد  </a> </p>
+                           </div>
+
+                        </label>
+
+
+
+                      <input type="text" disabled class="form-control" name="nameField1">
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="captureSitePrevBody" id="captureSitePrev">
+
+                <iframe src="" width="100%" sandbox="allow-same-origin allow-scripts" id="captureSitePrevIframe" class="captureSitePrevIframe captureSitePrev"></iframe>
+
+                <div id="fieldBox">
+
+                  <ul>
+
+                    <li class="boxTitle">
+
+                      نوع فیلد انتخاب شده را انتخاب نمایید:
+
+                    </li>
+
+                    <li class="selectItem">
+
+                      <div class="fieldBoxItem" id="chooseFieldTypeEmail" onclick="submitUserField('chooseFieldTypeEmail')" data-type="" data-val=""> فیلد ایمیل </div>
+
+                    </li>
+
+                    <li class="selectItem">
+
+                      <div class="fieldBoxItem" id="chooseFieldTypeName" onclick="submitUserField('chooseFieldTypeName')" data-type="" data-val=""> فیلد نام </div>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+              </div> <!-- captureSitePrevBody -->
+
+
+
+            </div> <!-- row -->
+
+
+      </div> <!-- content -->
+
+
+      </div> <!-- indentifyFieldsBody -->
+
+
+
+
+    </div> <!-- card -->
+
+
+
+
+
+
+
+  </div> <!-- section -->
+
+
+
+
+
+
+</div>
+
+
+<div class="mask"></div>
+<div class="formsMask"></div>

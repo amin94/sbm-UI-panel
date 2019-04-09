@@ -1,0 +1,83 @@
+<script type="text/javascript">
+
+  $(document).ready(function() {
+
+    // process the form
+  	$('#addDomainForm').submit(function(event) {
+
+
+      if ($('input[name=dCheck]').val() === "true") {
+        addNewDomain();
+      } else {
+
+        checkDomain($('input[name=domain]').val());
+
+      }
+
+  		event.preventDefault();
+  	});
+
+  });
+</script>
+
+
+<div class="domainForm">
+
+  <div class="section marginTopAuto" id="helpBoxBody">
+
+    
+
+  </div> <!-- section -->
+
+
+
+
+<form id="addDomainForm" method="post">
+
+  <div class="section">
+
+    <div class="card cardBox">
+
+      <div class="header">
+
+        <h4 class="title pullRight"> آدرس سایت‌تان را وارد نمایید </h4>
+
+        <button type="submit" class="nextBtn btn btn-primary pullLeft"> مرحله بعد </button>
+        <input type="hidden" name="dCheck">
+
+        <div class="clear"></div>
+      </div>
+
+
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group" id="domainGroup">
+
+              <div class="inputs">
+
+                  <input type="text" class="form-control ltr" onkeyup="checkDomain(this.value)" name="domain" placeholder="https://blinkco.net/">
+                  <p class="helpField"> لینک صفحه اصلی وبسایت‌تان را وارد نمایید. </p>
+
+                  <div class="clear"></div>
+
+                </div> <!-- inputs-->
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+    </div> <!-- card -->
+
+  </div> <!-- section -->
+
+</form>
+
+
+
+</div>

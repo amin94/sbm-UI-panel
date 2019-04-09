@@ -1,0 +1,215 @@
+<script type="text/javascript">
+
+  function realCheckWebsiteIntg() {
+
+    // waitting and request for domain Connection
+      var sbmToken = getCookie('sbm_token');
+
+      var websiteConStatusTimeOur = setTimeout(function(){
+
+        var websiteConStatus = $('#connectionStatusBody').attr('data-connection');
+
+        if (websiteConStatus === "false") {
+
+          var checkIntegrations = { 'cookie' : sbmToken, 'dId' : getCookie('dId') };
+
+          ajaxReq(checkIntegrations,'http://api.sabetmikonim.com:8004/panel/check-start-page/','checkIntegrations');
+
+        } else {
+
+          clearTimeout (websiteConStatusTimeOur);
+
+        }
+
+      },5000);
+
+  }
+
+  $(document).ready(function() {
+
+    // process the form
+  	$('#addDomainForm').submit(function(event) {
+
+      checkDomain($('input[name=domain]').val());
+
+
+  		event.preventDefault();
+  	});
+
+
+
+    $('#copyCodeBtn').click(function(e) {
+
+      copyToClipboard(document.getElementById('sabetMikonimIntgCode'));
+
+      e.preventDefault();
+
+    });
+
+
+    $('input[name=developerEmail]').on('keyup',function(e) {
+
+      if ($('input[name=developerEmail]').val() !== '') {
+        $('.developerEmailBody button.btn').removeClass('disn');
+      } else {
+        $('.developerEmailBody button.btn').addClass('disn');
+      }
+
+    });
+
+
+
+    $('#sendToDeveloperForm').submit(function(event) {
+
+      event.preventDefault();
+
+
+      var sbmToken = getCookie('sbm_token');
+
+      var scriptCode = $('input[name=sabetMikonimIntg]').val();
+
+      var getEnteredDomainData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'developerEmail' : $('input[name=developerEmail]').val(), 'script' : scriptCode };
+
+      ajaxReq(getEnteredDomainData,'http://api.sabetmikonim.com:8004/panel/mailto-developer/','sendSabetMikonimToDeveloper');
+
+    });
+
+
+
+  });
+</script>
+
+
+<div class="domainForm">
+
+  <div class="section marginTopAuto" id="helpBoxBody">
+
+
+  </div> <!-- section -->
+
+
+
+
+<form id="addDomainForm" method="post">
+
+  <div class="section intgContent">
+
+    <div class="card cardBox">
+
+      <div class="header">
+
+        <h4 class="title pullRight"> کد زیر را در سایت‌تان قرار دهید </h4>
+
+        <a href="javascript:;" class="nextBtn btn btn-primary pullLeft" onclick="createView({contentId: 'campaignTypes'},true)" id="intgNextStep"> رد شدن از این مرحله </a>
+
+        <div class="clear"></div>
+      </div>
+
+
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group" id="displaySiteInputFormGroup1">
+
+              <p>
+
+                برای فعال شدن سرویس ثابت میکنیم، باید کد جاوااسکریپت زیر را در سایت‌تان قرار دهید. </br>
+
+                <ul class="uiList">
+                  <li> ۱. <strong> کد اسکریپت </strong> زیر را کپی کنید. </li>
+                  <li> ۲. کد را در <strong> هدر یا فوتر </strong> سایت‌تان قرار دهید. </li>
+                  <li> ۳. حال <strong> صفحه اصلی </strong> یا <strong> یکی از صفحات دیگر سایت </strong> را که مطمئن هستید کد اسکریپت در آن‌ها قرار داد را باز کنید تا اتصال به طور کامل با سرویس برقرار شود. </li>
+                  <li> ۴. <strong> تمام شد. </strong> از حالا به بعد با ساختن کمپین‌های فروش در ثابت میکنیم، فقط به آمارها خیره شوید. </li>
+                </ul>
+
+              </p>
+
+
+              <div id="connectionStatusBody" class="connectionStatus" data-connection="false">
+
+                <span id="connectionStatusText"></span>
+
+                <span class="lastConnect disn" id="lastConnectText">  </span>
+
+              </div>
+
+
+
+
+
+
+              <div class="scriptCodeBody">
+
+                <h5> کد جاوا اسکریپت:  </h5>
+
+                <div class="scriptCode">
+
+                  <input type="text" class="form-control" name="sabetMikonimIntg" id="sabetMikonimIntgCode" readonly="readonly" value="">
+
+                  <a href="javascript:;" class="btn btn-primary btn-fill" name="copyCode" id="copyCodeBtn"> کپی </a>
+
+                </div> <!-- script code -->
+
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+    </div> <!-- card -->
+
+  </div> <!-- section -->
+
+</form>
+
+
+
+
+
+
+<section class="section">
+
+  <form id="sendToDeveloperForm" method="post">
+
+    <div class="card developerCard cardBox">
+
+      <div class="header">
+
+        <h4 class="title pullRight"> ارسال کد جاوا اسکریپت برای برنامه‌نویس‌تان: </h4>
+
+        <div class="clear"></div>
+      </div>
+
+      <div class="content">
+
+        <div class="developerEmailBody">
+
+          <input type="text" class="form-control" name="developerEmail" placeholder="مثلا amin@gmail.com">
+
+          <button type="submit" class="btn btn-primary btn-fill disn"> ارسال به برنامه‌نویس </button>
+
+        </div> <!-- developerEmailBody -->
+
+        <p>
+           بعد از ثبت ایمیل برنامه‌نویس‌تان از طریق این فرم، کد جاوا اسکریپت بالا را به صورت خودکار با نهایت احترام
+          برای ایشان ارسال میکنیم.
+        </p>
+
+      </div> <!-- content -->
+
+    </div>
+
+  </form>
+
+</section>
+
+
+
+</div>

@@ -1,0 +1,83 @@
+<script type="text/javascript">
+
+  function submitMainType(campaignMainType) {
+
+    var sbmToken = getCookie('sbm_token');
+
+    var getSelectedMainCampaignType = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'typeId' : campaignMainType, 'cId' : getCookie('cId'), 'operation' : 'submitCampaignType' };
+
+    ajaxReq(getSelectedMainCampaignType,'http://api.sabetmikonim.com:8004/panel/complete-information/','selectedMainCampaignType');
+
+  }
+
+  function submitSubType(campaignMainType) {
+
+    var sbmToken = getCookie('sbm_token');
+
+    var getSelectedSubCampaignType = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'subTypeId' : campaignMainType, 'cId' : getCookie('cId'), 'operation' : 'submitCampaignSubType' };
+
+    ajaxReq(getSelectedSubCampaignType,'http://api.sabetmikonim.com:8004/panel/complete-information/','selectedSubCampaignType');
+
+  }
+
+  $(document).ready(function() {
+
+
+
+  });
+</script>
+
+<div class="domainForm">
+
+  <div class="section marginTopAuto" id="helpBoxBody">
+
+
+  </div> <!-- section -->
+
+
+
+
+  <div class="section newCampaignBody">
+
+    <div class="card cardBox">
+
+      <div class="header">
+
+        <h4 class="title pullRight" id="campaignStepTitle"> یکی از انواع کمپین‌ها را انتخاب نمایید </h4>
+
+        <a href="http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php/" class="nextBtn btn btn-primary pullLeft"> فعلا تمایلی به ساختن کمپین ندارم! </a>
+
+        <div class="clear"></div>
+      </div>
+
+
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+
+
+            <div class="row" id="campaignTypesBody">
+
+
+
+            </div> <!-- row -->
+
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+    </div> <!-- card -->
+
+  </div> <!-- section -->
+
+
+
+
+
+
+</div>

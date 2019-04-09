@@ -1,0 +1,125 @@
+<script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/campaignModal.js"></script>
+
+<script type="text/javascript">
+
+  var captureCardData;
+
+  function submitCampaignName() {
+
+    var sbmToken = getCookie('sbm_token');
+
+    var submitCampaignNameData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'), 'campaignName' : $('input[name=campaignName]').val(), 'operation' : 'submitCampaignName' };
+
+    ajaxReq(submitCampaignNameData,'http://api.sabetmikonim.com:8004/panel/complete-information/','submitCampaignName');
+
+  }
+
+  $(document).ready(function() {
+
+
+
+  });
+</script>
+
+<div class="domainForm">
+
+  <div class="section marginTopAuto" id="helpBoxBody">
+
+
+
+  </div> <!-- section -->
+
+
+
+
+  <div class="section campaignSteps">
+
+    <div class="card cardBox">
+
+      <div class="header notifPrev">
+
+        <h4 class="title"> نامی برای کمپین‌تان انتخاب نمایید </h4>
+
+
+        <button class="nextBtn btn btn-success btn-fill pullLeft" onclick="submitCampaignName()"> ثبت و شروع کمپین </button>
+
+
+        <div class="clear"></div>
+      </div>
+
+
+      <div class="content">
+
+
+            <div class="row">
+
+
+
+              <div class="content">
+
+                <div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group" id="siteInputFormGroup1" style="margin-bottom: 45px">
+                        <label>
+
+                           کمپین <span id="campaignType"></span>
+
+                           <div class="clear"></div>
+                         </label>
+
+                        <div class="inputs">
+
+                        <input type="text" class="form-control" name="campaignName" placeholder=" فروش جمعه سیاه ">
+
+                        <div class="clear"></div>
+
+
+                      </div> <!-- inputs -->
+
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+
+              </div>
+
+
+
+
+            </div> <!-- row -->
+
+
+      </div> <!-- content -->
+
+
+
+
+    </div> <!-- card -->
+
+
+
+
+
+
+
+  </div> <!-- card -->
+
+
+
+
+
+
+
+  </div> <!-- section -->
+
+
+
+
+
+
+<div class="mask"></div>
+<div class="formsMask"></div>

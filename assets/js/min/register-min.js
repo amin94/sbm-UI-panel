@@ -1,0 +1,1 @@
+function past_exp(){$(".past_exp").fadeToggle("medium")}function merchant_info(){$(".merchant_info").fadeToggle("medium")}$(function(){var a=$("#ajax-contact"),e=$("#form-messages");$(a).submit(function(e){e.preventDefault();var t=$(a).serialize();$.ajax({type:"POST",url:$(a).attr("action"),data:t})})});

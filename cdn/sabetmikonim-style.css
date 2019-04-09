@@ -1,0 +1,276 @@
+.sabetmikonimNotifBody span.sabetMikonim {
+    font-family: IRANSans !important;
+}
+
+.sabetmikonimNotifBody span.sabetMikonim a {
+    font-family: IRANSans !important;
+}
+
+.sabetmikonimNotifBody span.notifDate {
+    font-family: IRANSans !important;
+}
+
+.notification {
+    font-family: IRANSans !important;
+    display: block;
+    text-align: right;
+    line-height: 25px
+}
+
+.sabetmikonimNotifBody .clear {
+    clear: both
+}
+
+.sabetmikonimNotifBody a.more {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-indent: -9999px
+}
+
+.sabetmikonimNotifBody .notification .closeBox {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  background: #dbdee0;
+  color: #999;
+  border-radius: 500px;
+  padding: 5px 10px;
+}
+
+.sabetmikonimNotifBody .notification .closeBox a {
+  color: #999;
+}
+
+.sabetmikonimNotifBody .notification {
+    position: fixed;
+    right: 15px;
+    width: 350px;
+    direction: rtl;
+    z-index: 99999;
+    bottom: 15px;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -o-transition: all .3s
+}
+
+.sabetmikonimNotifBody .notification.leftNotif {
+  left: 15px !important;
+  right: auto !important;
+}
+
+.sabetmikonimNotifBody .notif-bottom {
+    bottom: -250px!important
+}
+
+.sabetmikonimNotifBody .notifContentBody {
+  display: inline-block;
+  width: 235px;
+}
+
+
+.notifKind {
+  background-color: #FFF;
+  border: 1px solid #CCC;
+  border-radius: 100px;
+  padding: 2px 2px 2px 20px;
+  transition: all .3s;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+}
+
+.notifKind:hover {
+    box-shadow: 0 0 0 3px #CCC
+}
+
+.sabetmikonimNotifBody .notifIcon {
+    float: right;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.sabetmikonimNotifBody .notifIcon img {
+    width: 73px;
+    height: 73px;
+    border-radius: 100%
+}
+
+.sabetmikonimNotifBody .notifName {
+    font-weight: 400;
+    font-size: 12px;
+    color: #000;
+    font-weight: 400;
+    font-size: 12px;
+    color: #000;
+    /* background: #e1e7ea; */
+    float: right;
+    display: block;
+    max-width: 229px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.sabetmikonimNotifBody .notifName span#notifName {
+  padding-right: 5px;
+  /* border-top-right-radius: 5px; */
+  /* border-bottom-right-radius: 5px; */
+}
+
+  .sabetmikonimNotifBody .notifName span#notifLocation {
+  padding-left: 5px;
+  /* border-top-left-radius: 5px; */
+  /* border-bottom-left-radius: 5px; */
+}
+
+.sabetmikonimNotifBody .notifDesc {
+    color: #738c98;
+    font-size: 12px;
+    font-weight: 300;
+    /* margin-bottom: 5px */
+}
+
+.sabetmikonimNotifBody span.notifDate {
+    color: #738c98;
+    font-size: 11px;
+    font-weight: 300;
+    float: right;
+    margin-left: 5px;
+}
+
+.sabetmikonimNotifBody span.sabetMikonim {
+    float: left;
+    text-align: left;
+    color: #aabcc5;
+    font-size: 11px;
+    font-weight: 300
+}
+
+span.icon {
+  float: right;
+  margin-left: 5px;
+  padding-top: 4px;
+  display: inline-grid;
+}
+
+span.icon svg {
+    width: 12px
+}
+
+.sabetmikonimNotifBody span.sabetMikonim a {
+    color: #08c;
+    text-decoration: none;
+    border-bottom: 1px dashed #08c;
+    position: relative;
+    z-index: 9999;
+}
+
+
+
+
+
+
+
+/* hot streaks */
+
+.hotStreak {
+  display: inline-flex;
+  background-color: #FFF;
+  box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.2);
+  /* padding: 2px; */
+  border-radius: 100px;
+}
+
+.notification .hotStreak span.count {
+  color: #058eee;
+  font-weight: 400;
+  line-height: 2.8;
+  font-size: 13px;
+  margin-left: 3px;
+  padding: 1px;
+  border-radius: 5px;
+  background-color: rgba(0, 149, 247, 0.1);
+}
+
+.notification .hotStreak span.notifDesc {
+  font-weight: 300;
+  font-size: 13px;
+  color: #058eee;
+}
+
+.hotStreak .hotStreakContent {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.notification .hotStreak .notifIcon {
+  display: inline-grid;
+  align-items: center;
+}
+
+.notification .hotStreak .notifIcon svg {
+  width: 72px;
+}
+
+.notification .hotStreak span.sabetMikonim {
+  left: 10px;
+}
+
+.hotStreak span.icon {
+  padding-top: 5px;
+}
+
+/* hot streaks */
+
+
+
+
+@media screen and (max-width:425px) {
+    .sabetmikonimNotifBody .notification {
+        right: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+    }
+    .sabetmikonimNotifBody .topNotification {
+      right: 0;
+      left: 0;
+      top: 0 !important;
+      width: 100%;
+      height: 87px;
+    }
+    .sabetmikonimNotifBody .notif-bottom.topNotification {
+      top: -250px !important;
+    }
+    .sabetmikonimNotifBody .mobileDisn {
+      display: none;
+    }
+    .sabetmikonimNotifBody .notifIcon img {
+      width: 75px;
+      height: 75px;
+      border-radius: 5px;
+    }
+    .sabetmikonimNotifBody .notifKind {
+        border-radius: 0;
+        bottom: 0;
+        padding: 10px 0 5px 5px;
+    }
+    .sabetmikonimNotifBody .notifKind.hotStreak {
+      padding: 5px;
+    }
+    .sabetmikonimNotifBody .notifIcon {
+      margin-left: 15px;
+    }
+    .sabetmikonimNotifBody span.sabetMikonim {
+        margin-left: 10px
+    }
+
+    .sabetmikonimNotifBody .notifContentBody {
+      width: 310px;
+    }
+    .notification .hotStreak span.count, .notification .hotStreak span.notifDesc {
+      font-size: 16px;
+    }
+}

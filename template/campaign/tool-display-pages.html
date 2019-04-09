@@ -1,0 +1,601 @@
+<script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/campaignModal.js"></script>
+
+<script type="text/javascript">
+
+  var captureCardData;
+
+  function submitCampaignSettings() {
+
+    var displayLinksCount = parseInt($('#displayPagesAdded').attr("data-displaylinkscount"), 10);
+    var i = 1;
+    var eachdisplayCard;
+    var displayLinksData = [];
+    for (var j = 0; j < (displayLinksCount-1); j++) {
+
+      eachdisplayCard = { 'formLink' : $('#addedInput'+i+' input[type=text]').val(), 'condition' : $('#addedInput'+i+' input[type=hidden]').val()};
+
+      displayLinksData.push(eachdisplayCard);
+
+      i = i + 1;
+
+    }
+
+
+
+
+
+
+
+    var displayInMobile, notifOnTop, notifPosition, notifTimeDesktop, notifTimeMobile, deskBetweenNotifTime, mobileBetweenNotifTime;
+    var finalNotifLink;
+
+
+    if ($("input[name=notifLink]").val() === "") {
+
+      $("input[name=notifLink]").addClass('error');
+
+      stepCheck = false;
+
+    } else {
+
+      stepCheck = true;
+
+      if ($('input[name=mobileDisplay]').prop('checked')) {
+
+        displayInMobile = 'true';
+
+      } else {
+
+        displayInMobile = 'false';
+
+      }
+
+
+
+      if ($('input[name=topOfMobileDisplay]').prop('checked')) {
+
+        notifOnTop = 'true';
+
+      } else {
+
+        notifOnTop = 'false';
+
+      }
+
+
+
+
+      if ($('input[name=notifPosition]').prop('checked')) {
+
+        notifPosition = 'true';
+
+      } else {
+
+        notifPosition = 'false';
+
+      }
+
+
+      notifTimeDesktop = $('input[name=deskNotifTime]').val();
+
+      notifTimeMobile = $('input[name=mobileNotifTime]').val();
+
+      deskBetweenNotifTime = $('input[name=deskBetweenNotifTime]').val();
+
+      mobileBetweenNotifTime = $('input[name=mobileBetweenNotifTime]').val();
+
+
+      finalNotifLink = $("input[name=notifLink1]").val();
+
+      var finalSettingsData = { 'finalNotifLink' : finalNotifLink, 'mobileDisplay' : displayInMobile, 'topOfMobileDisplay' : notifOnTop, 'notifPosition' : notifPosition, 'desktopNotifTime' : notifTimeDesktop, 'mobileNotifTime' : notifTimeMobile, 'deskBetweenNotifTime' : deskBetweenNotifTime, "mobileBetweenNotifTime" : mobileBetweenNotifTime };
+
+
+      var campaignSettingsOptions = { 'finalSettings' : finalSettingsData, 'displayPages' : displayLinksData };
+
+      var sbmToken = getCookie('sbm_token');
+
+      var submitCampaignSettingsData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'), 'operation' : 'submitCampaignSettings', 'campaignSettings' : campaignSettingsOptions };
+
+      ajaxReq(submitCampaignSettingsData,'http://api.sabetmikonim.com:8004/panel/complete-information/','submitCampaignSettings');
+
+  }
+
+}
+
+
+
+  function selectCondition() {
+
+    var selectedCondition = $('select[name=displayConditionsInput]').val();
+
+    $('#displaySelectLink1').attr('onclick',"test(1,2,2,'"+selectedCondition+"')");
+
+  }
+
+
+
+
+  $(document).ready(function() {
+
+    $('#displayPagesSubmit').submit(function(e) {
+
+      e.preventDefault();
+
+      var selectedCondition = $('select[name=displayConditionsInput]').val();
+
+      test(1,2,2,selectedCondition);
+
+    });
+
+  });
+
+
+
+</script>
+
+<div class="domainForm">
+
+  <div class="section marginTopAuto" id="helpBoxBody">
+
+
+  </div> <!-- section -->
+
+
+
+
+
+
+  <div class="row campaignSteps displayForms campaignForms">
+
+    <div id="displayLinksBody">
+
+      <div id="displayCardGrid1">
+
+        <div class="card cardBox">
+
+          <div class="header notifPrev">
+
+            <h4 class="title"> لینک صفحات وبسایت‌تان را وارد نمایید </h4>
+
+
+            <button class="nextBtn btn btn-success btn-fill pullLeft" onclick="submitCampaignSettings()"> ثبت و ادامه </button>
+
+
+            <div class="clear"></div>
+          </div>
+
+
+
+
+
+          <form id="displayPagesSubmit">
+
+          <div class="content">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group" id="displaySiteInputFormGroup1">
+                  <label>
+                    لینک صفحه نمایش نوتیفیکشن‌ها
+
+                    <div class="siteStatus" style="display:none" id="displayStatus1">
+
+                      <p class="statusText statusSuccess" style="display:none">
+                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640;}.cls-2{fill:#fff;}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg>
+                         اتصال برقرار شد
+                      </p>
+
+                      <p class="statusText statusUnSuccess" style="display:none">
+                        <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><defs><style>.clsss-1{fill:#d75a4a;}.clsss-2{fill:none;stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:2px;}</style></defs><title>flaticon1533587820-svg</title><circle class="clsss-1" cx="25" cy="25" r="25"/><polyline class="clsss-2" points="16 34 25 25 34 16"/><polyline class="clsss-2" points="16 16 25 25 34 34"/></svg>
+                        اتصال برقرار نشد
+                      </p>
+
+                      <p class="statusText statusLoading" style="display:none">
+                        <img src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/inputLoader.svg" alt="input loader">
+                         در حال بررسی
+                      </p>
+
+                    </div> <!-- site status -->
+
+
+                  </label>
+
+                  <div class="inputs">
+
+                    <div class="selectBody">
+
+                      <select class="conditionsSelect" name="displayConditionsInput" onchange="selectCondition()">
+
+                        <option value="include"> شامل شود </option>
+                        <option value="exact"> دقیقا </option>
+
+                      </select>
+
+                    </div> <!-- selectBody -->
+
+                      <input type="text" autocomplete="off" class="form-control ltrInput displaySiteInput" onfocus="clearActions(1,2)" onkeyup="realType(this.value,1,2)" name="displaySiteInput1" id="displaySiteInput1" placeholder="https://blinkco.net/">
+
+                      <div class="clear"></div>
+
+                    </div> <!-- inputs-->
+
+                  <div onclick="test(1,2,2,'include')" class="selectLink displaySelectLink1" id="displaySelectLink1" style="display:none">
+
+                    <p id="displaySiteInputLink1">
+                    </p>
+
+                    <span>
+                      ثبت لینک
+                    </span>
+
+                    <div class="clear"></div>
+
+                  </div>
+
+
+                </div>
+              </div> <!-- grid -->
+
+            </div>
+
+
+
+            <div class="col-md-12">
+
+              <div id="displayPagesAdded" class="displayPagesAddedBody" data-displaylinkscount="1">
+
+
+
+              </div> <!-- displayPagesAdded -->
+
+
+
+            </div>
+
+          <div class="clear"></div>
+
+          </div>
+
+          </form>
+
+        </div>
+
+      </div> <!-- grid -->
+
+
+
+
+
+
+
+
+
+    <div class="campaignSteps customizeForms">
+
+      <div id="displayCardGrid1">
+
+        <div class="card cardBox">
+
+          <div class="header notifPrev">
+
+            <h4 class="title"> تنظیمات کمپین </h4>
+
+
+            <div class="clear"></div>
+          </div>
+
+          <div class="content">
+            <div class="row">
+              <div class="col-md-12">
+
+
+                <div class="optionsBody">
+
+                  <div class="inlineOption">
+
+                    <div class="col-md-8 noPaddingRight">
+
+                      در موبایل نمایش داده شود
+
+                    </div>
+
+                    <div class="col-md-4 noPaddingLeft">
+
+                      <div class="checkBodySwitch" id="mobileDisplayOption">
+
+                        <span style="padding-left: 5px"> غیرفعال </span>
+
+                        <input type="checkbox" class="switchdemo" name="mobileDisplay" checked value="true">
+
+                        <span style="padding-right: 5px"> فعال </span>
+
+                      </div> <!-- checkbox switch -->
+
+                    </div>
+
+                    <div class="clear"></div>
+
+                  </div> <!-- inline option -->
+
+                  <div class="inlineOption">
+
+                    <div class="col-md-8 noPaddingRight">
+
+                      نوتیفیکشن بالای صفحه موبایل نمایش داده شود.
+
+                    </div>
+
+                    <div class="col-md-4 noPaddingLeft">
+
+                      <div class="checkBodySwitch" id="topOfMobileDisplayOption">
+
+                        <span style="padding-left: 5px"> غیرفعال </span>
+
+                        <input type="checkbox" class="switchdemo" name="topOfMobileDisplay" value="true">
+
+                        <span style="padding-right: 5px"> فعال </span>
+
+                      </div> <!-- checkbox switch -->
+
+                    </div>
+
+                    <div class="clear"></div>
+
+                  </div> <!-- inline option -->
+
+                  <div class="inlineOption">
+
+                    <div class="col-md-8 noPaddingRight">
+
+                      محل نمایش نوتیفیکیشن در صفحه
+
+                    </div>
+
+                    <div class="col-md-4 noPaddingLeft">
+
+                      <div class="checkBodySwitch" id="notifPositionOption">
+
+                        <span style="padding-left: 5px"> راست </span>
+
+                        <input type="checkbox" class="switchdemo" name="notifPosition" value="left">
+
+                        <span style="padding-right: 5px"> چپ </span>
+
+                      </div> <!-- checkbox switch -->
+
+                    </div>
+
+                    <div class="clear"></div>
+
+                  </div> <!-- inline option -->
+
+
+
+                  <div class="inlineOption">
+
+                    <div class="col-md-8 noPaddingRight">
+
+                      زمان نمایش نوتیفیکیشن‌ها
+
+                    </div>
+
+                    <div class="col-md-4 noPaddingLeft">
+
+                      <div class="inlineField">
+
+                        <input type="number" name="deskNotifTime" value="8" class="form-control">
+
+                        <span style="padding-right: 5px"> ثانیه </span>
+
+                      </div>
+
+                    </div>
+
+                    <div class="clear"></div>
+
+                  </div> <!-- inline option -->
+
+
+
+
+
+
+                  <div class="inlineOption">
+
+                    <div class="col-md-8 noPaddingRight">
+
+                      زمان نمایش نوتیفیکیشن‌ها در موبایل
+
+                    </div>
+
+                    <div class="col-md-4 noPaddingLeft">
+
+                      <div class="inlineField">
+
+                        <input type="number" name="mobileNotifTime" value="10" class="form-control">
+
+                        <span style="padding-right: 5px"> ثانیه </span>
+
+                      </div>
+
+                    </div>
+
+                    <div class="clear"></div>
+
+                  </div> <!-- inline option -->
+
+
+
+
+
+
+
+                  <div class="inlineOption">
+
+                    <div class="col-md-8 noPaddingRight">
+
+                      زمان بین نمایش ۲ نوتیفیکیشن‌
+
+                    </div>
+
+                    <div class="col-md-4 noPaddingLeft">
+
+                      <div class="inlineField">
+
+                        <input type="number" name="deskBetweenNotifTime" value="1" class="form-control">
+
+                        <span style="padding-right: 5px"> ثانیه </span>
+
+                      </div>
+
+                    </div>
+
+                    <div class="clear"></div>
+
+                  </div> <!-- inline option -->
+
+
+
+
+
+                </div> <!-- options body -->
+
+
+              </div> <!-- grid -->
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+      </div> <!-- grid -->
+
+
+
+
+
+
+
+    <div>
+
+      <div class="card cardBox">
+
+        <div class="header notifPrev">
+
+          <h4 class="title"> لینکی که میخواهید با کلیک روی نوتیفیکیشن، اجرا شود را وارد نمایید </h4>
+
+
+          <div class="clear"></div>
+        </div>
+
+        <div class="content">
+          <div class="row">
+
+
+            <div class="col-md-12">
+
+      <div class="form-group" id="notifLinkStatusFormGroup1">
+        <label>
+
+          لینک نوتیفیکیشن‌
+
+          <div class="siteStatus" style="display:none" id="notifLinkStatus1">
+
+            <p class="statusText statusSuccess" style="display:none">
+              <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640;}.cls-2{fill:#fff;}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg>
+               اتصال برقرار شد
+            </p>
+
+            <p class="statusText statusUnSuccess" style="display:none">
+              <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><defs><style>.clsss-1{fill:#d75a4a;}.clsss-2{fill:none;stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:2px;}</style></defs><title>flaticon1533587820-svg</title><circle class="clsss-1" cx="25" cy="25" r="25"/><polyline class="clsss-2" points="16 34 25 25 34 16"/><polyline class="clsss-2" points="16 16 25 25 34 34"/></svg>
+              اتصال برقرار نشد
+            </p>
+
+            <p class="statusText statusLoading" style="display:none">
+              <img src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/inputLoader.svg" alt="input loader">
+               در حال بررسی
+            </p>
+
+          </div> <!-- site status -->
+
+
+        </label>
+
+        <div class="inputs">
+
+
+            <input type="text" autocomplete="off" class="form-control notifLink ltrInput" onfocus="clearActions(1,3)" onkeyup="realType(this.value,1,3)" name="notifLink1" id="notifLink1" placeholder="https://blinkco.net/">
+
+            <div class="clear"></div>
+
+          </div> <!-- inputs-->
+
+          <div onclick="test(1,3,3)" class="selectLink notifLinkSelectLink1" style="display:none">
+
+            <p id="notifLinkInput1">
+            </p>
+
+            <span>
+              ثبت لینک
+            </span>
+
+            <div class="clear"></div>
+
+          </div>
+
+
+      </div> <!-- form group -->
+
+      </div>
+
+      </div>
+      </div>
+      </div>
+
+    </div> <!-- grid -->
+
+
+
+
+
+
+  </div>
+
+
+
+
+
+
+
+  </div> <!-- row -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="mask"></div>
+<div class="formsMask"></div>
+
+
+
+<script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/jquery.simpleswitch.min.js"></script>
+<script>
+
+$(".switchdemo").simpleSwitch();
+
+</script>

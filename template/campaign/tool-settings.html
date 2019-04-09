@@ -1,0 +1,521 @@
+<script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/campaignModal.js"></script>
+<script type="text/javascript">
+
+  function submitToolSettings() {
+
+    var recentActivityData ={}, hotStreakData={}, realTimeData={}, conversionData={};
+
+    var sbmToken = getCookie('sbm_token');
+    var cid = getCookie('cId');
+
+    var atLeastOneIsChecked = $('input[name=notifTypeOption]').is(':checked');
+
+    if (!atLeastOneIsChecked) {
+
+      $('label.card').addClass('error');
+      $('label.card.deactiveFeature').removeClass('error');
+
+      $(".loadingBar").removeClass('active');
+
+    } else {
+
+      $('label.card').removeClass('error');
+
+      var sbmFeature = [];
+      $("input[name=notifTypeOption]:checked").each(function(){
+          sbmFeature.push($(this).val());
+      });
+
+
+
+      // check what features selected
+      for (var i = 0; i < sbmFeature.length; i++) {
+
+        if (sbmFeature[i] === 'recentActivity') {
+
+          var raMessage = $('input[name=raMessage]').val();
+          var lastConversions = $('input[name=lastConversions]').val();
+          var lastConversionsByDay = $('input[name=lastConversionsByDay]').val();
+          var minConversions = $('input[name=minConversions]').val();
+          var notificationLoop;
+          var anonymousNotif;
+
+          if ($('input[name=raCampaignLoop]').prop('checked')) {
+
+            notificationLoop = 'true';
+
+          } else {
+
+            notificationLoop = 'false';
+
+          }
+
+
+
+
+          if ($('input[name=anonymousNotif]').prop('checked')) {
+
+            anonymousNotif = 'true';
+
+          } else {
+
+            anonymousNotif = 'false';
+
+          }
+
+
+
+
+
+          var campaignRARules = { 'lastNotificationCount' : lastConversions, 'lastNotificationDays' : lastConversionsByDay, 'minNotificationSubmitted' : minConversions, 'notificationLoop' : notificationLoop, 'anonymousNotif' : anonymousNotif };
+
+          recentActivityData = { 'status' : 'true', 'campaignMessage' : raMessage, 'campaignRules' : campaignRARules };
+
+
+        } else if (sbmFeature[i] === 'hotStreaks') {
+
+          var hsMessage = $('input[name=hsMessage]').val();
+          var hsConversionName = $('input[name=hsConversionName]').val();
+          var hsPeople = $('select[name=hsPeopleKind] option:selected').val();
+          var hsTimeRadio = $('input[name=hsTimeRadio]:checked').val();
+
+          hotStreakData = { 'status' : 'true', 'hsMessage' : hsMessage, 'hsConversionName' : hsConversionName, 'hsPeople' : hsPeople, 'hsTime' : hsTimeRadio };
+
+
+        } else if (sbmFeature[i] === 'liveNotif') {
+
+          alert('real_time');
+
+        } else if (sbmFeature[i] === 'conversionBox') {
+
+          alert('conversion');
+
+        }
+
+      }
+
+
+
+      var toolSettings = {'recentActivity' : recentActivityData, 'hotStreaks' : hotStreakData, 'realTime' : realTimeData, 'conversionBox' : conversionData};
+
+      var submitToolSettingsData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'), 'operation' : 'submitToolSettings', 'toolSettings' : toolSettings };
+
+      ajaxReq(submitToolSettingsData,'http://api.sabetmikonim.com:8004/panel/complete-information/','submitToolSettings');
+
+    }
+
+  }
+
+  $(document).ready(function() {
+
+
+
+  });
+</script>
+
+<div class="domainForm">
+
+  <div class="section marginTopAuto" id="helpBoxBody">
+
+
+  </div> <!-- section -->
+
+
+
+
+  <div class="section toolPage newCampaignBody">
+
+    <div class="card cardBox">
+
+      <div class="header notifPrev">
+
+        <img src="" id="toolLogo" class="pullRight" style="margin-left: 10px;" alt="لوگو ابزار ثابت میکنیم">
+
+        <h4 class="title pullRight" id="toolTitle">  </h4>
+
+        <a href="javascript:;" onclick="submitToolSettings()" class="nextBtn btn btn-success btn-fill pullLeft" id="toolTitleBtn"> ثبت و ادامه </a>
+
+        <div class="clear"></div>
+      </div>
+
+
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+
+
+            <div class="row" id="notifTypesBody">
+
+
+
+            </div> <!-- row -->
+
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+    </div> <!-- card -->
+
+  </div> <!-- section -->
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- recent activity modal -->
+
+<div class="modalOption campaignModal" id="raModal">
+
+  <div class="modalHeader">
+
+    <div class="titles section">
+
+      <h4> نمایش آخرین فعالیت‌ها </h4>
+
+      <p> نمایش آخرین افرادی که در یک بازه زمانی مشخص از بازدیدکننده به خریدار تبدیل شده‌اند. </p>
+
+    </div> <!-- title -->
+
+
+  </div> <!-- modal header -->
+
+  <div class="notifSection section">
+
+    <div class="sabetmikonimNotifBody">
+
+    </div>
+
+  </div> <!-- notif section -->
+
+
+  <div class="section">
+
+    <div class="title">
+
+      <h5>
+
+         پیام کمپین
+
+         <span class="info input" id="recentActivityMSG" data-tippy> <i class="fas fa-question"></i> </span>
+
+         <div id="recentActivityMSGHelp" class="disn">
+           <p> این پیام مستقیما در نوتیفیکیشن‌های روی سایت شما مشابه نمونه بالای این صفحه نمایش داده می‌شود. </p>
+         </div>
+
+       </h5>
+
+    </div> <!-- title -->
+
+    <div class="container">
+
+
+      <input type="text" name="raMessage" onkeyup="realNotif(this.value,1,1)">
+
+
+    </div> <!-- container -->
+
+  </div> <!-- section -->
+
+
+
+  <div class="section" style="padding-bottom: 0">
+
+    <div class="title">
+
+      <h5> قوانین نمایش </h5>
+
+    </div> <!-- title -->
+
+    <div class="optionsBody">
+
+      <div class="inlineOption flex-inline">
+
+        <div class="flex-inline-col"> نمایش </div>
+        <div class="flex-inline-col"> <input type="text" name="lastConversions" value=""> </div>
+        <div class="flex-inline-col"> نوتیفیکشن آخر </div>
+
+        <span class="info input" id="lastConversionSelector" data-tippy> <i class="fas fa-question"></i> </span>
+
+        <div id="lastConversionHelp" class="disn">
+          <p> با وارد کردن تعداد، آخرین تعداد نوتیفیکیشن‌هایی که تا الان ثبت شده است، نمایش داده خواهد شد. </p>
+        </div>
+
+      </div> <!-- inline option -->
+
+      <div class="inlineOption flex-inline">
+
+        <div class="flex-inline-col"> نمایش تبدیل‌های </div>
+        <div class="flex-inline-col"> <input type="text" name="lastConversionsByDay" value=""> </div>
+        <div class="flex-inline-col"> روز گذشته </div>
+
+        <span class="info input" id="lastConversionDaySelector" data-tippy> <i class="fas fa-question"></i> </span>
+
+        <div id="lastConversionDayHelp" class="disn">
+          <p> با وارد کردن تعداد روز گذشته، تنها نوتیفیکیشن‌هایی که در این چند روز اخیر ثبت شده است، نمایش داده خواهد شد. </p>
+        </div>
+
+      </div> <!-- inline option -->
+
+      <div class="inlineOption flex-inline">
+
+        <div class="flex-inline-col"> نمایش نوتیفیکیشن‌ها تنها در صورتی که حداقل </div>
+        <div class="flex-inline-col"> <input type="text" name="minConversions" value=""> </div>
+        <div class="flex-inline-col"> اعلان ثبت شده باشد. </div>
+
+
+        <span class="info input" id="minDisplaySelector" data-tippy> <i class="fas fa-question"></i> </span>
+
+        <div id="minDisplayHelp" class="disn">
+          <p> تا زمانی که این تعداد نوتیفیکیشن ثبت نشده باشد، هیچ نوتیفکیشنی روی سایت شما نمایش داده نخواهد شد </p>
+        </div>
+
+      </div> <!-- inline option -->
+
+
+
+
+      <div class="inlineOption flex-inline">
+
+        <div class="col-md-8 noPaddingRight">
+
+          نمایش کاربران به صورت «ناشناس» در سایت
+
+        </div>
+
+        <div class="col-md-4 noPaddingLeft">
+
+          <div class="checkBodySwitch" id="anonymousNotifOption">
+
+            <span style="padding-left: 5px"> غیرفعال </span>
+
+            <input type="checkbox" class="switchdemo" name="anonymousNotif">
+
+            <span style="padding-right: 5px"> فعال </span>
+
+          </div> <!-- checkbox switch -->
+
+        </div>
+
+      </div> <!-- inline option -->
+
+
+
+      <div class="inlineOption">
+
+        <div class="col-md-8 noPaddingRight">
+
+          لیست نوتیفیکیشن‌ها تکرار شود
+
+        </div>
+
+        <div class="col-md-4 noPaddingLeft">
+
+          <div class="checkBodySwitch" id="raCampaignLoopOption">
+
+            <span style="padding-left: 5px"> غیرفعال </span>
+
+            <input type="checkbox" class="switchdemo" name="raCampaignLoop" checked>
+
+            <span style="padding-right: 5px"> فعال </span>
+
+          </div> <!-- checkbox switch -->
+
+        </div>
+
+      </div> <!-- inline option -->
+
+
+
+      <div class="clear"></div>
+
+    </div> <!-- options body -->
+
+    <footer class="modalFooter">
+
+      <a href="javascript:;" name="closeModal" class="btn btn-fill"> ذخیره تنظیمات </a>
+
+    </footer>
+
+  </div> <!-- section -->
+
+
+
+</div> <!-- modal -->
+
+<!-- recent activity modal -->
+
+
+
+
+
+
+<!-- hot streak modal -->
+
+<div class="modalOption campaignModal" id="hsModal">
+
+  <div class="modalHeader">
+
+    <div class="titles section">
+
+      <h4> آمار داغ </h4>
+
+       <p> نمایش افرادی که در یک مدت زمان خاص از خدمات شما استفاده کرده‌اند و یا در سایت ثبت نام نموده‌اند و ... . </p>
+
+    </div> <!-- title -->
+
+
+  </div> <!-- modal header -->
+
+
+
+  <div class="notifSection section">
+
+    <div class="sabetmikonimNotifBody">
+
+    </div>
+
+  </div> <!-- notif section -->
+
+
+
+
+
+  <div class="section">
+
+    <div class="title">
+
+      <h5> عنوان نمایش آمار داغ </h5>
+
+    </div> <!-- title -->
+
+    <div class="container">
+
+      <input type="text" name="hsMessage" onkeyup="realNotif(this.value,2,1)" value="در دوره ما شرکت کرده‌اند">
+
+
+    </div> <!-- container -->
+
+  </div> <!-- section -->
+
+
+
+
+  <div class="section">
+
+    <div class="title">
+
+      <h5> نام تبدیل‌ها </h5>
+
+    </div> <!-- title -->
+
+    <div class="container">
+
+      <input type="text" name="hsConversionName" onkeyup="realNotif(this.value,2,2)" value="وبمستر">
+
+
+    </div> <!-- container -->
+
+  </div> <!-- section -->
+
+
+
+  <div class="section" style="padding-bottom: 0">
+
+    <div class="title">
+
+      <h5> قوانین نمایش </h5>
+
+    </div> <!-- title -->
+
+    <div class="optionsBody">
+
+      <div class="inlineOption flex-inline">
+
+        <div class="flex-inline-col"> نمایش </div>
+        <div class="flex-inline-col">
+
+          <select class="hsPeople" name="hsPeopleKind" id="hsPeopleSelectKind">
+
+            <option value="visitor"> بازدیدکننده‌ها</option>
+            <option value="conversion"> تبدیل‌ها </option>
+
+          </select>
+
+         </div>
+        <div class="flex-inline-col"> در </div>
+
+        <div class="flex-inline-col">
+          <input type="radio" name="hsTimeRadio" id="twentyFourH" value="24h" checked>
+          <label for="twentyFourH" class="radioInput">
+
+            ۲۴ ساعت
+
+          </label>
+
+
+          <input type="radio" name="hsTimeRadio" id="sevenD" value="7d">
+          <label for="sevenD" class="radioInput">
+
+            ۷ روز
+
+          </label>
+
+          <input type="radio" name="hsTimeRadio" id="thirtyD" value="30d">
+          <label for="thirtyD" class="radioInput">
+
+            ۳۰ روز
+
+          </label>
+
+          گذشته
+
+        </div>
+
+      </div> <!-- inline option -->
+
+
+      <div class="clear"></div>
+
+    </div> <!-- options body -->
+
+    <footer class="modalFooter">
+
+      <a href="#" name="closeModal" class="btn btn-fill"> ذخیره تنظیمات </a>
+
+    </footer>
+
+  </div> <!-- section -->
+
+
+
+
+</div> <!-- modal -->
+
+<!-- hot streak modal -->
+
+
+
+
+
+
+
+<script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/jquery.simpleswitch.min.js"></script>
+<script>
+
+$(".switchdemo").simpleSwitch();
+
+</script>
