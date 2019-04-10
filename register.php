@@ -31,6 +31,7 @@ session_start();
   <!--  CSS for Demo Purpose, don't include it in your project     -->
   <link href="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/css/demo.css" rel="stylesheet" />
 
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
   <!--     Fonts and icons     -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">

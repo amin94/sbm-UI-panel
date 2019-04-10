@@ -118,7 +118,7 @@ session_start();
 
             <ul class="nav">
 
-              <li class="">
+              <li class="hasSubMenu">
                 <a href="http://amins-macbook-pro.local:5757/sabetmikonimv2/settings.php/">
                   <i class="pe-7s-user"></i>
                   <p>
@@ -129,6 +129,14 @@ session_start();
 
                   </p>
                 </a>
+
+
+                <ul class="uiList subMenu">
+
+                    <li> تنظیمات پروفایل </li>
+
+                </ul>
+
               </li>
 
 
