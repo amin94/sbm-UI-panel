@@ -1,5 +1,4 @@
 // functions
-// functions
 var fadeStatus = false;
 var historyBool = true;
 History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
@@ -11,11 +10,11 @@ var State = History.getState(); // Note: We are using History.getState() instead
         stateObject = State.data;
 
         var pageBoxes = {
-          'domains' : {'title' : 'لیست دامنه‌ها', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/domains.html', 'crumb' : '1'},
-          'campaigns' : {'title' : 'لیست کمپین‌ها', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaigns.html', 'crumb' : '2'},
+          'domains' : {'title' : 'لیست دامنه‌ها', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/domains.html', 'crumb' : 1},
+          'campaigns' : {'title' : 'لیست کمپین‌ها', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaigns.html', 'crumb' : 2},
+          'add-domain' : {'title' : 'افزودن دامنه جدید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/add-domain-panel.html', 'crumb' : 3},
+          'websiteIntg' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/website-intg-panel.html', 'crumb' : 4},
         };
-
-          var sbmToken = getCookie('sbm_token');
 
             if (checkCookie('sbm_token')==="cookieSet") {
 
@@ -29,6 +28,8 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
 									case 'domains':
 
+                  managePanelMenu('domain');
+
 										var sbmToken = getCookie('sbm_token');
 										var getDomainsData = { 'cookie' : sbmToken, 'operation' : 'getUserDomains' };
 
@@ -40,21 +41,59 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
 									case 'campaigns':
 
+                  managePanelMenu('notDomain');
+
+                  var sbmToken = getCookie('sbm_token');
+
 									if ((checkCookie('dId')==="cookieSet") && (getCookie('dId') !== "null")) {
 
 										var sbmToken = getCookie('sbm_token');
-										var getCampaignsData = { 'cookie' : sbmToken };
+										var dId = getCookie('dId');
+										var getCampaignsData = { 'cookie' : sbmToken, 'dId' : dId };
 
 									  ajaxReq(getCampaignsData,'http://api.sabetmikonim.com:8004/panel/get-campaigns/','getCampaigns');
 
 
 									} else {
 
-										createView({contentId : 'domains'},true);
+										createViewPanel({contentId : 'domains'},true);
 
 									}
 
 										break;
+
+
+
+                    case 'add-domain':
+
+                      managePanelMenu('domain');
+
+                      Cookies.remove('dId', {path: '/sabetmikonimv2'});
+                      Cookies.remove('cId', {path: '/sabetmikonimv2'});
+
+  										break;
+
+
+
+                      case 'websiteIntg':
+
+                      managePanelMenu('notDomain');
+
+                      var sbmToken = getCookie('sbm_token');
+
+                      if ((checkCookie('dId')==="cookieSet") && (getCookie('dId') !== "null")) {
+
+                        var checkIntegrations = { 'cookie' : sbmToken, 'dId' : getCookie('dId') };
+
+                        ajaxReq(checkIntegrations,'http://api.sabetmikonim.com:8004/panel/check-start-page/','checkIntegrations');
+
+                      } else {
+
+                        createView({contentId: 'add-domain'},true);
+
+                      }
+
+                        break;
 
 
                   default:
@@ -78,25 +117,77 @@ var State = History.getState(); // Note: We are using History.getState() instead
 });
 
 
-function createView(stateObject, pushHistory) {
+function createViewPanel(stateObject, pushHistory) {
 
 
 	var pageBoxes = {
-		'domains' : {'title' : 'لیست دامنه‌ها', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/domains.html', 'crumb' : '1'},
-		'campaigns' : {'title' : 'لیست کمپین‌ها', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaigns.html', 'crumb' : '2'},
+		'domains' : {'title' : 'لیست دامنه‌ها', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/domains.html', 'crumb' : 1},
+		'campaigns' : {'title' : 'لیست کمپین‌ها', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaigns.html', 'crumb' : 2},
+    'add-domain' : {'title' : 'افزودن دامنه جدید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/add-domain-panel.html', 'crumb' : 3},
+    'websiteIntg' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/website-intg-panel.html', 'crumb' : 4},
 	};
 
-    console.log(stateObject);
+    console.log('stateObject: '+stateObject);
 
-    History.pushState(stateObject,pageBoxes[stateObject.contentId]['title'],'http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php/?page='+stateObject.contentId);
+    History.pushState(stateObject,pageBoxes[stateObject.contentId]['title'],'http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php/?page='+stateObject.contentId);
 
-    History.log();
+    // History.log();
 
 
 
 }
 
 
+
+
+function managePanelMenu(panelSection) {
+
+  if (panelSection === 'domain') {
+
+    $('#sbmWebsiteNav').fadeOut('fast');
+    $('#domainsMenu').fadeIn('fast');
+
+  } else if (panelSection === 'notDomain') {
+
+    $('#sbmWebsiteNav').fadeIn('fast');
+    $('#domainsMenu').fadeOut('fast');
+
+  }
+
+}
+
+
+
+
+function addNewDomain() {
+
+  $('.help-block').remove();
+  $('.form-group').removeClass('has-error');
+
+  var sbmToken = getCookie('sbm_token');
+
+  var domain = $('input[name=domain]').val();
+
+  if (domain === "") {
+
+    $('#domainGroup').addClass('has-error'); // add the error class to show red input
+    $('#domainGroup').append('<div class="help-block"> لطفا آدرس دامنه را وارد نمایید! </div>'); // add the actual error message under our input
+
+  } else {
+
+    var dId = getCookie('dId');
+
+    if (dId === "null") {
+      dId = '';
+    }
+
+  var setNewDomainData = { 'cookie' : sbmToken, 'url' : domain, 'operation' : 'setDomain', 'dId' : dId };
+
+  ajaxReq(setNewDomainData,'http://api.sabetmikonim.com:8004/panel/complete-information/','setNewDomain');
+
+}
+
+}
 
 
 
@@ -115,7 +206,15 @@ function displayCampaigns(campaignsData) {
 
 			var cId = "'" + campaignsData[i]['cId'] + "'";
 
-			$('#campaignsDataBody').prepend('<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 campaignGrid"><div class="campaignCard"><div class="campaignMenu"><a href="javascript:;"> <i class="fas fa-ellipsis-h"></i> </a><ul class="uiList subMenu"><li> <a href="javascript:;"> ویرایش </a></li><li> <a href="javascript:;"> کپی </a></li><li> <a href="javascript:;"> حذف </a></li></ul></div><div class="campaignTitle"><div class="campaignSubTypePic"><img src="'+ campaignsData[i]['campaignDetails']['campaignSubTypeTemplate']['connectionSettings']['metas']['image'] +'" alt="'+ campaignsData[i]['name'] +'"></div><div class="campaignTitleContent"><div class="campaignTool"><span> کمپین '+ campaignsData[i]['campaignDetails']['campaignSubTypeTitle'] +' | دسته: <span> فرم‌ها </span> </span></div><h4> '+ campaignsData[i]['name'] +' </h4></div></div><div class="campaignContent"><div class="campaignCat pullRight"> <span> آخرین ویرایش: '+ campaignsData[i]['modifyDate'] +' </span></div>'+ campaignStatus +'<div class="clear"></div></div><a href="javascript:;" data-cid="'+ campaignsData[i]['cId'] +'" name="modalLink" onclick="openCampaignModal('+ cId +')" class="more">'+ campaignsData[i]['name'] +' </a></div></div>');
+      if (campaignsData[i]['campaignDetails']['campaignSubTypeTemplate'] === null) {
+
+        $('#campaignsDataBody').prepend('<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 campaignGrid"><div class="campaignCard"><div class="campaignMenu"><a href="javascript:;"> <i class="fas fa-ellipsis-h"></i> </a><ul class="uiList subMenu"><li> <a href="javascript:;"> ویرایش </a></li><li> <a href="javascript:;"> کپی </a></li><li> <a href="javascript:;"> حذف </a></li></ul></div><div class="campaignTitle"><div class="campaignSubTypePic"><img src="'+ campaignsData[i]['campaignDetails']['defaults']['subTypeImage'] +'" alt="'+ campaignsData[i]['name'] +'"></div><div class="campaignTitleContent"><div class="campaignTool"><span>'+ campaignsData[i]['campaignDetails']['defaults']['subTypeTitle'] +' | دسته: <span> '+ campaignsData[i]['campaignDetails']['campaignTypeTitle'] +' </span> </span></div><h4> '+ campaignsData[i]['name'] +' </h4></div></div><div class="campaignContent"><div class="campaignCat pullRight"> <span> آخرین ویرایش: '+ campaignsData[i]['modifyDate'] +' </span></div>'+ campaignStatus +'<div class="clear"></div></div><a href="javascript:;" data-cid="'+ campaignsData[i]['cId'] +'" name="modalLink" onclick="openCampaignModal('+ cId +')" class="more">'+ campaignsData[i]['name'] +' </a></div></div>');
+
+      } else {
+
+        $('#campaignsDataBody').prepend('<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 campaignGrid"><div class="campaignCard"><div class="campaignMenu"><a href="javascript:;"> <i class="fas fa-ellipsis-h"></i> </a><ul class="uiList subMenu"><li> <a href="javascript:;"> ویرایش </a></li><li> <a href="javascript:;"> کپی </a></li><li> <a href="javascript:;"> حذف </a></li></ul></div><div class="campaignTitle"><div class="campaignSubTypePic"><img src="'+ campaignsData[i]['campaignDetails']['campaignSubTypeTemplate']['connectionSettings']['metas']['image'] +'" alt="'+ campaignsData[i]['name'] +'"></div><div class="campaignTitleContent"><div class="campaignTool"><span> کمپین '+ campaignsData[i]['campaignDetails']['campaignSubTypeTitle'] +' | دسته: <span> '+ campaignsData[i]['campaignDetails']['campaignTypeTitle'] +' </span> </span></div><h4> '+ campaignsData[i]['name'] +' </h4></div></div><div class="campaignContent"><div class="campaignCat pullRight"> <span> آخرین ویرایش: '+ campaignsData[i]['modifyDate'] +' </span></div>'+ campaignStatus +'<div class="clear"></div></div><a href="javascript:;" data-cid="'+ campaignsData[i]['cId'] +'" name="modalLink" onclick="openCampaignModal('+ cId +')" class="more">'+ campaignsData[i]['name'] +' </a></div></div>');
+
+      }
 
 			j=j+1;
 	}
@@ -333,20 +432,149 @@ function callbackAjaxReq(getData,reqType) {
 
 		if (getData.status === "userDomainsGot") {
 
+      managePanelMenu('domain');
+
+      var domainStatus;
 			var userDomains = getData.userDomains;
 
 			for (var i = 0; i < userDomains.length; i++) {
 
-				$('#domainsDataBody').append('<tr style="position: relative" id="dId'+ userDomains[i]['dId'] +'"><td class="table-website-td center">'+ userDomains[i]['domainUrl'] +'<a href="#'+ userDomains[i]['dId'] +'" name="modalLink" class="more"> '+ userDomains[i]['domainUrl'] +' </a></td><td class="table-website-td center">'+ userDomains[i]['domainUrl'] +'<a href="#'+ userDomains[i]['dId'] +'" name="modalLink" class="more"> '+ userDomains[i]['domainUrl'] +' </a></td><td class="center campaignStatus"> '+ userDomains[i]['intgVerify'] +' <a href="#'+ userDomains[i]['dId'] +'" name="modalLink" class="more"> '+ userDomains[i]['intgVerify'] +' </a></td></tr>');
+        if (userDomains[i]['intgVerify'] === 'True') {
+  				domainStatus = ' <span> <span class="greenCircle"></span> متصل شد </span>';
+          domainSystemStatus = "'True'";
+  			} else if (userDomains[i]['intgVerify'] === 'False') {
+  				domainStatus = '<span> <span class="grayCircle"></span> متصل نشده </span>';
+          domainSystemStatus = "'False'";
+  			}
+
+        var domainDID = "'"+ userDomains[i]['dId'] +"'";
+
+				$('#domainsDataBody').append('<tr style="position: relative" id="dId'+ userDomains[i]['dId'] +'"><td class="table-website-td center">'+ userDomains[i]['domainUrl'] +'<a href="javascript:;" name="modalLink" onclick="loginToDomain('+ domainDID +','+domainSystemStatus+')" class="more"> '+ userDomains[i]['domainUrl'] +' </a></td><td class="table-website-td center">'+ userDomains[i]['domainUrl'] +'<a href="javascript:;" name="modalLink" onclick="loginToDomain('+ domainDID +','+domainSystemStatus+')" class="more"> '+ userDomains[i]['domainUrl'] +' </a></td><td class="center campaignStatus"> '+ domainStatus +' <a href="javascript:;" name="modalLink" onclick="loginToDomain('+ domainDID +','+domainSystemStatus+')" class="more"> '+ domainStatus +' </a></td></tr>');
 
 			}
 
 		}
 
+  } else if (reqType === "checkDomain") {
+
+    if (getData.status === "linkVerified") {
+
+      $('input[name=domain]').val(getData.formLink);
+
+      addNewDomain();
+
+    } else if (getData.status === "linkNotVerified") {
+
+      $('#domainGroup').addClass('has-error'); // add the error class to show red input
+      $('#domainGroup').append('<div class="help-block"> آدرس وارد شده شما در دسترس نیست. لطفا آدرس صحیح سایت را وارد نمایید. </div>'); // add the actual error message under our input
+
+    }
+
+  } else if (reqType === "setNewDomain") {
+
+    if ((getData.status === "domainSet") || (getData.status === "domainWasSet")) {
+
+      Cookies.set('dId', getData.dId, { expires: 7, path: '/sabetmikonimv2' });
+
+      // setCookie('dId',getData.dId,360);
+
+      createViewPanel({contentId : 'websiteIntg'},true);
+
+    } else if (getData.status === "dpDomain") {
+
+      $('#domainGroup').addClass('has-error'); // add the error class to show red input
+      $('#domainGroup').append('<div class="help-block"> دامنه وارد شده توسط اکانت دیگری ثبت شده است! </div>'); // add the actual error message under our input
+
+    }
+
+  } else if (reqType === "checkIntegrations") {
+
+    if (getData.status === "requestDone") {
+
+      var sbmScript = "<!--SABETMIKONIM CONNECTION--><script src='http://amins-macbook-pro.local:5757/sabetmikonimv2/cdn/sabetmikonim_con.js?acc="+getData.sId+"'></script><!--END SABETMIKONIM CONNECTION-->";
+      $('input[name=sabetMikonimIntg]').val(sbmScript);
+
+      var intgVerify = getData.intgVerify;
+
+
+      if (intgVerify === "True") {
+
+        $('#intgNextStep').html(' مرحله بعد ');
+
+        $('#connectionStatusBody').attr('data-connection','true');
+
+        var intgVerifyOffset = getData.intgVerifyOffset;
+
+        $('#connectionStatusBody').addClass('verified');
+        $('#connectionStatusText').html(' تبریک! وبسایت شما با موفقیت متصل گردید.');
+
+        $('#lastConnectText').removeClass('disn');
+        $('#lastConnectText').append(' آخرین ارتباط با پنل: ' + intgVerifyOffset);
+
+      } else {
+
+        $('#intgNextStep').html(' رد شدن از این مرحله ');
+
+        $('#connectionStatusBody').attr('data-connection','false');
+
+        $('#connectionStatusText').html(' <img src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/circle-loading.svg" alt="لودینگ ثابت میکنیم"> در حال تلاش برای برقراری اتصال با سایت شما... ');
+
+        realCheckWebsiteIntg();
+
+      }
+
+    } else {
+
+      swal({
+        title: "خطا!",
+        text: " خطایی رخ داده است! ",
+        icon: "error",
+        button: "تلاش مجدد",
+      });
+
+    }
+
+  } else if (reqType === "sendSabetMikonimToDeveloper") {
+
+    if (getData.status === "developerEmailSent") {
+
+      swal({
+        title: "تبریک!",
+        text: "پیام تنظیم سرویس ثابت میکنیم بر روی وبسایت شما برای برنامه‌نویس‌تان ارسال گردید.",
+        icon: "success",
+        button: "عالیه! حالا کمپین‌تان را بسازید",
+      })
+      .then((isConfirm) => {
+        if (isConfirm) {
+
+         createView({contentId: 'campaignTypes'},true);
+
+        }
+      });
+
+    }
+
   }
 
 }
 
+
+
+function loginToDomain(dId, domainStatus) {
+
+  Cookies.set('dId',dId, { expires: 30, path: '/sabetmikonimv2' });
+
+  if (domainStatus === "True") {
+
+    createViewPanel({contentId : 'campaigns'},true)
+
+  } else if (domainStatus === "False") {
+
+    createViewPanel({contentId : 'websiteIntg'},true)
+
+  }
+
+}
 
 
 
@@ -446,9 +674,9 @@ $(document).ready(function() {
 
 
   if (page!==null) {
-    createView({contentId: page}, true);
+    createViewPanel({contentId: page}, true);
   } else {
-    createView({contentId: 'campaigns'}, true);
+    createViewPanel({contentId: 'campaigns'}, true);
   }
 
 

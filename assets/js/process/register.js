@@ -234,10 +234,10 @@ $(document).ready(function() {
 
           } else {
 
-            Cookies.set('sbm_token',data.cookie, { expires: 1, path: '' });
-            // Cookies.set('userEmail',data.email, { expires: 1, path: '' });
-            Cookies.remove('dId', { path: '' });
-            Cookies.remove('cId', { path: '' });
+            Cookies.set('sbm_token',data.cookie, { expires: 1, path: '/sabetmikonimv2' });
+            // Cookies.set('userEmail',data.email, { expires: 1, path: '/sabetmikonimv2' });
+            Cookies.remove('dId', {path: '/sabetmikonimv2'});
+            Cookies.remove('cId', {path: '/sabetmikonimv2'});
 
             // setCookie('sbm_token',data.cookie,1);
             // setCookie('userEmail',formData.email,1);

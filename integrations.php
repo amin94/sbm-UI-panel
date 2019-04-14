@@ -36,7 +36,15 @@
                                             <div class="form-group">
                                                 <label> ۱- کد زیر را کپی کرده و در فوتر سایت کپی نمایید. </label>
                                                 <p> کد زیر را در صفحاتی که میخواهید اطلاعات فرم در آن ثبت شود و یا قصد نمایش نوتیفیکیشن در آن صفحه را دارید، قرار دهید. (معمولا با قرار دادن کد در فایل فوتر، این کد در همه صفحات به صورت خودکار درج می‌شود.) </p>
-                                                <input type="text" class="form-control" name="sabetMikonimIntg" readonly="readonly" value="">
+
+                                                <div class="scriptCode">
+
+                                                  <input type="text" class="form-control" name="sabetMikonimIntg" id="sabetMikonimIntgCode" readonly="readonly" value="">
+
+                                                  <a href="javascript:;" class="btn btn-primary btn-fill" name="copyCode" id="copyCodeBtn"> کپی </a>
+
+                                                </div> <!-- script code -->
+                                                
                                             </div>
                                         </div>
                                     </div>

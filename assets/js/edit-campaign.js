@@ -775,14 +775,14 @@ function campaignSteps(stepId, stepDirection) {
 				}).then((isConfirm) => {
 					if (isConfirm) {
 
-					 window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php";
+					 window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php";
 
 					}
 				});
 
 
 				setTimeout(function(){
-					window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php";
+					window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php";
 				},3000);
 
 			}

@@ -1,15 +1,10 @@
 <?php
 require_once("header.php");
-ob_start();
-session_start();
-
 ?>‎
 
-<script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/dashboard.js"></script>
+<script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/app.js"></script>
 
-
-
-<div class="main-panel">
+<div class="main-panel paddingTop">
 
   <div class="container">
 

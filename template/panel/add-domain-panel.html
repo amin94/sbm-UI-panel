@@ -1,0 +1,88 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    // process the form
+  	$('#addDomainForm').submit(function(event) {
+
+      var domain = $('input[name=domain]').val();
+      var sbmToken = getCookie('sbm_token');
+
+      if (domain !== '') {
+
+        var checkDomainData = { 'cookie' : sbmToken, 'formLink' : domain, 'dId' : '' };
+
+        ajaxReq(checkDomainData,'http://api.sabetmikonim.com:8004/panel/check-form-link/','checkDomain');
+
+      } else {
+
+        $('#domainGroup').addClass('has-error'); // add the error class to show red input
+        $('#domainGroup').append('<div class="help-block"> لطفا آدرس دامنه را وارد نمایید! </div>'); // add the actual error message under our input
+
+      }
+
+  		event.preventDefault();
+  	});
+  });
+</script>
+
+
+<div class="domainForm">
+
+  <div class="row targetBtn">
+    <div class="col-md-12">
+      <h3 class="pull-left"> افزودن دامنه </h3>
+      <a href="javascript:;" onclick="createViewPanel({contentId : 'domains'} , true)" class="btn pull-right"> <i class="pe-7s-angle-right"></i> بازگشت به لیست دامنه‌ها </a>
+    </div>
+  </div>
+
+
+
+
+<form id="addDomainForm" method="post">
+
+  <div class="section">
+
+    <div class="card cardBox">
+
+      <div class="header">
+
+        <h4 class="title pullRight"> آدرس سایت جدیدتان را وارد نمایید </h4>
+
+        <button type="submit" class="nextBtn btn btn-success btn-fill pullLeft"> ثبت و افزودن دامنه </button>
+        <input type="hidden" name="dCheck">
+
+        <div class="clear"></div>
+      </div>
+
+
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group" id="domainGroup">
+
+              <div class="inputs">
+
+                  <input type="text" class="form-control ltr" name="domain" placeholder="https://blinkco.net/">
+                  <p class="helpField"> لینک صفحه اصلی وبسایت‌تان را وارد نمایید. </p>
+
+                  <div class="clear"></div>
+
+                </div> <!-- inputs-->
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+    </div> <!-- card -->
+
+  </div> <!-- section -->
+
+</form>
+
+
+
+</div>

@@ -427,7 +427,7 @@ function callbackAjaxReq(getData,reqType) {
 
     if ((getData.status === "domainSet") || (getData.status === "domainWasSet")) {
 
-      Cookies.set('dId', getData.dId, { expires: 7, path: '' });
+      Cookies.set('dId', getData.dId, { expires: 7, path: '/sabetmikonimv2' });
 
       // setCookie('dId',getData.dId,360);
 
@@ -545,7 +545,7 @@ function callbackAjaxReq(getData,reqType) {
 
       createView({contentId: 'subType'},true);
 
-      Cookies.set('cId', getData.cId, { expires: 1, path: '' });
+      Cookies.set('cId', getData.cId, { expires: 1, path: '/sabetmikonimv2' });
       // setCookie('cId',getData.cId,1);
 
     }
@@ -872,13 +872,13 @@ function callbackAjaxReq(getData,reqType) {
       .then((isConfirm) => {
         if (isConfirm) {
 
-         window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php/";
+         window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php/";
 
         }
       });
 
       setTimeout(function(){
-        window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php/";
+        window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php/";
       },3000);
 
     }

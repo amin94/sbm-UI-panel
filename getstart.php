@@ -203,7 +203,7 @@ session_start();
   <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/bootstrap-notify.js"></script>
 
   <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-  <!-- <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/light-bootstrap-dashboard.js"></script> -->
+  <!-- <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/light-bootstrap-app.js"></script> -->
 
 
 </body>

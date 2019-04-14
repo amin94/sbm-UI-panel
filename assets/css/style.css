@@ -836,6 +836,10 @@ body>.navbar-collapse[data-color="amark"]:after {
   float: left;
   width: calc(100% - 260px);
   min-height: 100%;
+  /* padding-top: 50px; */
+}
+
+.main-panel.paddingTop {
   padding-top: 50px;
 }
 

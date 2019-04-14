@@ -74,11 +74,13 @@ $.ajax({
         // setCookie('sbm_token',null);
         // setCookie('dId',null);
 
-        Cookies.remove('sbm_token');
-        Cookies.remove('dId');
-        Cookies.remove('cId');
+        Cookies.remove('sbm_token', {path: '/sabetmikonimv2'});
+        Cookies.remove('dId', {path: '/sabetmikonimv2'});
+        Cookies.remove('cId', {path: '/sabetmikonimv2'});
 
-        window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/";
+        alert(checkCookie('sbm_token'));
+
+        // window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/";
 
       } else {
 
@@ -99,9 +101,9 @@ $.ajax({
         // setCookie('sbm_token',null);
         // setCookie('dId',null);
 
-        Cookies.remove('sbm_token');
-        Cookies.remove('dId');
-        Cookies.remove('cId');
+        Cookies.remove('sbm_token', {path: '/sabetmikonimv2'});
+        Cookies.remove('dId', {path: '/sabetmikonimv2'});
+        Cookies.remove('cId', {path: '/sabetmikonimv2'});
 
   			swal({
   				title: "خطا!",

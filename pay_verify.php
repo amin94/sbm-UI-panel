@@ -67,7 +67,7 @@ $result = $client->PaymentVerification(
 );
 
 if ($result->Status == 100) {
-Header('Location: http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php?pay_status=ok');
+Header('Location: http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php?pay_status=ok');
 
 mysql_query("UPDATE buy_packages SET ref_id='$result->RefID',status='active' WHERE authority='$Authority'");
 mysql_query("UPDATE users SET status='active',reason='',last_package='$buyPackageDetailName' WHERE sId='$buyPackageDetailUserID'");

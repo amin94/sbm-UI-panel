@@ -383,7 +383,7 @@ function callbackAjaxReq(getData,reqType) {
 
       // setCookie('dId',getData.dId,360);
 
-      Cookies.set('dId',data.dId, { expires: 1, path: '' });
+      Cookies.set('dId',getData.dId, { expires: 1, path: '/sabetmikonimv2' });
 
       createView({contentId : 'websiteIntg'},true);
 
@@ -501,7 +501,7 @@ function callbackAjaxReq(getData,reqType) {
 
       // setCookie('cId',getData.cId,1);
 
-      Cookies.set('cId',data.cId, { expires: 1, path: '' });
+      Cookies.set('cId',getData.cId, { expires: 1, path: '/sabetmikonimv2' });
 
     }
 
@@ -818,7 +818,7 @@ function callbackAjaxReq(getData,reqType) {
 
     if (getData.status === "campaignNameSubmitted") {
 
-      Cookies.remove('cId');
+      Cookies.remove('cId', {path: '/sabetmikonimv2'});
 
       swal({
         title: "تبریک!",
@@ -829,13 +829,13 @@ function callbackAjaxReq(getData,reqType) {
       .then((isConfirm) => {
         if (isConfirm) {
 
-         window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php/";
+         window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php/";
 
         }
       });
 
       setTimeout(function(){
-        window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php/";
+        window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php/";
       },3000);
 
     }

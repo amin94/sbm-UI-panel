@@ -100,7 +100,7 @@ $(document).ready(function() {
 						.then((isConfirm) => {
 							if (isConfirm) {
 
-							 window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php/";
+							 window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php/";
 
 							}
 						});
@@ -211,7 +211,7 @@ $(document).ready(function() {
   } else {
 
     if ((checkCookie('sbm_token') === "cookieSet") && (getCookie('sbm_token') !== "null")) {
-      window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php/";
+      window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php/";
     }
 
   }
@@ -283,10 +283,6 @@ $(document).ready(function() {
 
           // setCookie('sbm_token',data.cookie,1);
 
-          Cookies.set('sbm_token',data.cookie, { expires: 1, path: '' });
-          Cookies.set('dId',data.dId, { expires: 365, path: '' });
-
-
           var currentUrl = window.location.href;
 
         	var url = new URL(currentUrl);
@@ -295,6 +291,9 @@ $(document).ready(function() {
 
           // ALL GOOD!
           if (data.status === "loginSuccess") {
+
+            Cookies.set('sbm_token',data.cookie, { expires: 1, path: '/sabetmikonimv2' });
+            Cookies.set('dId',data.lastLoginedDid, { expires: 365, path: '/sabetmikonimv2' });
 
             if (data.getStartStatus=='False') {
 
@@ -312,13 +311,13 @@ $(document).ready(function() {
 
                 } else {
 
-                  window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php/";
+                  window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php/";
 
                 }
 
               } else {
 
-                window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php/";
+                window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php/";
 
               }
 
@@ -565,7 +564,7 @@ $(document).ready(function() {
 
             // setCookie('sbm_token',data.cookie,1);
 
-            Cookies.set('sbm_token',data.cookie, { expires: 1, path: '' });
+            Cookies.set('sbm_token',data.cookie, { expires: 1, path: '/sabetmikonimv2' });
 
             // check getstart status to redirect user
             var redirectUserUrl
@@ -575,7 +574,7 @@ $(document).ready(function() {
 
             } else {
 
-              redirectUserUrl = "http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php/";
+              redirectUserUrl = "http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php/";
 
             }
 

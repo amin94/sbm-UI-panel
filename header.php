@@ -1,7 +1,3 @@
-<?php
-ob_start();
-session_start();
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,6 +25,8 @@ session_start();
   <link href="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/css/demo.css" rel="stylesheet" />
 
 
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
   <!--     Fonts and icons     -->
   <link href="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/css/all.min.css" rel="stylesheet" />
   <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/all.min.js"></script>
@@ -48,10 +46,6 @@ session_start();
 
   <!-- show documents with hover -->
   <!-- <script src="https://unpkg.com/tippy.js@2.5.4/dist/tippy.all.min.js"></script> -->
-
-
-  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-
 
 
   <!-- angular js -->
@@ -131,11 +125,11 @@ session_start();
                 </a>
 
 
-                <ul class="uiList subMenu">
+                <!-- <ul class="uiList subMenu">
 
                     <li> تنظیمات پروفایل </li>
 
-                </ul>
+                </ul> -->
 
               </li>
 
@@ -154,10 +148,22 @@ session_start();
         </div>
 
 
-        <ul class="nav">
+        <ul class="nav" id="domainsMenu">
+
+          <li class="newCampaignBtn">
+            <a href="javascript:;" onclick="createViewPanel({contentId : 'add-domain'},true);" class="btn btn-fill">
+              <i class="pe-7s-plus"></i>
+              <p> دامنه جدید </p>
+            </a>
+          </li>
+
+        </ul>
+
+
+        <ul class="nav" id="sbmWebsiteNav">
 
           <li class="active">
-            <a href="http://amins-macbook-pro.local:5757/sabetmikonimv2/settings.php/">
+            <a href="javascript:;" onclick="createViewPanel({contentId : 'domains'},true)">
               <i class="pe-7s-profile"></i>
               <p>
 
@@ -181,7 +187,7 @@ session_start();
 
 
           <li id="campaignsMenu">
-            <a href="http://amins-macbook-pro.local:5757/sabetmikonimv2/dashboard.php">
+            <a href="javascript:;" onclick="createViewPanel({contentId : 'campaigns'},true)">
               <i class="pe-7s-target"></i>
               <p> کمپین ها </p>
             </a>
@@ -192,7 +198,7 @@ session_start();
 
             <span class="listItemTitle"> حساب کاربری </span>
             <li id="integrationMenu">
-              <a href="http://amins-macbook-pro.local:5757/sabetmikonimv2/integrations.php">
+              <a href="javascript:;" onclick="createViewPanel({contentId : 'websiteIntg'},true);">
                 <i class="pe-7s-link"></i>
                 <p>
 
