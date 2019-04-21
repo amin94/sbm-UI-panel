@@ -1,8 +1,230 @@
-// open deactive fetaures Dialog
-function openFeaturesModal(modalId) {
+// functions
+function timeRadioValue(timeRadioValue) {
+	var realTime;
+	if (timeRadioValue === "24h") {
+		realTime = " ۲۴ ساعت ";
+	} else if (timeRadioValue === "7d") {
+		realTime = " ۷ روز ";
+	} else if (timeRadioValue === "30d") {
+		realTime = " ۳۰ روز ";
+	}
 
-	$('#'+modalId).fadeIn();
-	$('#'+modalId).addClass('openModal');
+
+	document.getElementById('hsOptionTime').innerHTML = realTime;
+}
+
+
+
+
+
+
+
+window.featureData = {};
+var eachFeaturesData = {};
+var finalFeaturesData = {};
+function saveFeatureSettings(notificationTemplateId) {
+
+
+	for (var i = 0; i < notifFormTemplate.length; i++) {
+
+		if (notificationTemplateId === notifFormTemplate[i]['notificationTemplateId']) {
+
+			eachFeaturesData[notificationTemplateId] = {};
+
+				var formTemps = notifFormTemplate[i]['templateData']['formTemplate']['formTemp'];
+
+
+				for (var j = 0; j < formTemps.length; j++) {
+
+					if (formTemps[j]['fieldBodyType'] === "section") {
+
+						eachFeaturesData[notificationTemplateId][formTemps[j]['fieldName']] = $('input[name='+formTemps[j]['fieldName']+']').val();
+
+					} else if (formTemps[j]['fieldBodyType'] === "option") {
+
+						var fieldCount = formTemps[j]['fieldCount'];
+						var eachFormTempField = formTemps[j]['eachFormTempField'];
+
+						for (var k = 0; k < fieldCount; k++) {
+
+							if (eachFormTempField[k]['fieldType'] === "text") {
+
+								eachFeaturesData[notificationTemplateId][eachFormTempField[k]['fieldName']] = $('input[name='+eachFormTempField[k]['fieldName']+']').val();
+
+							} else if (eachFormTempField[k]['fieldType'] === "iphoneCheckbox") {
+
+								if ($('input[name='+eachFormTempField[k]['fieldName']+']').prop('checked')) {
+
+			            eachFeaturesData[notificationTemplateId][eachFormTempField[k]['fieldName']] = 'true';
+
+			          } else {
+
+			            eachFeaturesData[notificationTemplateId][eachFormTempField[k]['fieldName']] = 'false';
+
+			          }
+
+							} else if (eachFormTempField[k]['fieldType'] === "radio") {
+
+								eachFeaturesData[notificationTemplateId][eachFormTempField[k]['fieldName']] = $('input[name='+ eachFormTempField[k]['fieldName'] +']:checked').val();
+
+							} else if (eachFormTempField[k]['fieldType'] === "select") {
+
+								eachFeaturesData[notificationTemplateId][eachFormTempField[k]['fieldName']] = $('select[name='+ eachFormTempField[k]['fieldName'] +'] option:selected').val();
+
+							}
+
+						}
+
+					}
+
+
+
+				}
+
+
+
+				featureData = eachFeaturesData;
+				console.log(featureData);
+
+
+				break;
+
+		}
+
+	}
+
+	$('.mask').fadeOut();
+	$('.modalOption').fadeOut();
+	$('.modalOption').removeClass('openModal');
+
+}
+
+
+
+
+
+
+// open deactive fetaures Dialog
+function openFeaturesModal(notificationTemplateId) {
+
+	$('#featureModal').attr('data-templateId',notificationTemplateId);
+	$('#saveFeatureSettingsBtn').attr('onclick',"saveFeatureSettings('"+ notificationTemplateId +"')");
+	$('.mask').attr('onclick',"saveFeatureSettings('"+ notificationTemplateId +"')");
+
+	$('#featureOptionsBody .section').remove();
+	$('#featuresOptionsBody .inlineOption').remove();
+
+	for (var i = 0; i < notifFormTemplate.length; i++) {
+
+		if (notificationTemplateId === notifFormTemplate[i]['notificationTemplateId']) {
+
+			// add notif demo to modal
+			$('#featureModal .sabetmikonimNotifBody').html(notifFormTemplate[i]['templateData']['template']);
+
+			var notificationSelectTemp = notifFormTemplate[i]['templateData']['formTemplate']['selectTemp'];
+			// add titles to modal
+			$('#modalHeaderId h4').text(notificationSelectTemp['title']);
+			$('#modalHeaderId p#featureDesc').text(notificationSelectTemp['desc']);
+
+
+
+			var formTemps = notifFormTemplate[i]['templateData']['formTemplate']['formTemp'];
+			// create forms and place them
+			var checkBoxCheck = false;
+			for (var j = 0; j < formTemps.length; j++) {
+
+				if (formTemps[j]['fieldBodyType'] === "section") {
+
+					$('#featureOptionsBody').append('<div class="section"><div class="title"><h5> '+ formTemps[j]['fieldBodyTitle'] +' <span class="info input" id="recentActivityMSG" data-tippy> <i class="fas fa-question"></i> </span><div id="recentActivityMSGHelp" class="disn"><p> این پیام مستقیما در نوتیفیکیشن‌های روی سایت شما مشابه نمونه بالای این صفحه نمایش داده می‌شود.</p></div></h5></div><div class="container"><input type="'+ formTemps[j]['fieldType'] +'" name="'+ formTemps[j]['fieldName'] +'" value="'+ formTemps[j]['fieldValue'] +'" '+ formTemps[j]['fieldFuncs'] +'></div></div>');
+
+				} else if (formTemps[j]['fieldBodyType'] === "option") {
+
+
+					var fieldCount = formTemps[j]['fieldCount'];
+					var eachFormTempField = formTemps[j]['eachFormTempField'];
+
+					var inputHTML = formTemps[j]['fieldHTMLText'];
+					for (var k = 0; k < fieldCount; k++) {
+
+						// textBoxes and other inputs
+						if (eachFormTempField[k]['fieldType'] !== "iphoneCheckbox") {
+
+							if (eachFormTempField[k]['fieldType'] === "text") {
+
+								var inputOption = '<input type="'+ eachFormTempField[k]['fieldType'] +'" name="'+ eachFormTempField[k]['fieldName'] +'" value="'+ eachFormTempField[k]['fieldValue'] +'" '+ eachFormTempField[k]['fieldFuncs'] +'>';
+
+							} else if (eachFormTempField[k]['fieldType'] === "select") {
+
+								// get options
+								var options='';
+								var optionItem = eachFormTempField[k]['option'];
+								for (var s = 0; s < optionItem.length; s++) {
+
+									options = options + ' <option value="'+ optionItem[s]['value'] +'"> '+ optionItem[s]['text'] +' </option> ';
+
+								}
+
+								// create main select field
+								var inputOption = ' <select name="'+ eachFormTempField[k]['fieldName'] +'" id=""> ' + options + '</select>';
+
+							} else if (eachFormTempField[k]['fieldType'] === "radio") {
+
+								var radios = '';
+								var radioItem = eachFormTempField[k]['option'];
+								var checkedRadio;
+								for (var s = 0; s < radioItem.length; s++) {
+
+									if (s===0) {
+										checkedRadio = 'checked';
+									} else {
+										checkedRadio = '';
+									}
+
+									radios = radios + ' <input type="radio" name="'+ eachFormTempField[k]['fieldName'] +'" id="'+ radioItem[s]['id'] +'" value="'+ radioItem[s]['value'] +'" '+ checkedRadio +' '+radioItem[s]['fieldFuncs']+'> <label for="'+ radioItem[s]['id'] +'" class="radioInput"> '+ radioItem[s]['text'] +' </label> ';
+
+								}
+
+								var inputOption = radios;
+
+							}
+
+
+
+
+							// replace in main HTML
+							inputHTML = inputHTML.replace('{{input'+ k +'}}', inputOption);
+
+						} else if (eachFormTempField[k]['fieldType'] === "iphoneCheckbox") {
+
+							checkBoxCheck = true;
+
+						}
+
+
+					}
+
+
+
+					$('#featuresOptionsBody').append('<div class="inlineOption flex-inline"> '+ inputHTML +' <span class="info input" id="lastConversionSelector" data-tippy> <i class="fas fa-question"></i> </span><div id="lastConversionHelp" class="disn"><p> با وارد کردن تعداد، آخرین تعداد نوتیفیکیشن‌هایی که تا الان ثبت شده است، نمایش داده خواهد شد.</p></div></div>');
+
+
+
+				}
+
+			}
+
+			if (checkBoxCheck) {
+
+				$(".switchdemo").simpleSwitch();
+
+			}
+
+		}
+
+	}
+
+	$('#featureModal').fadeIn();
+	$('#featureModal').addClass('openModal');
 
 	$('.mask').fadeIn();
 }
@@ -927,34 +1149,12 @@ $(document).ready(function() {
 
 
 
-	$('input[name=hsTimeRadio]').click(function(e) {
 
-		var realTime;
-		var timeRadioValue = $(this).val();
-		if (timeRadioValue === "24h") {
-			realTime = " ۲۴ ساعت ";
-		} else if (timeRadioValue === "7d") {
-			realTime = " ۷ روز ";
-		} else if (timeRadioValue === "30d") {
-			realTime = " ۳۰ روز ";
-		}
-
-
-		document.getElementById('hsOptionTime').innerHTML = realTime;
-
-	});
-
-
-
-
-
-	$('.mask').click(function(e) {
-
-		$(this).fadeOut();
-		$('.modalOption').fadeOut();
-		$('.modalOption').removeClass('openModal');
-
-	});
+	// $('.mask').click(function(e) {
+	//
+	// 	saveFeatureSettings();
+	//
+	// });
 
 	$('a[name=closeModal]').click(function(e) {
 

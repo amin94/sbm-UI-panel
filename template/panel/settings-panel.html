@@ -1,0 +1,80 @@
+<div class="content settingsContent">
+  <div class="container-fluid">
+
+    <div class="row targetBtn">
+      <div class="col-md-12">
+        <h3 class="pull-left"> پکیج شما </h3>
+        <a href="javascript:;" onclick="createViewPanel({contentId : 'buy-package'} , true)" class="btn btn-fill pull-right"> <i class="pe-7s-plus"></i> خرید پکیج جدید </a>
+      </div>
+    </div>
+
+
+    <div class="card">
+        <div class="settingHeader slot">
+            <div class="col-xs-12 col-md-6 noPaddingRight"> <h4 class="title" id="settingsPackageName">  </h4> </div>
+            <div class="col-xs-12 col-md-6 noPaddingLeft"> <p id="settingsPackagePrice">  </p> </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="content">
+
+                <div class="row slot">
+
+                        <p> <strong id="packageDateOffset"> </strong> تا پایان پکیج فعلی شما باقیمانده است. </p>
+
+                </div> <!-- row -->
+
+
+        </div>
+    </div>
+
+
+
+    <!-- uniqe visitor counter -->
+    <div class="card">
+        <div class="settingHeader slot">
+
+             <h4 class="title"> تعداد بازدیدکننده‌ها در پکیج فعلی </h4>
+
+            <div class="clear"></div>
+        </div>
+        <div class="content">
+
+                <div class="row slot">
+
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" id="packageUsageProgressBar" role="progressbar"
+                    aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
+
+                    </div>
+                  </div>
+
+                  <div class="visitorDetails">
+
+                    <div class="col-xs-12 col-md-4">
+                      <span id="packageDetailVisitorUsed"> </span>
+                      <p> بازدیدکننده واقعی </p>
+                    </div>
+
+                    <div class="col-xs-12 col-md-4">
+                      <span id="packageDetailVisitorDifference"> </span>
+                      <p> استفاده شده </p>
+                    </div>
+
+                    <div class="col-xs-12 col-md-4">
+                      <span id="packageDetailVisitor"></span>
+                      <p> ظرفیت بازدیدکننده پکیج </p>
+                    </div>
+
+                  </div>
+
+                </div> <!-- row -->
+
+
+        </div>
+    </div>
+
+
+
+</div>
+</div>

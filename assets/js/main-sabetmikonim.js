@@ -78,9 +78,9 @@ $.ajax({
         Cookies.remove('dId', {path: '/sabetmikonimv2'});
         Cookies.remove('cId', {path: '/sabetmikonimv2'});
 
-        alert(checkCookie('sbm_token'));
+        // alert(checkCookie('sbm_token'));
 
-        // window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/";
+        window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/";
 
       } else {
 
@@ -93,7 +93,16 @@ $.ajax({
 
       }
 
-    } else {
+    } else if (reqType === "getHeaderProfileData") {
+
+      if (data.status === "requestDone") {
+
+        document.getElementById('headerProfileName').innerHTML = data.userName;
+
+      }
+
+    }
+    else {
 
 
       if (data.status === "securityError") {
@@ -167,7 +176,8 @@ $(document).ready(function() {
 
 		if (checkCookie('sbm_token') === "cookieNotSet") {
 
-			setCookie('redirect_url',currentUrl,1);
+			// setCookie('redirect_url',currentUrl,1);
+      Cookies.set('redirect_url', currentUrl, { expires: 1, path: '/sabetmikonimv2' });
 
 			window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/index.php?redirect=true";
 
@@ -175,12 +185,26 @@ $(document).ready(function() {
 
 		} else {
 
-			setCookie('redirect_url',currentUrl,1);
+			// setCookie('redirect_url',currentUrl,1);
+      Cookies.set('redirect_url', currentUrl, { expires: 1, path: '/sabetmikonimv2' });
 
 			window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/index.php?redirect=true";
 
 		}
 
+
+
+
+
+    if (page!== "getStart") {
+
+      var sbmToken = getCookie('sbm_token');
+
+      var profileData = { 'cookie' : sbmToken };
+
+      ajaxReq(profileData,'http://api.sabetmikonim.com:8004/panel/get-profile/','getHeaderProfileData');
+
+    }
 
 
 

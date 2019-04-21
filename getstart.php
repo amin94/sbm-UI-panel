@@ -15,6 +15,13 @@ session_start();
   <meta name="viewport" content="width=device-width" />
 
 
+  <script type="text/javascript">
+
+    var page = "getStart";
+
+  </script>
+
+
   <!-- Bootstrap core CSS     -->
   <link href="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/css/bootstrap.rtl.min.css" rel="stylesheet" />
 
@@ -205,6 +212,7 @@ session_start();
   <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
   <!-- <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/light-bootstrap-app.js"></script> -->
 
+<div class="mask"></div>
 
 </body>
 </html>

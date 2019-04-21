@@ -550,11 +550,11 @@ input:focus {
 
 /*new style for sidebar*/
 .perfect-scrollbar-off .sidebar .sidebar-wrapper, .perfect-scrollbar-off .main-panel {
-  overflow: hidden;
+  overflow: scroll;
 }
 
 .perfect-scrollbar-on .sidebar .sidebar-wrapper, .sidebar .sidebar-wrapper, .perfect-scrollbar-on .main-panel, .main-panel {
-  overflow: hidden;
+  overflow: scroll;
 }
 
 /*end syle*/
@@ -574,7 +574,7 @@ input:focus {
 
 .sidebar .sidebar-wrapper {
   position: relative;
-  overflow: hidden;
+  overflow: scroll;
   z-index: 4;
   width: 260px;
   height: calc(100vh - 72px);
@@ -5051,7 +5051,7 @@ span.irSheba {
 }
 
 .secondCampaignNav {
-  background-color: #FFF;
+  background-color: #f7f8fb;
   padding: 10px;
   text-align: center;
 }
@@ -5325,6 +5325,15 @@ span.irSheba {
 
 /*newCampaignBody*/
 /*modal windows*/
+
+.campaignDetailsBody .targetBtn h3 a {
+  color: #b3ccff;
+}
+
+.campaignDetailsBody .targetBtn h3 a:hover {
+  color: #377bff;
+}
+
 .modalRow {
   padding-left: 15px;
   padding-right: 15px;
@@ -5349,6 +5358,7 @@ span.irSheba {
   -o-transition: all .3s;
   overflow-y: scroll;
   overflow-x: hidden;
+  padding-bottom: 85px;
 }
 
 .modalOption.campaignModal {
@@ -5419,11 +5429,11 @@ span.irSheba {
 }
 
 .modalOption .modalButtons {
-  margin: 0 auto 25px;
+  margin-bottom: 15px;
 }
 
 .modalOption .section {
-  border-bottom: 1px solid #e3e4e5;
+  /* border-bottom: 1px solid #e3e4e5; */
   /*margin-bottom: 50px;*/
   padding-bottom: 30px;
 }
@@ -5492,10 +5502,19 @@ span.irSheba {
   display: inline-block;
 }
 
+#optionTextBody {
+  width: 100%;
+}
+
 .modalOption .modalFooter {
   padding: 15px 25px;
   border-top: 1px solid #e3e4e5;
   margin-top: 15px;
+  position: fixed;
+  bottom: 0;
+  background: #FFF;
+  width: 100%;
+  height: 66px;
 }
 
 /*list of links in modal*/
@@ -6588,6 +6607,30 @@ span.icon svg {
 .targetBtn {
   margin-bottom: 20px;
 }
+
+
+
+
+.noCampaignBody .noCampaignIcon {
+  text-align: left;
+}
+
+.noCampaignBody .noCampaignIcon svg {
+  width: 550px;
+  transform: rotateY(180deg);
+  text-align: left;
+}
+
+.noCampaignBody .noCampaignTitle {
+  margin-top: 8em;
+}
+
+.noCampaignBody .noCampaignTitle h3 {
+  margin-bottom: 35px;
+}
+
+
+
 
 .campaignCard {
   position: relative;

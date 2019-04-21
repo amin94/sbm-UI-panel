@@ -29,76 +29,18 @@
 
 
       // check what features selected
+      var toolSettings = {};
       for (var i = 0; i < sbmFeature.length; i++) {
 
-        if (sbmFeature[i] === 'recentActivity') {
-
-          var raMessage = $('input[name=raMessage]').val();
-          var lastConversions = $('input[name=lastConversions]').val();
-          var lastConversionsByDay = $('input[name=lastConversionsByDay]').val();
-          var minConversions = $('input[name=minConversions]').val();
-          var notificationLoop;
-          var anonymousNotif;
-
-          if ($('input[name=raCampaignLoop]').prop('checked')) {
-
-            notificationLoop = 'true';
-
-          } else {
-
-            notificationLoop = 'false';
-
-          }
-
-
-
-
-          if ($('input[name=anonymousNotif]').prop('checked')) {
-
-            anonymousNotif = 'true';
-
-          } else {
-
-            anonymousNotif = 'false';
-
-          }
-
-
-
-
-
-          var campaignRARules = { 'lastNotificationCount' : lastConversions, 'lastNotificationDays' : lastConversionsByDay, 'minNotificationSubmitted' : minConversions, 'notificationLoop' : notificationLoop, 'anonymousNotif' : anonymousNotif };
-
-          recentActivityData = { 'status' : 'true', 'campaignMessage' : raMessage, 'campaignRules' : campaignRARules };
-
-
-        } else if (sbmFeature[i] === 'hotStreaks') {
-
-          var hsMessage = $('input[name=hsMessage]').val();
-          var hsConversionName = $('input[name=hsConversionName]').val();
-          var hsPeople = $('select[name=hsPeopleKind] option:selected').val();
-          var hsTimeRadio = $('input[name=hsTimeRadio]:checked').val();
-
-          hotStreakData = { 'status' : 'true', 'hsMessage' : hsMessage, 'hsConversionName' : hsConversionName, 'hsPeople' : hsPeople, 'hsTime' : hsTimeRadio };
-
-
-        } else if (sbmFeature[i] === 'liveNotif') {
-
-          alert('real_time');
-
-        } else if (sbmFeature[i] === 'conversionBox') {
-
-          alert('conversion');
-
-        }
+        toolSettings[sbmFeature[i]] = featureData[sbmFeature[i]];
 
       }
 
 
 
-      var toolSettings = {'recentActivity' : recentActivityData, 'hotStreaks' : hotStreakData, 'realTime' : realTimeData, 'conversionBox' : conversionData};
-
       var submitToolSettingsData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'), 'operation' : 'submitToolSettings', 'toolSettings' : toolSettings };
+
+      console.log(submitToolSettingsData);
 
       ajaxReq(submitToolSettingsData,'http://api.sabetmikonim.com:8004/panel/complete-information/','submitToolSettings');
 
@@ -176,17 +118,17 @@
 
 
 
-<!-- recent activity modal -->
+<!-- feature modal -->
 
-<div class="modalOption campaignModal" id="raModal">
+<div class="modalOption campaignModal" id="featureModal">
 
-  <div class="modalHeader">
+  <div class="modalHeader" id="modalHeaderId">
 
     <div class="titles section">
 
       <h4> نمایش آخرین فعالیت‌ها </h4>
 
-      <p> نمایش آخرین افرادی که در یک بازه زمانی مشخص از بازدیدکننده به خریدار تبدیل شده‌اند. </p>
+      <p id="featureDesc"> نمایش آخرین افرادی که در یک بازه زمانی مشخص از بازدیدکننده به خریدار تبدیل شده‌اند. </p>
 
     </div> <!-- title -->
 
@@ -202,33 +144,11 @@
   </div> <!-- notif section -->
 
 
-  <div class="section">
-
-    <div class="title">
-
-      <h5>
-
-         پیام کمپین
-
-         <span class="info input" id="recentActivityMSG" data-tippy> <i class="fas fa-question"></i> </span>
-
-         <div id="recentActivityMSGHelp" class="disn">
-           <p> این پیام مستقیما در نوتیفیکیشن‌های روی سایت شما مشابه نمونه بالای این صفحه نمایش داده می‌شود. </p>
-         </div>
-
-       </h5>
-
-    </div> <!-- title -->
-
-    <div class="container">
+  <div class="sectionsBody" id="featureOptionsBody">
 
 
-      <input type="text" name="raMessage" onkeyup="realNotif(this.value,1,1)">
 
-
-    </div> <!-- container -->
-
-  </div> <!-- section -->
+  </div> <!-- sections body -->
 
 
 
@@ -240,13 +160,17 @@
 
     </div> <!-- title -->
 
-    <div class="optionsBody">
+    <div class="optionsBody" id="featuresOptionsBody">
 
-      <div class="inlineOption flex-inline">
+      <!-- <div class="inlineOption flex-inline">
 
-        <div class="flex-inline-col"> نمایش </div>
-        <div class="flex-inline-col"> <input type="text" name="lastConversions" value=""> </div>
-        <div class="flex-inline-col"> نوتیفیکشن آخر </div>
+        <div class="optionTextBody">
+
+          <div class="flex-inline-col"> نمایش </div>
+          <div class="flex-inline-col"> <input type="text" name="lastConversions" value=""> </div>
+          <div class="flex-inline-col"> نوتیفیکشن آخر </div>
+
+        </div>
 
         <span class="info input" id="lastConversionSelector" data-tippy> <i class="fas fa-question"></i> </span>
 
@@ -254,7 +178,7 @@
           <p> با وارد کردن تعداد، آخرین تعداد نوتیفیکیشن‌هایی که تا الان ثبت شده است، نمایش داده خواهد شد. </p>
         </div>
 
-      </div> <!-- inline option -->
+      </div>
 
       <div class="inlineOption flex-inline">
 
@@ -268,7 +192,7 @@
           <p> با وارد کردن تعداد روز گذشته، تنها نوتیفیکیشن‌هایی که در این چند روز اخیر ثبت شده است، نمایش داده خواهد شد. </p>
         </div>
 
-      </div> <!-- inline option -->
+      </div>
 
       <div class="inlineOption flex-inline">
 
@@ -283,12 +207,12 @@
           <p> تا زمانی که این تعداد نوتیفیکیشن ثبت نشده باشد، هیچ نوتیفکیشنی روی سایت شما نمایش داده نخواهد شد </p>
         </div>
 
-      </div> <!-- inline option -->
+      </div> -->
 
 
 
 
-      <div class="inlineOption flex-inline">
+      <!-- <div class="inlineOption flex-inline">
 
         <div class="col-md-8 noPaddingRight">
 
@@ -306,11 +230,11 @@
 
             <span style="padding-right: 5px"> فعال </span>
 
-          </div> <!-- checkbox switch -->
+          </div>
 
         </div>
 
-      </div> <!-- inline option -->
+      </div>
 
 
 
@@ -332,11 +256,11 @@
 
             <span style="padding-right: 5px"> فعال </span>
 
-          </div> <!-- checkbox switch -->
+          </div>
 
         </div>
 
-      </div> <!-- inline option -->
+      </div> -->
 
 
 
@@ -346,7 +270,7 @@
 
     <footer class="modalFooter">
 
-      <a href="javascript:;" name="closeModal" class="btn btn-fill"> ذخیره تنظیمات </a>
+      <a href="javascript:;" onclick="" id="saveFeatureSettingsBtn" class="btn btn-fill"> ذخیره تنظیمات </a>
 
     </footer>
 
@@ -356,7 +280,7 @@
 
 </div> <!-- modal -->
 
-<!-- recent activity modal -->
+<!-- feature modal -->
 
 
 
@@ -400,16 +324,16 @@
 
       <h5> عنوان نمایش آمار داغ </h5>
 
-    </div> <!-- title -->
+    </div>
 
     <div class="container">
 
       <input type="text" name="hsMessage" onkeyup="realNotif(this.value,2,1)" value="در دوره ما شرکت کرده‌اند">
 
 
-    </div> <!-- container -->
+    </div>
 
-  </div> <!-- section -->
+  </div>
 
 
 
@@ -448,7 +372,7 @@
         <div class="flex-inline-col"> نمایش </div>
         <div class="flex-inline-col">
 
-          <select class="hsPeople" name="hsPeopleKind" id="hsPeopleSelectKind">
+          <select name="hsPeopleKind" id="hsPeopleSelectKind">
 
             <option value="visitor"> بازدیدکننده‌ها</option>
             <option value="conversion"> تبدیل‌ها </option>

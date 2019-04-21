@@ -265,6 +265,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 });
 
 
+var pageRepeat = 1;
 function createView(stateObject, pushHistory) {
 
 
@@ -281,7 +282,37 @@ function createView(stateObject, pushHistory) {
 
     console.log(stateObject);
 
-    History.pushState(stateObject,pageBoxes[stateObject.contentId]['title'],'http://amins-macbook-pro.local:5757/sabetmikonimv2/campaign/campaign.php/?page='+stateObject.contentId);
+
+    var State = History.getState();
+    var lastStateData = State.data;
+
+    console.log(lastStateData);
+
+    // alert(lastStateData.contentId);
+    // alert(lastStateData.pageRepeat);
+
+    var campaignMode = getCookie('remember_edit');
+    var campaignUrl;
+    if (campaignMode === "true") {
+      campaignUrl = 'http://amins-macbook-pro.local:5757/sabetmikonimv2/campaign/campaign.php/?page='+stateObject.contentId+'&mode=editCampaign';
+    } else {
+      campaignUrl = 'http://amins-macbook-pro.local:5757/sabetmikonimv2/campaign/campaign.php/?page='+stateObject.contentId;
+    }
+
+    if (lastStateData.contentId === stateObject.contentId) {
+
+      // pageRepeat = pageRepeat + 1;
+      if (lastStateData.pageRepeat === pageRepeat) {
+        pageRepeat = pageRepeat + 1;
+      }
+
+      History.replaceState({contentId: stateObject.contentId, pageRepeat: pageRepeat },pageBoxes[stateObject.contentId]['title'],campaignUrl);
+
+    } else {
+
+      History.pushState(stateObject,pageBoxes[stateObject.contentId]['title'],campaignUrl);
+
+    }
 
     History.log();
 
@@ -629,76 +660,109 @@ function callbackAjaxReq(getData,reqType) {
 
     if (getData.status === "campaignSubTypeTemplateGot") {
 
-      var notifTypesStyle = {
-        "recentActivity": {
-          "title": "فعالیت‌های اخیر",
-          "desc": "نمایش افرادی که از خدمات شما در سایت استفاده کرده‌اند.",
-          "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/raIcon.jpg"
-        },
-        "hotStreaks": {
-          "title": "آمار داغ",
-          "desc": "نمایش افرادی که در یک مدت زمان خاص از خدمات شما استفاده کرده‌اند.",
-          "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/hot-streak-sabetmikonim.jpg"
-        },
-        "liveNotif": {
-          "title": "آمار لحظه‌ای",
-          "desc": "نمایش لحظه‌ای کاربرانی که صفحه‌ای را مشاهده می‌کنند.",
-          "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/live-option-sabetmikonim.svg"
-        },
-        "conversionBox": {
-          "title": "کارت‌های تبدیل",
-          "desc": "تبدیل نرخ بیشتر کاربران به خریدار با نوتیفیکیشن‌های قابل کلیک",
-          "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/conversion-box-sabetmikonim.svg"
-        }
-      }
+      // var notifTypesStyle = {
+      //   "recentActivity": {
+      //     "title": "فعالیت‌های اخیر",
+      //     "desc": "نمایش افرادی که از خدمات شما در سایت استفاده کرده‌اند.",
+      //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/raIcon.jpg"
+      //   },
+      //   "hotStreaks": {
+      //     "title": "آمار داغ",
+      //     "desc": "نمایش افرادی که در یک مدت زمان خاص از خدمات شما استفاده کرده‌اند.",
+      //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/hot-streak-sabetmikonim.jpg"
+      //   },
+      //   "liveNotif": {
+      //     "title": "آمار لحظه‌ای",
+      //     "desc": "نمایش لحظه‌ای کاربرانی که صفحه‌ای را مشاهده می‌کنند.",
+      //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/live-option-sabetmikonim.svg"
+      //   },
+      //   "conversionBox": {
+      //     "title": "کارت‌های تبدیل",
+      //     "desc": "تبدیل نرخ بیشتر کاربران به خریدار با نوتیفیکیشن‌های قابل کلیک",
+      //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/conversion-box-sabetmikonim.svg"
+      //   }
+      // }
 
 
       // check campaignNotifTypes and display them
+      window.notifFormTemplate = getData.NotificationTemplates;
+
       var notificationTemplates = getData.NotificationTemplates;
       var notificationTypeId;
       var notificationTypeModal;
       for (var i = 0; i < notificationTemplates.length; i++) {
 
         notificationTypeId = notificationTemplates[i]['notificationTypeId'];
+        notificationTemplateId = notificationTemplates[i]['notificationTemplateId'];
+        var notificationTemplateIdFunc = "'"+ notificationTemplateId +"'"
 
-        if (notificationTypeId === "recentActivity") {
+        var notificationSelectTemp = notificationTemplates[i]['templateData']['formTemplate']['selectTemp'];
 
-          notificationTypeModal = "'raModal'";
-
-          $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" name="notifTypeOption" id="raOption" value="'+ notificationTypeId +'"><label for="raOption" class="card" id="raOptionLabel"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt=" '+ notifTypesStyle[notificationTypeId]['title'] +' "><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTypeModal +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
-
-
-          // add notif style to modal
-          $('#raModal .sabetmikonimNotifBody').append(notificationTemplates[i]['templateData']['template']);
-
-          var notifText = $("#notifDesc").text();
-          $('input[name=raMessage]').val(notifText);
+        $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" id="'+notificationTemplateId+'" name="notifTypeOption" value="'+ notificationTemplateId +'"><label for="'+notificationTemplateId+'" class="card" id="label'+notificationTemplateId+'"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notificationSelectTemp['icon'] +'" alt=" '+ notificationSelectTemp['title'] +' "><h4> '+ notificationSelectTemp['title'] +'</h4><p> '+ notificationSelectTemp['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTemplateIdFunc +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
 
 
-        } else if (notificationTypeId === "hotStreaks") {
 
-          notificationTypeModal = "'hsModal'";
+        // if tool settings was set
+        var toolSettingsProgress = getData.toolSettingsProgress;
+        if (toolSettingsProgress !== "NOT") {
 
-          $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" name="notifTypeOption" id="hsOption" value="'+ notificationTypeId +'"><label for="hsOption" class="card" id="hsOptionLabel"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt=" '+ notifTypesStyle[notificationTypeId]['title'] +'غ "><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" name="modalLink" onclick="openFeaturesModal('+ notificationTypeModal +')" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
+          if (typeof toolSettingsProgress[notificationTemplateId] !== "undefined") {
 
-          // add notif style to modal
-          $('#hsModal .sabetmikonimNotifBody').append(notificationTemplates[i]['templateData']['template']);
+            $('#'+notificationTemplateId).prop('checked',true);
 
-        } else if (notificationTypeId === "liveNotif") {
+          }
 
-          notificationTypeModal = "'lvModal'";
-
-          $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" name="notifTypeOption" id="lvOption" value="'+ notificationTypeId +'"><label for="lvOption" class="card" id="lvOptionLabel"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt="'+ notifTypesStyle[notificationTypeId]['title'] +'"><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTypeModal +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
-
-        } else if (notificationTypeId === "conversionBox") {
-
-          notificationTypeModal = "'cbModal'";
-
-          $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" name="notifTypeOption" id="cbOption" value="'+ notificationTypeId +'"><label for="cbOption" class="card"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt=" '+ notifTypesStyle[notificationTypeId]['title'] +' "><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTypeModal +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
+          featureData = toolSettingsProgress;
+          console.log(featureData);
 
         }
 
+
+
+
+        // if (notificationTypeId === "recentActivity") {
+        //
+        //   notificationTypeModal = "'raModal'";
+        //
+        //   $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" data-ntempid="'+notificationTemplateId+'" name="notifTypeOption" value="'+ notificationTypeId +'"><label for="raOption" class="card" id="raOptionLabel"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt=" '+ notifTypesStyle[notificationTypeId]['title'] +' "><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTypeModal +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
+        //
+        //
+        //   // add notif style to modal
+        //   $('#raModal .sabetmikonimNotifBody').append(notificationTemplates[i]['templateData']['template']);
+        //
+        //   var notifText = $("#notifDesc").text();
+        //   $('input[name=raMessage]').val(notifText);
+        //
+        //
+        // } else if (notificationTypeId === "hotStreaks") {
+        //
+        //   notificationTypeModal = "'hsModal'";
+        //
+        //   $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" data-ntempid="'+notificationTemplateId+'" name="notifTypeOption" id="hsOption" value="'+ notificationTypeId +'"><label for="hsOption" class="card" id="hsOptionLabel"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt=" '+ notifTypesStyle[notificationTypeId]['title'] +'غ "><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" name="modalLink" onclick="openFeaturesModal('+ notificationTypeModal +')" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
+        //
+        //   // add notif style to modal
+        //   $('#hsModal .sabetmikonimNotifBody').append(notificationTemplates[i]['templateData']['template']);
+        //
+        // } else if (notificationTypeId === "liveNotif") {
+        //
+        //   notificationTypeModal = "'lvModal'";
+        //
+        //   $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" data-ntempid="'+notificationTemplateId+'" name="notifTypeOption" id="lvOption" value="'+ notificationTypeId +'"><label for="lvOption" class="card" id="lvOptionLabel"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt="'+ notifTypesStyle[notificationTypeId]['title'] +'"><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTypeModal +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
+        //
+        // } else if (notificationTypeId === "conversionBox") {
+        //
+        //   notificationTypeModal = "'cbModal'";
+        //
+        //   $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" data-ntempid="'+notificationTemplateId+'" name="notifTypeOption" id="cbOption" value="'+ notificationTypeId +'"><label for="cbOption" class="card"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt=" '+ notifTypesStyle[notificationTypeId]['title'] +' "><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTypeModal +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
+        //
+        // }
+
       }
+
+
+
+
+
 
 
       var toolTemplate = getData.campaignSubTypeInformation.template;
@@ -713,37 +777,43 @@ function callbackAjaxReq(getData,reqType) {
 
 
 
-      // if tool settings was not
-      var toolSettingsProgress = getData.toolSettingsProgress;
-      if (toolSettingsProgress !== "NOT") {
-
-        if (toolSettingsProgress.recentActivity.status === "true") {
-
-          $('#raOption').prop('checked',true);
 
 
 
-        }
 
-        if (toolSettingsProgress.hotStreaks.status === "true") {
 
-          $('#hsOption').prop('checked',true);
 
-        }
 
-        if (toolSettingsProgress.liveNotif.status === "true") {
 
-          $('#lvOption').prop('checked',true);
 
-        }
 
-        if (toolSettingsProgress.conversionBox.status === "true") {
+        // if (toolSettingsProgress.recentActivity.status === "true") {
+        //
+        //   $('#raOption').prop('checked',true);
+        //
+        //
+        //
+        // }
+        //
+        // if (toolSettingsProgress.hotStreaks.status === "true") {
+        //
+        //   $('#hsOption').prop('checked',true);
+        //
+        // }
+        //
+        // if (toolSettingsProgress.liveNotif.status === "true") {
+        //
+        //   $('#lvOption').prop('checked',true);
+        //
+        // }
+        //
+        // if (toolSettingsProgress.conversionBox.status === "true") {
+        //
+        //   $('#cbOption').prop('checked',true);
+        //
+        // }
 
-          $('#cbOption').prop('checked',true);
 
-        }
-
-      }
 
     }
 
@@ -1021,15 +1091,31 @@ $(document).ready(function() {
 
 	var url = new URL(currentUrl);
 	var page = url.searchParams.get("page");
-	var cId = url.searchParams.get("cid");
+	var mode = url.searchParams.get("mode");
 
-  if (page!==null) {
-    createView({contentId: page}, true);
-  } else {
-    createView({contentId: 'campaignTypes'}, true);
+  if (mode !== "editCampaign") {
+
+    Cookies.remove('cId', {path: '/sabetmikonimv2'});
+    Cookies.remove('remember_edit', {path: '/sabetmikonimv2'});
+
+  } else if (mode === "editCampaign") {
+
+    $('.campaignHeader h2').text('ویرایش کمپین');
+
+    Cookies.set('remember_edit',"true", { expires: 1, path: '/sabetmikonimv2' });
+
   }
 
 
+  if (page!==null) {
+
+      createView({contentId: page}, true);
+
+  } else {
+
+      createView({contentId: 'campaignTypes'}, true);
+
+  }
 
 
 

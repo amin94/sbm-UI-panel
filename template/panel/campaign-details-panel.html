@@ -1,0 +1,271 @@
+<div class="content settingsContent campaignDetailsBody">
+  <div class="container-fluid">
+
+    <div class="row targetBtn">
+      <div class="col-md-12">
+        <h3 class="pullRight"> <a href="javascript:;" onclick="createViewPanel({contentId : 'campaigns'},true);"> <i class="fas fa-arrow-circle-right"></i> </a>  جزئیات کمپین « <span id="campaignDetailName"></span> »</h3>
+
+        <div class="checkBodySwitch pullLeft" id="campaignStatusSwitch">
+
+          <span style="padding-left: 5px"> غیرفعال </span>
+
+          <input type="checkbox" class="switchdemo" name="campaignStatusSwitch" value="active">
+
+          <span style="padding-right: 5px"> فعال </span>
+
+        </div> <!-- checkbox switch -->
+
+        <!-- <a href="javascript:;" onclick="createViewPanel({contentId : 'buy-package'} , true)" class="btn btn-fill pull-right"> <i class="pe-7s-plus"></i> خرید پکیج جدید </a> -->
+      </div>
+    </div>
+
+
+
+
+
+    <div class="modalRow">
+
+      <div class="modalButtons">
+
+        <a href="javascript:;" name="detailEditCampaign" class="btn btn-fill"> ویرایش کمپین </a>
+
+        <a href="javascript:;" name="deleteCampaign" class="btn btn-danger"> حذف کمپین </a>
+
+      </div> <!-- modal buttons -->
+
+
+
+      <div class="card">
+
+
+
+        <div class="content">
+          <div class="row">
+
+              <div class="col-xs-6 col-md-3">
+
+                <div class="statisticsContent">
+
+                    <div class="headerBoxTitle">
+                      <h5>
+
+                         بازدید صفحات
+
+
+                         <span class="info input" id="pageViewsSelector" data-tippy> <i class="fas fa-question"></i> </span>
+
+                         <div id="pageViewsHelp" class="disn">
+                           <p> تعداد بازدید صفحاتی که در آن نوتیفیکیشن‌های این کمپین نمایش داده می‌شود. </p>
+                         </div>
+
+                       </h5>
+                    </div>
+
+                    <div class="boxStatistics">
+                      <span id="campaignPageViews"> </span>
+                    </div>
+
+
+
+                </div> <!-- statisticsContent -->
+
+              </div> <!-- grid -->
+
+
+
+              <div class="col-xs-6 col-md-3">
+
+                <div class="statisticsContent">
+
+                    <div class="headerBoxTitle">
+                      <h5>
+
+                         تعداد بازدیدکننده
+
+
+                         <span class="info input" id="uniqueVisitorSelector" data-tippy> <i class="fas fa-question"></i> </span>
+
+                         <div id="uniqueVisitorHelp" class="disn">
+                           <p> تعداد بازدیدکننده‌های منحصر بفرد که صفحات نمایش نوتیفیکیشن‌ها را مشاهده کرده‌اند.</p>
+                         </div>
+
+                       </h5>
+                    </div>
+
+                    <div class="boxStatistics">
+
+                      <span id="campaignVisitors"></span>
+
+                    </div>
+
+
+
+                </div> <!-- statisticsContent -->
+
+              </div> <!-- grid -->
+
+
+
+              <div class="col-xs-6 col-md-3">
+
+                <div class="statisticsContent">
+
+                    <div class="headerBoxTitle">
+                      <h5>
+
+                            تعداد کلیک
+
+                            <span class="info input" id="clicksSelector" data-tippy> <i class="fas fa-question"></i> </span>
+
+                            <div id="clicksHelp" class="disn">
+                              <p> تعداد کلیک‌هایی که روی نوتیفیکیشن‌های شما شده است. </p>
+                            </div>
+
+                       </h5>
+                    </div>
+
+                    <div class="boxStatistics">
+
+                      <span id="campaignClicks"> </span>
+
+                      <span class="CTRBoxStatistics" id="CTRBoxStatistics">
+
+
+                      </span>
+                    </div>
+
+
+
+                </div> <!-- statisticsContent -->
+
+              </div> <!-- grid -->
+
+
+
+
+              <div class="col-xs-6 col-md-3">
+
+                <div class="statisticsContent">
+
+                    <div class="headerBoxTitle">
+                      <h5>
+
+                            مخاطبان
+
+                            <span class="info input" id="contactsSelector" data-tippy> <i class="fas fa-question"></i> </span>
+
+                            <div id="contactsHelp" class="disn">
+                              <p> تعداد کاربرانی که توسط «ثابت میکنیم» اطلاعاتشان ثبت شده است. </p>
+                            </div>
+
+                       </h5>
+                    </div>
+
+                    <div class="boxStatistics">
+                      <span id="campaignContactsCount"> </span>
+                    </div>
+
+
+
+                </div> <!-- statisticsContent -->
+
+              </div> <!-- grid -->
+
+
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+
+
+
+      <div class="card listCard websiteList">
+        <div class="header">
+          <h4 class="title"> لینک صفحات حاوی فرم برای دریافت اطلاعات </h4>
+
+        </div>
+        <div class="content">
+          <div class="row" id="campaignCaptureLinks">
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <div class="card listCard websiteList">
+        <div class="header">
+          <h4 class="title"> لینک صفحاتی که نوتیفیکشن‌ها در آن نمایش داده می‌شود </h4>
+
+        </div>
+        <div class="content">
+          <div class="row" id="campaignDisplayLinks">
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+
+
+
+    <div class="card listCard">
+      <div class="header">
+        <h4 class="title pullRight"> لیست مخاطبان </h4>
+
+        <a href="javascript:;" onclick="submitMultipleDelete()" name="submitMultipleDelete" class="whiteBtn pullLeft disn"> <span class="icon" style="margin-left: 5px"> <i class="fas fa-trash-alt"></i> </span> حذف مخاطبان انتخاب شده </a>
+
+        <div class="clear"></div>
+
+      </div>
+      <div class="content">
+        <div class="row" id="campaignContactsBody">
+
+
+
+
+
+     </div> <!-- row -->
+
+   </div> <!-- content -->
+
+ </div> <!-- card -->
+
+
+
+
+      <p class="campaignID"> شناسه کمپین: <span id="campaignID"></span> </p>
+
+    </div> <!-- row -->
+
+
+
+
+
+
+</div>
+</div>
+
+
+
+<script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/jquery.simpleswitch.min.js"></script>
+<script>
+
+$(".switchdemo").simpleSwitch();
+
+</script>

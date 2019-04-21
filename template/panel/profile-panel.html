@@ -1,0 +1,306 @@
+<script type="text/javascript">
+
+  function resendActivitationEmail() {
+
+    var sbmToken = getCookie('sbm_token');
+    var userEmail = $('input[name=userEmail]').val();
+
+    var resendActiveData = {
+      'email': userEmail,
+      'cookie': sbmToken
+    };
+
+
+    ajaxReq(resendActiveData,'http://api.sabetmikonim.com:8004/accounts/resend-email/','resendActiveEmail');
+
+  }
+
+  $(document).ready(function() {
+
+    $('#profileEditForm').submit(function(event) {
+
+      $('.form-group').removeClass('has-error'); // remove the error class
+      $('.help-block').remove(); // remove the error text
+
+      event.preventDefault();
+
+      var errorStatus = "false";
+
+      var sbmToken = getCookie('sbm_token');
+
+      var userName = $('input[name=userName]').val();
+      var userMobile = $('input[name=userMobile]').val();
+
+      if (userName === "") {
+
+        errorStatus = "true";
+
+        $('#nameGroup').addClass('has-error'); // add the error class to show red input
+        $('#nameGroup').append('<div class="help-block"> فیلد نام و نام خانوادگی نمی‌تواند خالی باشد! </div>'); // add the actual error message under our input
+
+      }
+
+
+      if (userMobile === "") {
+
+        errorStatus = "true";
+
+        $('#mobileGroup').addClass('has-error'); // add the error class to show red input
+        $('#mobileGroup').append('<div class="help-block"> فیلد شماره موبایل نمی‌تواند خالی باشد! </div>'); // add the actual error message under our input
+
+      }
+
+      if (errorStatus === "false") {
+
+        var updateProfileData = { 'cookie' : sbmToken, 'userName' : userName, 'userMobile' : userMobile };
+
+        ajaxReq(updateProfileData,'http://api.sabetmikonim.com:8004/panel/update-profile/','updateProfileData');
+
+      }
+
+    });
+
+
+
+
+
+
+    // changePass Request
+    $('#changePassForm').submit(function(event) {
+
+      $('.form-group').removeClass('has-error'); // remove the error class
+      $('.help-block').remove(); // remove the error text
+
+      event.preventDefault();
+
+      var errorStatus = "false";
+
+      var sbmToken = getCookie('sbm_token');
+
+      var oldPass = $('input[name=oldPass]').val();
+      var newPass = $('input[name=newPass]').val();
+      var repeatNewPass = $('input[name=repeatNewPass]').val();
+
+      if (oldPass === "") {
+
+        errorStatus = "true";
+
+        $('#oldPassGroup').addClass('has-error'); // add the error class to show red input
+        $('#oldPassGroup').append('<div class="help-block"> رمز فعلی‌تان را وارد نمایید! </div>'); // add the actual error message under our input
+
+      }
+
+
+      if (newPass === "") {
+
+        errorStatus = "true";
+
+        $('#newPass1Group').addClass('has-error'); // add the error class to show red input
+        $('#newPass1Group').append('<div class="help-block"> رمز جدید‌تان را وارد نمایید! </div>'); // add the actual error message under our input
+
+      }
+
+      if (repeatNewPass === "") {
+
+        errorStatus = "true";
+
+        $('#repeatNewPassGroup').addClass('has-error'); // add the error class to show red input
+        $('#repeatNewPassGroup').append('<div class="help-block"> تکرار رمز عبور را وارد نمایید! </div>'); // add the actual error message under our input
+
+      }
+
+
+      if (newPass !== repeatNewPass) {
+
+        errorStatus = "true";
+
+        $('#repeatNewPassGroup').addClass('has-error'); // add the error class to show red input
+        $('#repeatNewPassGroup').append('<div class="help-block"> تکرار رمز عبور با رمز عبور جدید شما متفاوت است! </div>'); // add the actual error message under our input
+
+      }
+
+
+
+      if (errorStatus === "false") {
+
+        var updatePassword = { 'cookie' : sbmToken, 'currentPassword' : oldPass, 'newPassword' : newPass };
+
+        ajaxReq(updatePassword,'http://api.sabetmikonim.com:8004/panel/change-password/','updatePassword');
+
+      }
+
+    });
+
+
+  });
+
+</script>
+
+
+<div class="content panelPageBody">
+  <div class="container-fluid">
+
+    <div class="row targetBtn">
+      <div class="col-md-12">
+        <h3 class="pull-left"> پکیج شما </h3>
+        <a href="javascript:;" onclick="createViewPanel({contentId : 'buy-package'} , true)" class="btn btn-fill pull-right"> <i class="pe-7s-plus"></i> خرید پکیج جدید </a>
+      </div>
+    </div>
+
+
+    <div class="card">
+
+
+      <div class="settingHeader slot">
+            <div class="col-xs-12 col-md-6 noPaddingRight"> <h4 class="title"> اطلاعات پروفایل </h4> </div>
+            <div class="clear"></div>
+        </div>
+
+
+
+        <div class="content">
+
+          <form id="profileEditForm" method="post">
+
+            <div class="row">
+
+              <div class="col-md-12">
+                <div class="form-group" id="emailGroup">
+                  <label>
+
+                     آدرس ایمیل
+
+                  </label>
+
+                  <input type="text" class="form-control" name="userEmail" disabled value="">
+
+                </div>
+              </div>
+
+            </div>
+
+
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group" id="nameGroup">
+                  <label>
+
+                     نام و نام خانوادگی
+
+                  </label>
+
+                  <input type="text" class="form-control" name="userName" value="">
+
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group" id="mobileGroup">
+                  <label>
+
+                     شماره موبایل
+
+                  </label>
+
+                  <input type="text" class="form-control" name="userMobile" value="">
+
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="cardButtons">
+
+              <button type="submit" name="saveProfileSettings" class="btn btn-fill"> بروز رسانی‌ اطلاعات پروفایل </button>
+
+            </div>
+
+
+          </form>
+
+
+        </div> <!-- content -->
+
+    </div> <!-- card -->
+
+
+
+
+
+
+    <div class="card">
+
+      <div class="settingHeader slot">
+            <div class="col-xs-12 col-md-6 noPaddingRight"> <h4 class="title"> تغییر رمز عبور </h4> </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="content">
+
+
+          <form id="changePassForm" method="post">
+
+            <div class="row">
+
+              <div class="col-md-12">
+                <div class="form-group" id="oldPassGroup">
+                  <label>
+
+                     رمز عبور فعلی
+
+                  </label>
+
+                  <input type="password" class="form-control" name="oldPass" placeholder="****">
+
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group" id="newPass1Group">
+                  <label>
+
+                     رمز عبور جدید
+
+                  </label>
+
+                  <input type="password" class="form-control" name="newPass" placeholder="****">
+
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group" id="repeatNewPassGroup">
+                  <label>
+
+                     تکرار رمز عبور جدید
+
+                  </label>
+
+                  <input type="password" class="form-control" name="repeatNewPass" placeholder="****">
+
+                </div>
+              </div>
+            </div>
+
+
+            <div class="cardButtons">
+
+              <button type="submit" name="changePass" class="btn btn-fill"> تغییر رمز عبور </button>
+
+            </div>
+
+
+          </form>
+
+
+        </div> <!-- content -->
+
+    </div> <!-- card -->
+
+
+
+</div>
+</div>
