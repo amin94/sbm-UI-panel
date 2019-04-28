@@ -74,9 +74,9 @@ $.ajax({
         // setCookie('sbm_token',null);
         // setCookie('dId',null);
 
-        Cookies.remove('sbm_token', {path: '/sabetmikonimv2'});
-        Cookies.remove('dId', {path: '/sabetmikonimv2'});
-        Cookies.remove('cId', {path: '/sabetmikonimv2'});
+        Cookies.remove('sbm_token', {path: '/'});
+        Cookies.remove('dId', {path: '/'});
+        Cookies.remove('cId', {path: '/'});
 
         // alert(checkCookie('sbm_token'));
 
@@ -110,9 +110,9 @@ $.ajax({
         // setCookie('sbm_token',null);
         // setCookie('dId',null);
 
-        Cookies.remove('sbm_token', {path: '/sabetmikonimv2'});
-        Cookies.remove('dId', {path: '/sabetmikonimv2'});
-        Cookies.remove('cId', {path: '/sabetmikonimv2'});
+        Cookies.remove('sbm_token', {path: '/'});
+        Cookies.remove('dId', {path: '/'});
+        Cookies.remove('cId', {path: '/'});
 
   			swal({
   				title: "خطا!",
@@ -177,7 +177,7 @@ $(document).ready(function() {
 		if (checkCookie('sbm_token') === "cookieNotSet") {
 
 			// setCookie('redirect_url',currentUrl,1);
-      Cookies.set('redirect_url', currentUrl, { expires: 1, path: '/sabetmikonimv2' });
+      Cookies.set('redirect_url', currentUrl, { expires: 1, path: '/' });
 
 			window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/index.php?redirect=true";
 
@@ -186,7 +186,7 @@ $(document).ready(function() {
 		} else {
 
 			// setCookie('redirect_url',currentUrl,1);
-      Cookies.set('redirect_url', currentUrl, { expires: 1, path: '/sabetmikonimv2' });
+      Cookies.set('redirect_url', currentUrl, { expires: 1, path: '/' });
 
 			window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/index.php?redirect=true";
 

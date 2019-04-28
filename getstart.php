@@ -212,7 +212,7 @@ session_start();
   <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
   <!-- <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/light-bootstrap-app.js"></script> -->
 
-<div class="mask"></div>
+<div class="ask"></div>
 
 </body>
 </html>

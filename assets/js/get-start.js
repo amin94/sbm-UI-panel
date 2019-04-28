@@ -451,7 +451,7 @@ function callbackAjaxReq(getData,reqType) {
 
     if ((getData.status === "domainSet") || (getData.status === "domainWasSet")) {
 
-      Cookies.set('dId', getData.dId, { expires: 7, path: '/sabetmikonimv2' });
+      Cookies.set('dId', getData.dId, { expires: 7, path: '/' });
 
       // setCookie('dId',getData.dId,360);
 
@@ -569,7 +569,7 @@ function callbackAjaxReq(getData,reqType) {
 
       createView({contentId: 'subType'},true);
 
-      Cookies.set('cId', getData.cId, { expires: 1, path: '/sabetmikonimv2' });
+      Cookies.set('cId', getData.cId, { expires: 1, path: '/' });
       // setCookie('cId',getData.cId,1);
 
     }
@@ -1120,8 +1120,8 @@ function copyToClipboard(elem) {
 
 $(document).ready(function() {
 
-  Cookies.remove('cId', {path: '/sabetmikonimv2'});
-  Cookies.remove('remember_edit', {path: '/sabetmikonimv2'});
+  Cookies.remove('cId', {path: '/'});
+  Cookies.remove('remember_edit', {path: '/'});
 
 
   var refreshPageStatus = false;

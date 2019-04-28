@@ -5,7 +5,7 @@ require_once("header.php");
 <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/app.js"></script>
 
 
-<div class="sidebar" data-color="amark">
+<div class="sidebar">
 
 
 
@@ -26,26 +26,45 @@ require_once("header.php");
 
         <ul class="nav">
 
-          <li class="hasSubMenu">
-            <a href="http://amins-macbook-pro.local:5757/sabetmikonimv2/settings.php/">
-              <i class="pe-7s-user"></i>
-              <p>
+          <li class="nav-item hasChild">
+              <a class="nav-link" data-toggle="collapse" href="#componentsExamples" aria-expanded="true">
+                <i class="pe-7s-user"></i>
+                <p>
 
-                سلام <span id="headerProfileName"></span>!
+                  سلام <span id="headerProfileName"></span>!
 
-                <b class="caret"></b>
+                  <b class="caret"></b>
 
-              </p>
-            </a>
+                </p>
+              </a>
+              <div class="collapse" id="componentsExamples" style="">
+                  <ul class="subMenu">
 
+                    <li id="profilesMenu">
+                      <a href="javascript:;" onclick="createViewPanel({contentId : 'profile'},true);">
+                        <i class="pe-7s-user"></i>
+                        <p>
 
-            <!-- <ul class="uiList subMenu">
+                          تنظیمات کاربری
 
-                <li> تنظیمات پروفایل </li>
+                        </p>
+                      </a>
+                    </li>
 
-            </ul> -->
+                      <li>
+                        <a href="javascript:;" name="logOutPanel">
+                          <i class="pe-7s-power"></i>
+                          <p>
 
+                            خروج
+
+                          </p>
+                        </a>
+                      </li>
+                  </ul>
+              </div>
           </li>
+
 
 
 
@@ -120,7 +139,7 @@ require_once("header.php");
 
       <ul class="nav listSection">
 
-        <span class="listItemTitle"> حساب کاربری </span>
+        <span class="listItemTitle"> تنظیمات سیستم </span>
         <li id="integrationMenu">
           <a href="javascript:;" onclick="createViewPanel({contentId : 'websiteIntg'},true);">
             <i class="pe-7s-link"></i>
@@ -137,24 +156,12 @@ require_once("header.php");
             <i class="pe-7s-config"></i>
             <p>
 
-              تنظیمات سیستم
+              اطلاعات پکیج
 
             </p>
           </a>
         </li>
 
-
-
-        <li id="profilesMenu">
-          <a href="javascript:;" onclick="createViewPanel({contentId : 'profile'},true);">
-            <i class="pe-7s-user"></i>
-            <p>
-
-              تنظیمات کاربری
-
-            </p>
-          </a>
-        </li>
 
       </ul>
 
@@ -169,22 +176,6 @@ require_once("header.php");
             <p>
 
               راهنمای کار با پنل
-
-            </p>
-          </a>
-        </li>
-
-      </ul>
-
-      <ul class="nav listSection">
-
-
-        <li>
-          <a href="javascript:;" name="logOutPanel">
-            <i class="pe-7s-power"></i>
-            <p>
-
-              خروج
 
             </p>
           </a>

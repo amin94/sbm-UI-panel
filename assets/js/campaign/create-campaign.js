@@ -414,7 +414,7 @@ function callbackAjaxReq(getData,reqType) {
 
       // setCookie('dId',getData.dId,360);
 
-      Cookies.set('dId',getData.dId, { expires: 1, path: '/sabetmikonimv2' });
+      Cookies.set('dId',getData.dId, { expires: 1, path: '/' });
 
       createView({contentId : 'websiteIntg'},true);
 
@@ -532,7 +532,7 @@ function callbackAjaxReq(getData,reqType) {
 
       // setCookie('cId',getData.cId,1);
 
-      Cookies.set('cId',getData.cId, { expires: 1, path: '/sabetmikonimv2' });
+      Cookies.set('cId',getData.cId, { expires: 1, path: '/' });
 
     }
 
@@ -682,6 +682,7 @@ function callbackAjaxReq(getData,reqType) {
       //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/conversion-box-sabetmikonim.svg"
       //   }
       // }
+
 
 
       // check campaignNotifTypes and display them
@@ -888,7 +889,7 @@ function callbackAjaxReq(getData,reqType) {
 
     if (getData.status === "campaignNameSubmitted") {
 
-      Cookies.remove('cId', {path: '/sabetmikonimv2'});
+      Cookies.remove('cId', {path: '/'});
 
       swal({
         title: "تبریک!",
@@ -1095,14 +1096,14 @@ $(document).ready(function() {
 
   if (mode !== "editCampaign") {
 
-    Cookies.remove('cId', {path: '/sabetmikonimv2'});
-    Cookies.remove('remember_edit', {path: '/sabetmikonimv2'});
+    Cookies.remove('cId', {path: '/'});
+    Cookies.remove('remember_edit', {path: '/'});
 
   } else if (mode === "editCampaign") {
 
     $('.campaignHeader h2').text('ویرایش کمپین');
 
-    Cookies.set('remember_edit',"true", { expires: 1, path: '/sabetmikonimv2' });
+    Cookies.set('remember_edit',"true", { expires: 1, path: '/' });
 
   }
 

@@ -292,8 +292,8 @@ $(document).ready(function() {
           // ALL GOOD!
           if (data.status === "loginSuccess") {
 
-            Cookies.set('sbm_token',data.cookie, { expires: 1, path: '/sabetmikonimv2' });
-            Cookies.set('dId',data.lastLoginedDid, { expires: 365, path: '/sabetmikonimv2' });
+            Cookies.set('sbm_token',data.cookie, { expires: 1, path: '/' });
+            Cookies.set('dId',data.lastLoginedDid, { expires: 365, path: '/' });
 
             if (data.getStartStatus=='False') {
 
@@ -564,7 +564,7 @@ $(document).ready(function() {
 
             // setCookie('sbm_token',data.cookie,1);
 
-            Cookies.set('sbm_token',data.cookie, { expires: 1, path: '/sabetmikonimv2' });
+            Cookies.set('sbm_token',data.cookie, { expires: 1, path: '/' });
 
             // check getstart status to redirect user
             var redirectUserUrl

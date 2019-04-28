@@ -17,6 +17,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
           'settings' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/settings-panel.html', 'crumb' : 5},
           'profile' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/profile-panel.html', 'crumb' : 6},
           'campaignDetails' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/campaign-details-panel.html', 'crumb' : 7},
+          'pay' : {'title' : 'خرید پکیج جدید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/pay-panel.html', 'crumb' : 8},
         };
 
             if (checkCookie('sbm_token')==="cookieSet") {
@@ -71,8 +72,8 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                       managePanelMenu('domain');
 
-                      Cookies.remove('dId', {path: '/sabetmikonimv2'});
-                      Cookies.remove('cId', {path: '/sabetmikonimv2'});
+                      Cookies.remove('dId', {path: '/'});
+                      Cookies.remove('cId', {path: '/'});
 
   										break;
 
@@ -173,6 +174,19 @@ var State = History.getState(); // Note: We are using History.getState() instead
                           break;
 
 
+
+
+
+
+
+
+                          case 'pay':
+
+                          managePanelMenu('notDomain');
+
+                            break;
+
+
                   default:
 
                 }
@@ -206,6 +220,7 @@ function createViewPanel(stateObject, pushHistory) {
     'settings' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/settings-panel.html', 'crumb' : 5},
     'profile' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/profile-panel.html', 'crumb' : 6},
     'campaignDetails' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/campaign-details-panel.html', 'crumb' : 7},
+    'pay' : {'title' : 'خرید پکیج جدید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/pay-panel.html', 'crumb' : 8},
 	};
 
     console.log('stateObject: '+stateObject);
@@ -338,8 +353,8 @@ function displayCampaigns(campaignsData) {
 
 function editCampaign(cId) {
 
-  Cookies.set('cId', cId, { expires: 1, path: '/sabetmikonimv2' });
-  Cookies.set('remember_edit',"true", { expires: 1, path: '/sabetmikonimv2' });
+  Cookies.set('cId', cId, { expires: 1, path: '/' });
+  Cookies.set('remember_edit',"true", { expires: 1, path: '/' });
 
   window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/campaign/campaign.php/?page=campaignTypes&mode=editCampaign";
 
@@ -640,7 +655,7 @@ function callbackAjaxReq(getData,reqType) {
 
     if ((getData.status === "domainSet") || (getData.status === "domainWasSet")) {
 
-      Cookies.set('dId', getData.dId, { expires: 7, path: '/sabetmikonimv2' });
+      Cookies.set('dId', getData.dId, { expires: 7, path: '/' });
 
       // setCookie('dId',getData.dId,360);
 
@@ -834,6 +849,23 @@ function callbackAjaxReq(getData,reqType) {
 
     }
 
+  } else if (reqType === "pay") {
+
+    if (getData.status === "packageSubmitted") {
+
+      window.location.href = "http://api.sabetmikonim.com:8004/request/zarinpal?bp-id="+getData.BPId;
+
+    } else {
+
+      swal({
+        title: "خطا!",
+        text: " خطایی رخ داده است! ",
+        icon: "error",
+        button: "تلاش مجدد",
+      });
+
+    }
+
   }
 
 }
@@ -849,7 +881,7 @@ function loginToDomain(dId, domainStatus) {
 
   ajaxReq(getCampaignsData,'http://api.sabetmikonim.com:8004/panel/action/','loginToDomain');
 
-  Cookies.set('dId',dId, { expires: 30, path: '/sabetmikonimv2' });
+  Cookies.set('dId',dId, { expires: 30, path: '/' });
 
   if (domainStatus === "True") {
 
@@ -867,7 +899,7 @@ function loginToDomain(dId, domainStatus) {
 
 function openCampaignDetails(cId) {
 
-  Cookies.set('cId', cId, { expires: 1, path: '/sabetmikonimv2' });
+  Cookies.set('cId', cId, { expires: 1, path: '/' });
 
   createViewPanel({contentId : 'campaignDetails'},true);;
 
@@ -879,7 +911,7 @@ function deleteNotif(notifId) {
 
 	$('.listItem#contact-'+notifId).css({"opacity" : "0.5"});
 
-	var cid = $('#modalOptionBody').attr("data-cid");
+	var cid = getCookie('cId');
 
 	var sbmToken = getCookie('sbm_token');
 
@@ -914,7 +946,7 @@ function multipleDelete() {
 
 function submitMultipleDelete() {
 
-	var cid = $('#modalOptionBody').attr("data-cid");
+	var cid = getCookie('cId');
 
 	var sbmToken = getCookie('sbm_token');
 

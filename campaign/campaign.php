@@ -7,7 +7,7 @@ require("../header.php");
 
 
 
- <div class="sidebar" data-color="amark">
+ <div class="sidebar">
 
 
 
@@ -242,7 +242,7 @@ require("../header.php");
 
   </div> <!-- secondCampaignNav -->
 
-  <div class="content newCampaignBody" style="position: relative; padding-bottom: 100px">
+  <div class="content newCampaignBody newCampaignBodyPanel" style="position: relative; padding-bottom: 100px">
     <div class="container-fluid" id="registerContent">
 
 

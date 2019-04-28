@@ -3,12 +3,15 @@
 <script type="text/javascript">
 
   var captureCardData;
+  var captureCardDataArray = [];
 
   function submitCaptureLinks() {
 
     captureCardData = { 'formLink' : $('input[name=siteInput1]').val(), 'emailField' : $('input[name=emailField1]').val(), 'nameField' : $('input[name=nameField1]').val() };
 
-    var customForm = {'customForm' : captureCardData};
+    captureCardDataArray.push(captureCardData);
+
+    var customForm = {'customForm' : captureCardDataArray};
 
     var sbmToken = getCookie('sbm_token');
 
