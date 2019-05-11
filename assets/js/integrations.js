@@ -151,7 +151,7 @@ $(document).ready(function() {
 
   var checkIntegrations = { 'cookie' : sbmToken, 'dId' : dId };
 
-  ajaxReq(checkIntegrations,'http://api.sabetmikonim.com:8004/panel/check-start-page/','checkIntegrations');
+  ajaxReq(checkIntegrations,'https://api.sabetmikonim.com/panel/check-start-page/','checkIntegrations');
 
 
 

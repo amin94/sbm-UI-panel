@@ -13,7 +13,7 @@
 
           var checkIntegrations = { 'cookie' : sbmToken, 'dId' : getCookie('dId') };
 
-          ajaxReq(checkIntegrations,'http://api.sabetmikonim.com:8004/panel/check-start-page/','checkIntegrations');
+          ajaxReq(checkIntegrations,'https://api.sabetmikonim.com/panel/check-start-page/','checkIntegrations');
 
         } else {
 
@@ -70,7 +70,7 @@
 
       var getEnteredDomainData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'developerEmail' : $('input[name=developerEmail]').val(), 'script' : scriptCode };
 
-      ajaxReq(getEnteredDomainData,'http://api.sabetmikonim.com:8004/panel/mailto-developer/','sendSabetMikonimToDeveloper');
+      ajaxReq(getEnteredDomainData,'https://api.sabetmikonim.com/panel/mailto-developer/','sendSabetMikonimToDeveloper');
 
     });
 

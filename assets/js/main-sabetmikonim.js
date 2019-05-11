@@ -202,7 +202,7 @@ $(document).ready(function() {
 
       var profileData = { 'cookie' : sbmToken };
 
-      ajaxReq(profileData,'http://api.sabetmikonim.com:8004/panel/get-profile/','getHeaderProfileData');
+      ajaxReq(profileData,'https://api.sabetmikonim.com/panel/get-profile/','getHeaderProfileData');
 
     }
 
@@ -219,7 +219,7 @@ $(document).ready(function() {
 
       var logoutData = { 'cookie' : sbmToken };
 
-      ajaxReq(logoutData,'http://api.sabetmikonim.com:8004/panel/logout/','logOut');
+      ajaxReq(logoutData,'https://api.sabetmikonim.com/panel/logout/','logOut');
 
   	});
 

@@ -121,7 +121,7 @@ require_once("header.php");
 
 
       <li class="newCampaignBtn">
-        <a href="http://amins-macbook-pro.local:5757/sabetmikonimv2/campaign/campaign.php" class="btn btn-fill">
+        <a href="http://amins-macbook-pro.local:5757/sabetmikonimv2/campaign/campaign.php?mode=newCampaign" class="btn btn-fill">
           <i class="pe-7s-plus"></i>
           <p>کمپین جدید</p>
         </a>

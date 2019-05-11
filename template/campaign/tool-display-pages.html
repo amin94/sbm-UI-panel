@@ -87,7 +87,7 @@
 
       finalNotifLink = $("input[name=notifLink1]").val();
 
-      var finalSettingsData = { 'finalNotifLink' : finalNotifLink, 'mobDisplay' : displayInMobile, 'topOfMobDisplay' : notifOnTop, 'notifPosition' : notifPosition, 'deskNTime' : notifTimeDesktop, 'mobNTime' : notifTimeMobile, 'deskBetweenNotifTime' : deskBetweenNotifTime, "mobileBetweenNotifTime" : mobileBetweenNotifTime };
+      var finalSettingsData = { 'finalNLink' : finalNotifLink, 'mobDisplay' : displayInMobile, 'topOfMobDisplay' : notifOnTop, 'notifPosition' : notifPosition, 'deskNTime' : notifTimeDesktop, 'mobNTime' : notifTimeMobile, 'deskBetNTime' : deskBetweenNotifTime, "mobBetNTime" : mobileBetweenNotifTime };
 
 
       var campaignSettingsOptions = { 'finalSettings' : finalSettingsData, 'displayPages' : displayLinksData };
@@ -96,7 +96,7 @@
 
       var submitCampaignSettingsData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'), 'operation' : 'submitCampaignSettings', 'campaignSettings' : campaignSettingsOptions };
 
-      ajaxReq(submitCampaignSettingsData,'http://api.sabetmikonim.com:8004/panel/complete-information/','submitCampaignSettings');
+      ajaxReq(submitCampaignSettingsData,'https://api.sabetmikonim.com/panel/complete-information/','submitCampaignSettings');
 
   }
 
@@ -176,6 +176,8 @@
                 <div class="form-group" id="displaySiteInputFormGroup1">
                   <label>
                     لینک صفحه نمایش نوتیفیکشن‌ها
+
+                    <span class="info input sbmInputHelp" data-tippy-content=" لینک صفحه یا صفحاتی را که می‌خواهید نوتیفکیشن‌ها در آن نمایش داده شود را وارد نمایید. توجه داشته باشید با انتخاب گزینه شامل شدن شما می‌توانید کل وبسایت یا بخش اخبارتان را پوشش دهید. یعنی با انتخاب این گزینه و وارد کردن لینک blinkco.net، نوتیفیکیشن‌ها در لینک‌هایی مثل blinkco.net/blog و ... نیز نمایش داده خواهد شد. "> <i class="fas fa-question"></i> </span>
 
                     <div class="siteStatus" style="display:none" id="displayStatus1">
 
@@ -374,7 +376,9 @@
 
                     <div class="col-md-8 noPaddingRight">
 
-                      زمان نمایش نوتیفیکیشن‌ها
+                      زمان نمایش نوتیفیکیشن‌ها در دسکتاپ و تبلت
+
+                      <span class="info input sbmInputHelp" data-tippy-content=" مدت زمانی که کاربران می‌توانند هر نوتیفیکیشن را روی سایت ببینند و بعد از اتمام این زمان، نوتیفیکیشن عوض می‌شود. "> <i class="fas fa-question"></i> </span>
 
                     </div>
 
@@ -405,6 +409,8 @@
 
                       زمان نمایش نوتیفیکیشن‌ها در موبایل
 
+                      <span class="info input sbmInputHelp" data-tippy-content=" مدت زمانی که کاربران می‌توانند هر نوتیفیکیشن را روی سایت ببینند و بعد از اتمام این زمان، نوتیفیکیشن عوض می‌شود. توضیه می‌کنیم مدت زمان نمایش هر نوتیفیکیشن در موبایل کمی بیشتر از دسکتاپ باشد تا تجربه کاربری در موبایل آزاردهنده نشود."> <i class="fas fa-question"></i> </span>
+
                     </div>
 
                     <div class="col-md-4 noPaddingLeft">
@@ -433,7 +439,9 @@
 
                     <div class="col-md-8 noPaddingRight">
 
-                      زمان بین نمایش ۲ نوتیفیکیشن‌
+                      زمان بین نمایش ۲ نوتیفیکیشن‌ در دسکتاپ
+
+                      <span class="info input sbmInputHelp" data-tippy-content=" برای عوض شدن نوتیفیکیشن‌ها روی صفحه، نوتیفیکیشن یکبار به پایین صفحه می‌رود و سپس بالا می‌آید. شما می‌توانید زمان مخفی شدن تا نمایش مجدد هر نوتیفیکیشن را در اینجا وارد نمایید. "> <i class="fas fa-question"></i> </span>
 
                     </div>
 
@@ -442,6 +450,37 @@
                       <div class="inlineField">
 
                         <input type="number" name="deskBetweenNotifTime" value="1" class="form-control">
+
+                        <span style="padding-right: 5px"> ثانیه </span>
+
+                      </div>
+
+                    </div>
+
+                    <div class="clear"></div>
+
+                  </div> <!-- inline option -->
+
+
+
+
+
+
+                  <div class="inlineOption">
+
+                    <div class="col-md-8 noPaddingRight">
+
+                      زمان بین نمایش ۲ نوتیفیکیشن‌ در موبایل
+
+                      <span class="info input sbmInputHelp" data-tippy-content=" برای عوض شدن نوتیفیکیشن‌ها روی صفحه، نوتیفیکیشن یکبار به پایین صفحه می‌رود و سپس بالا می‌آید. شما می‌توانید زمان مخفی شدن تا نمایش مجدد هر نوتیفیکیشن را در اینجا وارد نمایید. "> <i class="fas fa-question"></i> </span>
+
+                    </div>
+
+                    <div class="col-md-4 noPaddingLeft">
+
+                      <div class="inlineField">
+
+                        <input type="number" name="mobileBetweenNotifTime" value="1" class="form-control">
 
                         <span style="padding-right: 5px"> ثانیه </span>
 
@@ -499,6 +538,8 @@
         <label>
 
           لینک نوتیفیکیشن‌
+
+          <span class="info input sbmInputHelp" data-tippy-content=" لینک صفحه‌ای را که می‌خواهید کاربر با کلیک روی هر نوتیفیکیشن وارد آن شود را وارد نمایید. توجه داشته باشید در صورتی که کارت نرخ تبدیل روی کمپین شما فعال باشد، این لینک کار نخواهد کرد و به جای آن با کلیک روی هر نوتیفیکیشن، کارت نرخ تبدیل با تنظیمات شما باز خواهد شد. "> <i class="fas fa-question"></i> </span>
 
           <div class="siteStatus" style="display:none" id="notifLinkStatus1">
 
@@ -597,5 +638,12 @@
 <script>
 
 $(".switchdemo").simpleSwitch();
+
+tippy('.sbmInputHelp', {
+arrow: true,
+arrowType: 'round',
+interactive: true,
+theme: 'sbmToolTip'
+});
 
 </script>

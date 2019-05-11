@@ -119,6 +119,17 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/assets\/img\/campaignType\/conversion-box-sabetmikonim.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 3530,
+		"inputAbbreviatedPath": "\/assets\/img\/campaignType\/conversion-box-sabetmikonim.jpg",
+		"outputAbbreviatedPath": "\/assets\/img\/campaignType\/conversion-box-sabetmikonim.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/assets\/img\/campaignType\/gravityforms_logo_outline.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -181,6 +192,28 @@
 		"initialSize": 84078,
 		"inputAbbreviatedPath": "\/assets\/img\/campaignType\/raIcon1.png",
 		"outputAbbreviatedPath": "\/assets\/img\/campaignType\/raIcon1.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/img\/campaignType\/woocommerce.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 6060,
+		"inputAbbreviatedPath": "\/assets\/img\/campaignType\/woocommerce.jpg",
+		"outputAbbreviatedPath": "\/assets\/img\/campaignType\/woocommerce.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/img\/campaignType\/woocommerce.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 9288,
+		"inputAbbreviatedPath": "\/assets\/img\/campaignType\/woocommerce.png",
+		"outputAbbreviatedPath": "\/assets\/img\/campaignType\/woocommerce.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -592,6 +625,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/assets\/js\/min\/get-start1-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/assets\/js\/min\/get-start1-min.js",
+		"outputAbbreviatedPath": "\/assets\/js\/min\/min\/get-start1-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/assets\/js\/min\/integrations-min.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -785,6 +829,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/assets\/js\/sweetalert.min.js",
 		"outputAbbreviatedPath": "\/assets\/js\/min\/sweetalert.min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/assets\/js\/tippy-min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/assets\/js\/tippy-min.js",
+		"outputAbbreviatedPath": "\/assets\/js\/min\/tippy-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -1286,6 +1341,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/campaign\/update.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/cdn\/fonts\/sabetmikonim-font.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/cdn\/fonts\/sabetmikonim-font.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0

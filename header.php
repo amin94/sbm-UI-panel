@@ -50,7 +50,9 @@
   <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/main-sabetmikonim.js"></script>
 
   <!-- show documents with hover -->
-  <!-- <script src="https://unpkg.com/tippy.js@2.5.4/dist/tippy.all.min.js"></script> -->
+  <!-- <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/tippy-min.js"></script> -->
+  <script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@4"></script>
 
 
   <!-- angular js -->

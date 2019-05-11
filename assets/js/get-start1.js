@@ -108,7 +108,7 @@ $(document).ready(function() {
 
   var checkStartPageData = { 'cookie' : sbmToken };
 
-  ajaxReq(checkStartPageData,'http://api.sabetmikonim.com:8004/panel/check-start-page/','checkStartPage');
+  ajaxReq(checkStartPageData,'https://api.sabetmikonim.com/panel/check-start-page/','checkStartPage');
 
 
 

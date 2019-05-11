@@ -42,7 +42,7 @@
 
       console.log(submitToolSettingsData);
 
-      ajaxReq(submitToolSettingsData,'http://api.sabetmikonim.com:8004/panel/complete-information/','submitToolSettings');
+      ajaxReq(submitToolSettingsData,'https://api.sabetmikonim.com/panel/complete-information/','submitToolSettings');
 
     }
 
@@ -120,161 +120,163 @@
 
 <!-- feature modal -->
 
+<div class="notifSection">
+
+
+
+</div> <!-- notif section -->
+
 <div class="modalOption campaignModal" id="featureModal">
 
-  <div class="modalHeader" id="modalHeaderId">
+  <div class="modalContent">
 
-    <div class="titles section">
+    <div class="modalHeader" id="modalHeaderId">
 
-      <h4> نمایش آخرین فعالیت‌ها </h4>
+      <div class="titles section">
 
-      <p id="featureDesc"> نمایش آخرین افرادی که در یک بازه زمانی مشخص از بازدیدکننده به خریدار تبدیل شده‌اند. </p>
+        <h4> نمایش آخرین فعالیت‌ها </h4>
 
-    </div> <!-- title -->
+        <p id="featureDesc"> نمایش آخرین افرادی که در یک بازه زمانی مشخص از بازدیدکننده به خریدار تبدیل شده‌اند. </p>
 
-
-  </div> <!-- modal header -->
-
-  <div class="notifSection section">
-
-    <div class="sabetmikonimNotifBody">
-
-    </div>
-
-  </div> <!-- notif section -->
+      </div> <!-- title -->
 
 
-  <div class="sectionsBody" id="featureOptionsBody">
+    </div> <!-- modal header -->
+
+
+    <div class="sectionsBody" id="featureOptionsBody">
 
 
 
-  </div> <!-- sections body -->
+    </div> <!-- sections body -->
 
 
 
-  <div class="section" style="padding-bottom: 0">
+    <div class="section" style="padding-bottom: 0">
 
-    <div class="title">
+      <div class="title">
 
-      <h5> قوانین نمایش </h5>
+        <h5> قوانین نمایش </h5>
 
-    </div> <!-- title -->
+      </div> <!-- title -->
 
-    <div class="optionsBody" id="featuresOptionsBody">
+      <div class="optionsBody" id="featuresOptionsBody">
 
-      <!-- <div class="inlineOption flex-inline">
+        <!-- <div class="inlineOption flex-inline">
 
-        <div class="optionTextBody">
+          <div class="optionTextBody">
 
-          <div class="flex-inline-col"> نمایش </div>
-          <div class="flex-inline-col"> <input type="text" name="lastConversions" value=""> </div>
-          <div class="flex-inline-col"> نوتیفیکشن آخر </div>
+            <div class="flex-inline-col"> نمایش </div>
+            <div class="flex-inline-col"> <input type="text" name="lastConversions" value=""> </div>
+            <div class="flex-inline-col"> نوتیفیکشن آخر </div>
 
-        </div>
+          </div>
 
-        <span class="info input" id="lastConversionSelector" data-tippy> <i class="fas fa-question"></i> </span>
+          <span class="info input" id="lastConversionSelector" data-tippy> <i class="fas fa-question"></i> </span>
 
-        <div id="lastConversionHelp" class="disn">
-          <p> با وارد کردن تعداد، آخرین تعداد نوتیفیکیشن‌هایی که تا الان ثبت شده است، نمایش داده خواهد شد. </p>
-        </div>
-
-      </div>
-
-      <div class="inlineOption flex-inline">
-
-        <div class="flex-inline-col"> نمایش تبدیل‌های </div>
-        <div class="flex-inline-col"> <input type="text" name="lastConversionsByDay" value=""> </div>
-        <div class="flex-inline-col"> روز گذشته </div>
-
-        <span class="info input" id="lastConversionDaySelector" data-tippy> <i class="fas fa-question"></i> </span>
-
-        <div id="lastConversionDayHelp" class="disn">
-          <p> با وارد کردن تعداد روز گذشته، تنها نوتیفیکیشن‌هایی که در این چند روز اخیر ثبت شده است، نمایش داده خواهد شد. </p>
-        </div>
-
-      </div>
-
-      <div class="inlineOption flex-inline">
-
-        <div class="flex-inline-col"> نمایش نوتیفیکیشن‌ها تنها در صورتی که حداقل </div>
-        <div class="flex-inline-col"> <input type="text" name="minConversions" value=""> </div>
-        <div class="flex-inline-col"> اعلان ثبت شده باشد. </div>
-
-
-        <span class="info input" id="minDisplaySelector" data-tippy> <i class="fas fa-question"></i> </span>
-
-        <div id="minDisplayHelp" class="disn">
-          <p> تا زمانی که این تعداد نوتیفیکیشن ثبت نشده باشد، هیچ نوتیفکیشنی روی سایت شما نمایش داده نخواهد شد </p>
-        </div>
-
-      </div> -->
-
-
-
-
-      <!-- <div class="inlineOption flex-inline">
-
-        <div class="col-md-8 noPaddingRight">
-
-          نمایش کاربران به صورت «ناشناس» در سایت
+          <div id="lastConversionHelp" class="disn">
+            <p> با وارد کردن تعداد، آخرین تعداد نوتیفیکیشن‌هایی که تا الان ثبت شده است، نمایش داده خواهد شد. </p>
+          </div>
 
         </div>
 
-        <div class="col-md-4 noPaddingLeft">
+        <div class="inlineOption flex-inline">
 
-          <div class="checkBodySwitch" id="anonymousNotifOption">
+          <div class="flex-inline-col"> نمایش تبدیل‌های </div>
+          <div class="flex-inline-col"> <input type="text" name="lastConversionsByDay" value=""> </div>
+          <div class="flex-inline-col"> روز گذشته </div>
 
-            <span style="padding-left: 5px"> غیرفعال </span>
+          <span class="info input" id="lastConversionDaySelector" data-tippy> <i class="fas fa-question"></i> </span>
 
-            <input type="checkbox" class="switchdemo" name="anonymousNotif">
+          <div id="lastConversionDayHelp" class="disn">
+            <p> با وارد کردن تعداد روز گذشته، تنها نوتیفیکیشن‌هایی که در این چند روز اخیر ثبت شده است، نمایش داده خواهد شد. </p>
+          </div>
 
-            <span style="padding-right: 5px"> فعال </span>
+        </div>
+
+        <div class="inlineOption flex-inline">
+
+          <div class="flex-inline-col"> نمایش نوتیفیکیشن‌ها تنها در صورتی که حداقل </div>
+          <div class="flex-inline-col"> <input type="text" name="minConversions" value=""> </div>
+          <div class="flex-inline-col"> اعلان ثبت شده باشد. </div>
+
+
+          <span class="info input" id="minDisplaySelector" data-tippy> <i class="fas fa-question"></i> </span>
+
+          <div id="minDisplayHelp" class="disn">
+            <p> تا زمانی که این تعداد نوتیفیکیشن ثبت نشده باشد، هیچ نوتیفکیشنی روی سایت شما نمایش داده نخواهد شد </p>
+          </div>
+
+        </div> -->
+
+
+
+
+        <!-- <div class="inlineOption flex-inline">
+
+          <div class="col-md-8 noPaddingRight">
+
+            نمایش کاربران به صورت «ناشناس» در سایت
+
+          </div>
+
+          <div class="col-md-4 noPaddingLeft">
+
+            <div class="checkBodySwitch" id="anonymousNotifOption">
+
+              <span style="padding-left: 5px"> غیرفعال </span>
+
+              <input type="checkbox" class="switchdemo" name="anonymousNotif">
+
+              <span style="padding-right: 5px"> فعال </span>
+
+            </div>
 
           </div>
 
         </div>
 
-      </div>
 
 
+        <div class="inlineOption">
 
-      <div class="inlineOption">
+          <div class="col-md-8 noPaddingRight">
 
-        <div class="col-md-8 noPaddingRight">
-
-          لیست نوتیفیکیشن‌ها تکرار شود
-
-        </div>
-
-        <div class="col-md-4 noPaddingLeft">
-
-          <div class="checkBodySwitch" id="raCampaignLoopOption">
-
-            <span style="padding-left: 5px"> غیرفعال </span>
-
-            <input type="checkbox" class="switchdemo" name="raCampaignLoop" checked>
-
-            <span style="padding-right: 5px"> فعال </span>
+            لیست نوتیفیکیشن‌ها تکرار شود
 
           </div>
 
-        </div>
+          <div class="col-md-4 noPaddingLeft">
 
-      </div> -->
+            <div class="checkBodySwitch" id="raCampaignLoopOption">
+
+              <span style="padding-left: 5px"> غیرفعال </span>
+
+              <input type="checkbox" class="switchdemo" name="raCampaignLoop" checked>
+
+              <span style="padding-right: 5px"> فعال </span>
+
+            </div>
+
+          </div>
+
+        </div> -->
 
 
 
-      <div class="clear"></div>
+        <div class="clear"></div>
 
-    </div> <!-- options body -->
+      </div> <!-- options body -->
 
-    <footer class="modalFooter">
+      <footer class="modalFooter">
 
-      <a href="javascript:;" onclick="" id="saveFeatureSettingsBtn" class="btn btn-fill"> ذخیره تنظیمات </a>
+        <a href="javascript:;" onclick="" id="saveFeatureSettingsBtn" class="btn btn-fill"> ذخیره تنظیمات </a>
 
-    </footer>
+      </footer>
 
-  </div> <!-- section -->
+    </div> <!-- section -->
+
+  </div> <!-- modal content -->
 
 
 

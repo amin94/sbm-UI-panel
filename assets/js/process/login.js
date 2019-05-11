@@ -53,7 +53,7 @@ $(document).ready(function() {
 		// process the form
 		$.ajax({
 			type 		: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-			url 		: 'http://api.sabetmikonim.com:8004/accounts/email-accept/', // the url where we want to POST
+			url 		: 'https://api.sabetmikonim.com/accounts/email-accept/', // the url where we want to POST
 			data 		: sendData, // our data object
 			dataType 	: 'json', // what type of data do we expect back from the server
 			encode 		: true,
@@ -154,7 +154,7 @@ $(document).ready(function() {
 		// process the form
 		$.ajax({
 			type 		: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-			url 		: 'http://api.sabetmikonim.com:8004/accounts/check-forget-code/', // the url where we want to POST
+			url 		: 'https://api.sabetmikonim.com/accounts/check-forget-code/', // the url where we want to POST
 			data 		: sendData, // our data object
 			dataType 	: 'json', // what type of data do we expect back from the server
 			encode 		: true,
@@ -265,7 +265,7 @@ $(document).ready(function() {
 			// process the form
 			$.ajax({
 				type 		: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-				url 		: 'http://api.sabetmikonim.com:8004/accounts/login/', // the url where we want to POST
+				url 		: 'https://api.sabetmikonim.com/accounts/login/', // the url where we want to POST
 				data 		: sendData, // our data object
 				dataType 	: 'json', // what type of data do we expect back from the server
 				encode 		: true,
@@ -427,7 +427,7 @@ $(document).ready(function() {
 			// process the form
 			$.ajax({
 				type 		: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-				url 		: 'http://api.sabetmikonim.com:8004/accounts/forget-password/', // the url where we want to POST
+				url 		: 'https://api.sabetmikonim.com/accounts/forget-password/', // the url where we want to POST
 				data 		: sendData, // our data object
 				dataType 	: 'json', // what type of data do we expect back from the server
 				encode 		: true,
@@ -543,7 +543,7 @@ $(document).ready(function() {
 			// process the form
 			$.ajax({
 				type 		: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-				url 		: 'http://api.sabetmikonim.com:8004/accounts/reset-password/', // the url where we want to POST
+				url 		: 'https://api.sabetmikonim.com/accounts/reset-password/', // the url where we want to POST
 				data 		: sendData, // our data object
 				dataType 	: 'json', // what type of data do we expect back from the server
 				encode 		: true,

@@ -39,7 +39,7 @@ function callbackAjaxReq(getData,reqType) {
 
     if (getData.status === "packageSubmitted") {
 
-      window.location.href = "http://api.sabetmikonim.com:8004/request/zarinpal?bp-id="+getData.BPId;
+      window.location.href = "https://api.sabetmikonim.com/request/zarinpal?bp-id="+getData.BPId;
 
     } else {
 
@@ -77,7 +77,7 @@ $(document).ready(function() {
 
       var payData = { 'cookie' : sbmToken, 'packageName' : packageName };
 
-      ajaxReq(payData,'http://api.sabetmikonim.com:8004/panel/order-package/','pay');
+      ajaxReq(payData,'https://api.sabetmikonim.com/panel/order-package/','pay');
 
     } else {
       alert('لطفا یکی از پکیج‌ها را انتخاب نمایید.');

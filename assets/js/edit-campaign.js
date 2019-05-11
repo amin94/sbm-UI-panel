@@ -123,7 +123,7 @@ function removeLink(cardNumber,formNumber) {
 					// process the form
 					$.ajax({
 						type 		: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-						url 		: 'http://api.sabetmikonim.com:8004/panel/check-form-link/', // the url where we want to POST
+						url 		: 'https://api.sabetmikonim.com/panel/check-form-link/', // the url where we want to POST
 						data 		: sendData, // our data object
 						dataType 	: 'json', // what type of data do we expect back from the server
 						encode 		: true
@@ -690,7 +690,7 @@ function campaignSteps(stepId, stepDirection) {
 
 	$.ajax({
 		type    : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-		url     : 'http://api.sabetmikonim.com:8004/panel/new-campaign/', // the url where we want to POST
+		url     : 'https://api.sabetmikonim.com/panel/new-campaign/', // the url where we want to POST
 		data    : sendData, // our data object
 		dataType  : 'json', // what type of data do we expect back from the server
 		async: false,
@@ -1008,7 +1008,7 @@ $(document).ready(function() {
 
 	var getCampaignDetailData = { 'cookie' : sbmToken, 'cId' : cid };
 
-  ajaxReq(getCampaignDetailData,'http://api.sabetmikonim.com:8004/panel/get-campaign-details/','getCampaignData');
+  ajaxReq(getCampaignDetailData,'https://api.sabetmikonim.com/panel/get-campaign-details/','getCampaignData');
 
 
 

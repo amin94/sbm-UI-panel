@@ -89,7 +89,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                     var checkIntegrations = { 'cookie' : sbmToken, 'dId' : getCookie('dId') };
 
-                    ajaxReq(checkIntegrations,'http://api.sabetmikonim.com:8004/panel/check-start-page/','checkIntegrations');
+                    ajaxReq(checkIntegrations,'https://api.sabetmikonim.com/panel/check-start-page/','checkIntegrations');
 
                   } else {
 
@@ -106,7 +106,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
                       if ((checkCookie('dId')==="cookieSet") && (getCookie('dId') !== "null")) {
                         var getEnteredDomainData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'),'pageProgressKey' : 'setDomain' };
 
-                        ajaxReq(getEnteredDomainData,'http://api.sabetmikonim.com:8004/panel/get-progress/','getEnteredDomain');
+                        ajaxReq(getEnteredDomainData,'https://api.sabetmikonim.com/panel/get-progress/','getEnteredDomain');
 
                       }
                       break;
@@ -119,7 +119,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                         var getMainCampaignData = { 'cookie' : sbmToken, 'mode' : 'main', 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
 
-                        ajaxReq(getMainCampaignData,'http://api.sabetmikonim.com:8004/panel/get-campaign-types/','getMainCampaignTypes');
+                        ajaxReq(getMainCampaignData,'https://api.sabetmikonim.com/panel/get-campaign-types/','getMainCampaignTypes');
 
 
                       } else {
@@ -144,7 +144,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                           var getSubCampaignData = { 'cookie' : sbmToken, 'mode' : 'sub', 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
 
-                          ajaxReq(getSubCampaignData,'http://api.sabetmikonim.com:8004/panel/get-campaign-types/','getSubCampaignTypes');
+                          ajaxReq(getSubCampaignData,'https://api.sabetmikonim.com/panel/get-campaign-types/','getSubCampaignTypes');
 
 
                         } else {
@@ -167,7 +167,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                             var getToolDescData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
 
-                            ajaxReq(getToolDescData,'http://api.sabetmikonim.com:8004/panel/get-subtype-template/','getToolDescription');
+                            ajaxReq(getToolDescData,'https://api.sabetmikonim.com/panel/get-subtype-template/','getToolDescription');
 
 
                           } else {
@@ -191,7 +191,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                             var gettoolConnectionSettingsData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
 
-                            ajaxReq(gettoolConnectionSettingsData,'http://api.sabetmikonim.com:8004/panel/get-subtype-template/','gettoolConnectionSettings');
+                            ajaxReq(gettoolConnectionSettingsData,'https://api.sabetmikonim.com/panel/get-subtype-template/','gettoolConnectionSettings');
 
 
                           } else {
@@ -212,7 +212,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
                             if ((checkCookie('dId')==="cookieSet") && (getCookie('dId') !== "null")) {
                               var getConnectionSettingsData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'), 'pageProgressKey' : 'connectionSettings' };
 
-                              ajaxReq(getConnectionSettingsData,'http://api.sabetmikonim.com:8004/panel/get-progress/','getConnectionSettings');
+                              ajaxReq(getConnectionSettingsData,'https://api.sabetmikonim.com/panel/get-progress/','getConnectionSettings');
 
                             } else {
 
@@ -233,7 +233,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                                 var getNotificationTypesData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
 
-                                ajaxReq(getNotificationTypesData,'http://api.sabetmikonim.com:8004/panel/get-subtype-template/','getNotificationTypes');
+                                ajaxReq(getNotificationTypesData,'https://api.sabetmikonim.com/panel/get-subtype-template/','getNotificationTypes');
 
 
                               } else {
@@ -257,7 +257,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                                 var getCampaignSettingsData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
 
-                                ajaxReq(getCampaignSettingsData,'http://api.sabetmikonim.com:8004/panel/get-campaign-settings/','getCampaignSettings');
+                                ajaxReq(getCampaignSettingsData,'https://api.sabetmikonim.com/panel/get-campaign-settings/','getCampaignSettings');
 
 
                               } else {
@@ -281,7 +281,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                                   var getCampaignInfoData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'), 'operation' : 'getCampaignName' };
 
-                                  ajaxReq(getCampaignInfoData,'http://api.sabetmikonim.com:8004/panel/get-campaign-information/','getCampaignInfo');
+                                  ajaxReq(getCampaignInfoData,'https://api.sabetmikonim.com/panel/get-campaign-information/','getCampaignInfo');
 
 
                                 } else {
@@ -1009,7 +1009,7 @@ function addNewDomain() {
 
   var setNewDomainData = { 'cookie' : sbmToken, 'url' : domain, 'operation' : 'setDomain', 'dId' : dId };
 
-  ajaxReq(setNewDomainData,'http://api.sabetmikonim.com:8004/panel/complete-information/','setNewDomain');
+  ajaxReq(setNewDomainData,'https://api.sabetmikonim.com/panel/complete-information/','setNewDomain');
 
 }
 
@@ -1050,7 +1050,7 @@ function checkDomain(domain) {
     var checkDomainData = { 'cookie' : sbmToken, 'formLink' : domain, 'dId' : dId };
 
     delay(function(){
-        ajaxReq(checkDomainData,'http://api.sabetmikonim.com:8004/panel/check-form-link/','checkDomain');
+        ajaxReq(checkDomainData,'https://api.sabetmikonim.com/panel/check-form-link/','checkDomain');
       }, 2000 );
 
   }

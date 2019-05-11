@@ -6,7 +6,7 @@
 
     var getSelectedMainCampaignType = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'typeId' : campaignMainType, 'cId' : getCookie('cId'), 'operation' : 'submitCampaignType' };
 
-    ajaxReq(getSelectedMainCampaignType,'http://api.sabetmikonim.com:8004/panel/complete-information/','selectedMainCampaignType');
+    ajaxReq(getSelectedMainCampaignType,'https://api.sabetmikonim.com/panel/complete-information/','selectedMainCampaignType');
 
   }
 
@@ -16,7 +16,7 @@
 
     var getSelectedSubCampaignType = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'subTypeId' : campaignMainType, 'cId' : getCookie('cId'), 'operation' : 'submitCampaignSubType' };
 
-    ajaxReq(getSelectedSubCampaignType,'http://api.sabetmikonim.com:8004/panel/complete-information/','selectedSubCampaignType');
+    ajaxReq(getSelectedSubCampaignType,'https://api.sabetmikonim.com/panel/complete-information/','selectedSubCampaignType');
 
   }
 

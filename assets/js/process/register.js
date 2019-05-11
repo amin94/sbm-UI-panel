@@ -213,7 +213,7 @@ $(document).ready(function() {
       // process the form
       $.ajax({
         type 		: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-        url 		: 'http://api.sabetmikonim.com:8004/accounts/register/', // the url where we want to POST
+        url 		: 'https://api.sabetmikonim.com/accounts/register/', // the url where we want to POST
         data 		: sendData, // our data object
         dataType 	: 'json', // what type of data do we expect back from the server
         async: true,
@@ -337,7 +337,7 @@ $(document).ready(function() {
 
     $.ajax({
       type 		: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-      url 		: 'http://api.sabetmikonim.com:8004/accounts/resend-email/', // the url where we want to POST
+      url 		: 'https://api.sabetmikonim.com/accounts/resend-email/', // the url where we want to POST
       data 		: sendData, // our data object
       dataType 	: 'json', // what type of data do we expect back from the server
       encode 		: true,

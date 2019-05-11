@@ -35,7 +35,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                   var checkIntegrations = { 'cookie' : sbmToken, 'dId' : getCookie('dId') };
 
-                  ajaxReq(checkIntegrations,'http://api.sabetmikonim.com:8004/panel/check-start-page/','checkIntegrations');
+                  ajaxReq(checkIntegrations,'https://api.sabetmikonim.com/panel/check-start-page/','checkIntegrations');
 
                 } else {
 
@@ -49,7 +49,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
                     if ((checkCookie('dId')==="cookieSet") && (getCookie('dId') !== "null")) {
                       var getEnteredDomainData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'pageProgressKey' : 'setDomain' };
 
-                      ajaxReq(getEnteredDomainData,'http://api.sabetmikonim.com:8004/panel/get-progress/','getEnteredDomain');
+                      ajaxReq(getEnteredDomainData,'https://api.sabetmikonim.com/panel/get-progress/','getEnteredDomain');
 
                     }
                     break;
@@ -261,7 +261,7 @@ function addNewDomain() {
 
   var setNewDomainData = { 'cookie' : sbmToken, 'url' : domain, 'operation' : 'setDomain' };
 
-  ajaxReq(setNewDomainData,'http://api.sabetmikonim.com:8004/panel/complete-information/','setNewDomain');
+  ajaxReq(setNewDomainData,'https://api.sabetmikonim.com/panel/complete-information/','setNewDomain');
 
 }
 
@@ -296,7 +296,7 @@ function checkDomain(domain) {
     var checkDomainData = { 'cookie' : sbmToken, 'formLink' : domain };
 
     delay(function(){
-        ajaxReq(checkDomainData,'http://api.sabetmikonim.com:8004/panel/check-form-link/','checkDomain');
+        ajaxReq(checkDomainData,'https://api.sabetmikonim.com/panel/check-form-link/','checkDomain');
       }, 2000 );
 
   }

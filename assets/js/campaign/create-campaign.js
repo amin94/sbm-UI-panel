@@ -85,7 +85,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                         var getMainCampaignData = { 'cookie' : sbmToken, 'mode' : 'main', 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
 
-                        ajaxReq(getMainCampaignData,'http://api.sabetmikonim.com:8004/panel/get-campaign-types/','getMainCampaignTypes');
+                        ajaxReq(getMainCampaignData,'https://api.sabetmikonim.com/panel/get-campaign-types/','getMainCampaignTypes');
 
 
                       } else {
@@ -107,7 +107,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                           var getSubCampaignData = { 'cookie' : sbmToken, 'mode' : 'sub', 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
 
-                          ajaxReq(getSubCampaignData,'http://api.sabetmikonim.com:8004/panel/get-campaign-types/','getSubCampaignTypes');
+                          ajaxReq(getSubCampaignData,'https://api.sabetmikonim.com/panel/get-campaign-types/','getSubCampaignTypes');
 
 
                         } else {
@@ -128,7 +128,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                             var getToolDescData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
 
-                            ajaxReq(getToolDescData,'http://api.sabetmikonim.com:8004/panel/get-subtype-template/','getToolDescription');
+                            ajaxReq(getToolDescData,'https://api.sabetmikonim.com/panel/get-subtype-template/','getToolDescription');
 
 
                           } else {
@@ -150,7 +150,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                             var gettoolConnectionSettingsData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
 
-                            ajaxReq(gettoolConnectionSettingsData,'http://api.sabetmikonim.com:8004/panel/get-subtype-template/','gettoolConnectionSettings');
+                            ajaxReq(gettoolConnectionSettingsData,'https://api.sabetmikonim.com/panel/get-subtype-template/','gettoolConnectionSettings');
 
 
                           } else {
@@ -169,7 +169,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
                             if ((checkCookie('dId')==="cookieSet") && (getCookie('dId') !== "null")) {
                               var getConnectionSettingsData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'), 'pageProgressKey' : 'connectionSettings' };
 
-                              ajaxReq(getConnectionSettingsData,'http://api.sabetmikonim.com:8004/panel/get-progress/','getConnectionSettings');
+                              ajaxReq(getConnectionSettingsData,'https://api.sabetmikonim.com/panel/get-progress/','getConnectionSettings');
 
                             } else {
 
@@ -188,7 +188,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                                 var getNotificationTypesData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
 
-                                ajaxReq(getNotificationTypesData,'http://api.sabetmikonim.com:8004/panel/get-subtype-template/','getNotificationTypes');
+                                ajaxReq(getNotificationTypesData,'https://api.sabetmikonim.com/panel/get-subtype-template/','getNotificationTypes');
 
 
                               } else {
@@ -210,7 +210,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                                 var getCampaignSettingsData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
 
-                                ajaxReq(getCampaignSettingsData,'http://api.sabetmikonim.com:8004/panel/get-campaign-settings/','getCampaignSettings');
+                                ajaxReq(getCampaignSettingsData,'https://api.sabetmikonim.com/panel/get-campaign-settings/','getCampaignSettings');
 
 
                               } else {
@@ -234,7 +234,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                                   var getCampaignInfoData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'), 'operation' : 'getCampaignName' };
 
-                                  ajaxReq(getCampaignInfoData,'http://api.sabetmikonim.com:8004/panel/get-campaign-information/','getCampaignInfo');
+                                  ajaxReq(getCampaignInfoData,'https://api.sabetmikonim.com/panel/get-campaign-information/','getCampaignInfo');
 
 
                                 } else {
@@ -335,8 +335,8 @@ function checkSwitchData(inputName,parentTag,checkStatus) {
 
 	} else if (checkStatus === "false") {
 
+    $('input[name='+inputName+']').data('switch', false);
 		$('input[name='+inputName+']').prop('checked', false);
-		$('input[name='+inputName+']').data('switch', false);
 
 		$('#'+parentTag+' .simple-switch-outter').addClass('unChecked');
 		$('#'+parentTag+' .simple-switch-outter').removeClass('checked');
@@ -512,7 +512,7 @@ function callbackAjaxReq(getData,reqType) {
 
       for (var i = 0; i < campaignTypes.length; i++) {
 
-        $('#campaignTypesBody').append('<div class="col-xs-12 col-md-4 campaignTypeItem"><input type="radio" name="campaignMainType" onclick="submitMainType(this.value)" id="campaignMainType'+ campaignTypes[i]['id'] +'" value="'+ campaignTypes[i]['id'] +'"><label for="campaignMainType'+ campaignTypes[i]['id'] +'" class="card"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ campaignTypes[i]['image'] +'" alt="'+ campaignTypes[i]['title'] +'"><h4> '+ campaignTypes[i]['title'] +'</h4><p> '+ campaignTypes[i]['description'] +'</p></div></div></label></div>');
+        $('#campaignTypesBody').append('<div class="col-xs-12 col-md-4 campaignTypeItem"><input type="radio" name="campaignMainType" onclick="submitMainType(this.value)" id="campaignMainType'+ campaignTypes[i]['id'] +'" value="'+ campaignTypes[i]['id'] +'"><label for="campaignMainType'+ campaignTypes[i]['id'] +'" class="card"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><div class="notifMainTypeIcon"> <img src="'+ campaignTypes[i]['image'] +'" alt="'+ campaignTypes[i]['title'] +'"> </div><h4> '+ campaignTypes[i]['title'] +'</h4><p> '+ campaignTypes[i]['description'] +'</p></div></div></label></div>');
 
       }
 
@@ -544,7 +544,7 @@ function callbackAjaxReq(getData,reqType) {
 
       for (var i = 0; i < campaignSubTypes.length; i++) {
 
-        $('#campaignTypesBody').append('<div class="col-xs-12 col-md-4 campaignTypeItem"><input type="radio" name="campaignSubType" onclick="submitSubType(this.value)" id="campaignSubType'+ campaignSubTypes[i]['id'] +'" value="'+ campaignSubTypes[i]['id'] +'"><label for="campaignSubType'+ campaignSubTypes[i]['id'] +'" class="card"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ campaignSubTypes[i]['image'] +'" alt="'+ campaignSubTypes[i]['title'] +'"><h4> '+ campaignSubTypes[i]['title'] +'</h4><p> '+ campaignSubTypes[i]['description'] +'</p></div></div></label></div>');
+        $('#campaignTypesBody').append('<div class="col-xs-12 col-md-4 campaignTypeItem"><input type="radio" name="campaignSubType" onclick="submitSubType(this.value)" id="campaignSubType'+ campaignSubTypes[i]['id'] +'" value="'+ campaignSubTypes[i]['id'] +'"><label for="campaignSubType'+ campaignSubTypes[i]['id'] +'" class="card"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><div class="notifMainTypeIcon"> <img src="'+ campaignSubTypes[i]['image'] +'" alt="'+ campaignSubTypes[i]['title'] +'"> </div><h4> '+ campaignSubTypes[i]['title'] +'</h4><p> '+ campaignSubTypes[i]['description'] +'</p></div></div></label></div>');
 
       }
 
@@ -627,7 +627,32 @@ function callbackAjaxReq(getData,reqType) {
 
       $('#toolTitle').html(toolTemplate.connectionSettings.metas.title);
 
+
+      // check progress
+      if (getData.connectionSettingsProgress!=="NOT") {
+
+        window.subTypeId = getData.campaignSubTypeInformation.subTypeId;
+        var apiData = getData['connectionSettingsProgress'][subTypeId][0];
+
+        var checkApiData = {'cookie' : getCookie('sbm_token'), 'cId': getCookie('cId'), 'dId' : getCookie('dId'), 'apiData': apiData, 'operation' : 'checkApi'};
+
+        // add delay to check api because we don't want confilit with other requests and have loading in requesting
+        setTimeout(function(){
+          ajaxReq(checkApiData,'https://api.sabetmikonim.com/panel/api-connection/','checkApiData');
+        },1000);
+
+        window.connectionSettingsProgress = getData.connectionSettingsProgress;
+
+      }
+
+
+      var getEnteredDomainData = { 'cookie' : getCookie('sbm_token'), 'dId' : getCookie('dId'), 'cId' : getCookie('cId'),'pageProgressKey' : 'setDomain' };
+
+      ajaxReq(getEnteredDomainData,'https://api.sabetmikonim.com/panel/get-progress/','getEnteredDomain');
+
       createConnectionForm(toolTemplate.connectionSettings.fields);
+
+      $('#helpDocLink').attr('href',toolTemplate['connectionSettings']['metas']['docUrl']);
 
     }
 
@@ -645,9 +670,9 @@ function callbackAjaxReq(getData,reqType) {
 
       if (getData.pageProgress!== "NOT") {
 
-        $('input[name=siteInput1]').val(getData.pageProgress.customForm.formLink);
-        $('input[name=emailField1]').val(getData.pageProgress.customForm.emailField);
-        $('input[name=nameField1]').val(getData.pageProgress.customForm.nameField);
+        $('input[name=siteInput1]').val(getData['pageProgress']['customForm'][0]['formLink']);
+        $('input[name=emailField1]').val(getData['pageProgress']['customForm'][0]['emailField']);
+        $('input[name=nameField1]').val(getData['pageProgress']['customForm'][0]['nameField']);
         test(1,1,1);
         $('#submitCaptureFieldData').prop('disabled',false);
 
@@ -659,30 +684,6 @@ function callbackAjaxReq(getData,reqType) {
   } else if (reqType === "getNotificationTypes") {
 
     if (getData.status === "campaignSubTypeTemplateGot") {
-
-      // var notifTypesStyle = {
-      //   "recentActivity": {
-      //     "title": "فعالیت‌های اخیر",
-      //     "desc": "نمایش افرادی که از خدمات شما در سایت استفاده کرده‌اند.",
-      //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/raIcon.jpg"
-      //   },
-      //   "hotStreaks": {
-      //     "title": "آمار داغ",
-      //     "desc": "نمایش افرادی که در یک مدت زمان خاص از خدمات شما استفاده کرده‌اند.",
-      //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/hot-streak-sabetmikonim.jpg"
-      //   },
-      //   "liveNotif": {
-      //     "title": "آمار لحظه‌ای",
-      //     "desc": "نمایش لحظه‌ای کاربرانی که صفحه‌ای را مشاهده می‌کنند.",
-      //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/live-option-sabetmikonim.svg"
-      //   },
-      //   "conversionBox": {
-      //     "title": "کارت‌های تبدیل",
-      //     "desc": "تبدیل نرخ بیشتر کاربران به خریدار با نوتیفیکیشن‌های قابل کلیک",
-      //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/conversion-box-sabetmikonim.svg"
-      //   }
-      // }
-
 
 
       // check campaignNotifTypes and display them
@@ -699,7 +700,7 @@ function callbackAjaxReq(getData,reqType) {
 
         var notificationSelectTemp = notificationTemplates[i]['templateData']['formTemplate']['selectTemp'];
 
-        $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" id="'+notificationTemplateId+'" name="notifTypeOption" value="'+ notificationTemplateId +'"><label for="'+notificationTemplateId+'" class="card" id="label'+notificationTemplateId+'"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notificationSelectTemp['icon'] +'" alt=" '+ notificationSelectTemp['title'] +' "><h4> '+ notificationSelectTemp['title'] +'</h4><p> '+ notificationSelectTemp['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTemplateIdFunc +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
+        $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" id="'+notificationTemplateId+'" name="notifTypeOption" value="'+ notificationTemplateId +'"><label for="'+notificationTemplateId+'" class="card" id="label'+notificationTemplateId+'"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><div class="notifTypeIcon"> <img src="'+ notificationSelectTemp['icon'] +'" alt=" '+ notificationSelectTemp['title'] +' "> </div><h4> '+ notificationSelectTemp['title'] +'</h4><p> '+ notificationSelectTemp['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTemplateIdFunc +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
 
 
 
@@ -714,49 +715,9 @@ function callbackAjaxReq(getData,reqType) {
           }
 
           featureData = toolSettingsProgress;
-          console.log(featureData);
 
         }
 
-
-
-
-        // if (notificationTypeId === "recentActivity") {
-        //
-        //   notificationTypeModal = "'raModal'";
-        //
-        //   $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" data-ntempid="'+notificationTemplateId+'" name="notifTypeOption" value="'+ notificationTypeId +'"><label for="raOption" class="card" id="raOptionLabel"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt=" '+ notifTypesStyle[notificationTypeId]['title'] +' "><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTypeModal +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
-        //
-        //
-        //   // add notif style to modal
-        //   $('#raModal .sabetmikonimNotifBody').append(notificationTemplates[i]['templateData']['template']);
-        //
-        //   var notifText = $("#notifDesc").text();
-        //   $('input[name=raMessage]').val(notifText);
-        //
-        //
-        // } else if (notificationTypeId === "hotStreaks") {
-        //
-        //   notificationTypeModal = "'hsModal'";
-        //
-        //   $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" data-ntempid="'+notificationTemplateId+'" name="notifTypeOption" id="hsOption" value="'+ notificationTypeId +'"><label for="hsOption" class="card" id="hsOptionLabel"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt=" '+ notifTypesStyle[notificationTypeId]['title'] +'غ "><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" name="modalLink" onclick="openFeaturesModal('+ notificationTypeModal +')" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
-        //
-        //   // add notif style to modal
-        //   $('#hsModal .sabetmikonimNotifBody').append(notificationTemplates[i]['templateData']['template']);
-        //
-        // } else if (notificationTypeId === "liveNotif") {
-        //
-        //   notificationTypeModal = "'lvModal'";
-        //
-        //   $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" data-ntempid="'+notificationTemplateId+'" name="notifTypeOption" id="lvOption" value="'+ notificationTypeId +'"><label for="lvOption" class="card" id="lvOptionLabel"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt="'+ notifTypesStyle[notificationTypeId]['title'] +'"><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTypeModal +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
-        //
-        // } else if (notificationTypeId === "conversionBox") {
-        //
-        //   notificationTypeModal = "'cbModal'";
-        //
-        //   $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" data-ntempid="'+notificationTemplateId+'" name="notifTypeOption" id="cbOption" value="'+ notificationTypeId +'"><label for="cbOption" class="card"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt=" '+ notifTypesStyle[notificationTypeId]['title'] +' "><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTypeModal +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
-        //
-        // }
 
       }
 
@@ -776,43 +737,6 @@ function callbackAjaxReq(getData,reqType) {
 
       $('#toolLogo').attr('src',toolLogo);
 
-
-
-
-
-
-
-
-
-
-
-
-
-        // if (toolSettingsProgress.recentActivity.status === "true") {
-        //
-        //   $('#raOption').prop('checked',true);
-        //
-        //
-        //
-        // }
-        //
-        // if (toolSettingsProgress.hotStreaks.status === "true") {
-        //
-        //   $('#hsOption').prop('checked',true);
-        //
-        // }
-        //
-        // if (toolSettingsProgress.liveNotif.status === "true") {
-        //
-        //   $('#lvOption').prop('checked',true);
-        //
-        // }
-        //
-        // if (toolSettingsProgress.conversionBox.status === "true") {
-        //
-        //   $('#cbOption').prop('checked',true);
-        //
-        // }
 
 
 
@@ -859,15 +783,16 @@ function callbackAjaxReq(getData,reqType) {
 
       var campaignSettings = getData.progressPage.finalSettings;
 
-      checkSwitchData('mobileDisplay','mobileDisplayOption',campaignSettings['mobileDisplay']);
-			checkSwitchData('topOfMobileDisplay','topOfMobileDisplayOption',campaignSettings['topOfMobileDisplay']);
+      checkSwitchData('mobileDisplay','mobileDisplayOption',campaignSettings['mobDisplay']);
+			checkSwitchData('topOfMobileDisplay','topOfMobileDisplayOption',campaignSettings['topOfMobDisplay']);
 			checkSwitchData('notifPosition','notifPositionOption',campaignSettings['notifPosition']);
 
 
-      $('input[name=deskNotifTime]').val(campaignSettings['desktopNotifTime']);
-      $('input[name=mobileNotifTime]').val(campaignSettings['mobileNotifTime']);
-      $('input[name=deskBetweenNotifTime]').val(campaignSettings['deskBetweenNotifTime']);
-      $('input[name=notifLink1]').val(campaignSettings['finalNotifLink']);
+      $('input[name=deskNotifTime]').val(campaignSettings['deskNTime']);
+      $('input[name=mobileNotifTime]').val(campaignSettings['mobNTime']);
+      $('input[name=deskBetweenNotifTime]').val(campaignSettings['deskBetNTime']);
+      $('input[name=mobileBetweenNotifTime]').val(campaignSettings['mobBetNTime']);
+      $('input[name=notifLink1]').val(campaignSettings['finalNLink']);
 
     }
 
@@ -911,6 +836,53 @@ function callbackAjaxReq(getData,reqType) {
 
     }
 
+  } else if (reqType === "submitApiData") {
+
+    if (getData.status === "connectionSettingsSubmitted") {
+
+      swal({
+        title: "تبریک!",
+        text: "ثابت میکنیم با موفقیت به سایت شما متصل گردید.",
+        icon: "success",
+        button: "بریم مرحله بعد",
+      })
+      .then((isConfirm) => {
+        if (isConfirm) {
+
+         createView({contentId: 'toolSettings'},true);
+
+        }
+      });
+
+
+    } else {
+
+      swal({
+        title: "خطا!",
+        text: " ارتباط با سایت شما برقرار نشد! لطفا اطلاعات اتصال به API سایت‌تان را بررسی بفرمایید. ",
+        icon: "error",
+        button: "تلاش مجدد",
+      });
+
+    }
+
+  } else if (reqType === "checkApiData") {
+
+    if (getData.status === "apiDataChecked") {
+
+      // check main api status
+      if (getData.apiStatus) {
+
+        $('#connectionBody').prepend('<div class="msgBox success"><div class="content" id="helpBoxContent"><p> سایت شما با موفقیت به ثابت میکنیم متصل شده است. </p></div></div>');
+
+      } else {
+
+        $('#connectionBody').prepend('<div class="msgBox error"><div class="content" id="helpBoxContent"><p> متاسفانه ارتباط سایت شما با ثابت میکنیم قطع شده است! لطفا از طریق فرم زیر مجددا سایت‌تان را متصل نمایید. </p></div></div>');
+
+      }
+
+    }
+
   }
 
 }
@@ -920,6 +892,8 @@ function callbackAjaxReq(getData,reqType) {
 
 function createConnectionForm(formData) {
 
+  window.connectionApiFormData = formData;
+
   var mainFormElements = '<form method="post">';
 
   for (var i = 0; i < formData.length; i++) {
@@ -927,7 +901,14 @@ function createConnectionForm(formData) {
 
     if (formData[i]['type'] === "text") {
 
-      mainFormElements = mainFormElements + '<div class="form-group"> <label> '+ formData[i]['placeholder'] +'  </label>  <input type="'+formData[i]['type']+'" class="form-control" id="'+ formData[i]['id'] +'" placeholder=""> </div>';
+      var inputValue = '';
+      if (connectionSettingsProgress!=="") {
+
+        inputValue = connectionSettingsProgress[subTypeId][0][formData[i]['name']];
+
+      }
+
+      mainFormElements = mainFormElements + '<div class="form-group" id="'+formData[i]['name']+'Group"> <label> '+ formData[i]['placeholder'] +'  </label>  <input type="'+formData[i]['type']+'" class="form-control" id="'+ formData[i]['id'] +'" name="'+ formData[i]['name'] +'" value="'+inputValue+'"> </div>';
 
     } else if (formData[i]['type'] === "submit") {
 
@@ -946,6 +927,7 @@ function createConnectionForm(formData) {
   $('#connectionBody').append(mainFormElements);
 
 }
+
 
 
 
@@ -974,7 +956,7 @@ function addNewDomain() {
 
   var setNewDomainData = { 'cookie' : sbmToken, 'url' : domain, 'operation' : 'setDomain', 'dId' : dId };
 
-  ajaxReq(setNewDomainData,'http://api.sabetmikonim.com:8004/panel/complete-information/','setNewDomain');
+  ajaxReq(setNewDomainData,'https://api.sabetmikonim.com/panel/complete-information/','setNewDomain');
 
 }
 
@@ -1015,7 +997,7 @@ function checkDomain(domain) {
     var checkDomainData = { 'cookie' : sbmToken, 'formLink' : domain, 'dId' : dId };
 
     delay(function(){
-        ajaxReq(checkDomainData,'http://api.sabetmikonim.com:8004/panel/check-form-link/','checkDomain');
+        ajaxReq(checkDomainData,'https://api.sabetmikonim.com/panel/check-form-link/','checkDomain');
       }, 2000 );
 
   }
@@ -1094,7 +1076,7 @@ $(document).ready(function() {
 	var page = url.searchParams.get("page");
 	var mode = url.searchParams.get("mode");
 
-  if (mode !== "editCampaign") {
+  if (mode === "newCampaign") {
 
     Cookies.remove('cId', {path: '/'});
     Cookies.remove('remember_edit', {path: '/'});

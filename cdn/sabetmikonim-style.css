@@ -1,17 +1,115 @@
+/* sbmProgressBar ANIM */
+@keyframes sbmProgressBar-countdown {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@-webkit-keyframes sbmProgressBar-countdown {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+
+/* bottom bounce out */
+@-webkit-keyframes bounce-out {
+  0% {
+    -webkit-transform: translateY(-12px);
+  }
+  100% {
+    -webkit-transform: translateY(330px);
+  }
+}
+@keyframes bounce-out {
+  0% {
+    transform: translateY(-12px);
+  }
+  100% {
+    -webkit-transform: translateY(330px);
+  }
+}
+
+@-webkit-keyframes bounce-body {
+  0% {
+    -webkit-transform: scale(1);
+  }
+
+  50% {
+    -webkit-transform: scale(1.2);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+  }
+}
+
+.bounceBody {
+  -webkit-animation-duration: .6s;
+  animation-duration: .6s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: bounce-body;
+  animation-name: bounce-body;
+}
+
+
+a {
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  text-decoration: none;
+}
+
+.disn {
+  display: none !important;
+}
+
+.sabetmikonimMask {
+  position: fixed !important;
+  z-index: -99999999;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* display: none; */
+  opacity: 0;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  transition: all .3s;
+  -moz-transition: all .3s;
+  -webkit-transition: all .3s;
+}
+
+.sabetmikonimMask.open {
+  /* display: block; */
+  z-index: 999999999;
+  opacity: 1;
+}
+
 .sabetmikonimNotifBody span.sabetMikonim {
-    font-family: IRANSans !important;
+    font-family: IRANSans, isans !important;
 }
 
 .sabetmikonimNotifBody span.sabetMikonim a {
-    font-family: IRANSans !important;
+    font-family: IRANSans, isans !important;
 }
 
 .sabetmikonimNotifBody .notifDate {
-    font-family: IRANSans !important;
+    font-family: IRANSans, isans !important;
 }
 
 .notification {
-    font-family: IRANSans !important;
+    font-family: IRANSans, isans !important;
     display: block;
     text-align: right;
     line-height: 25px
@@ -45,57 +143,135 @@
 }
 
 .sabetmikonimNotifBody .notification {
+    display: none;
     position: fixed;
     right: 15px;
     width: 350px;
+    height: 88px;
     direction: rtl;
-    z-index: 99999;
-    bottom: 15px;
+    z-index: 99999999999999999999999;
+    bottom: 0;
+    transform: translateY(250px);
+    -webkit-transform: translateY(250px);
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    box-shadow: 10px 20px 40px 0 rgba(36,35,40,.1);
+    border-radius: 100px;
+    padding: 5px 5px 5px 20px;
+    overflow: hidden;
+    vertical-align: middle;
+    transition: all .3s;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     -o-transition: all .3s
 }
 
+.openN {
+  display: block !important;
+  transform: translateY(0) !important;
+}
+
+.sabetmikonimNotifBody .notification.rightNotif {
+  display: block;
+}
+
 .sabetmikonimNotifBody .notification.leftNotif {
+  display: block;
   left: 15px !important;
   right: auto !important;
 }
 
-.sabetmikonimNotifBody .notif-bottom {
-    bottom: -250px!important
+.sabetmikonimNotifBody .notification:hover {
+  box-shadow: 0 0 0 3px #CCC;
 }
+
+/* bottom bounce */
+@-webkit-keyframes bounce {
+  0% {
+    -webkit-transform: translateY(250);
+  }
+  50% {
+    -webkit-transform: translateY(-25px);
+  }
+  100% {
+    -webkit-transform: translateY(-15px);
+  }
+}
+@keyframes bounce {
+  0% {
+    transform: translateY(250);
+  }
+  50% {
+    transform: translateY(-25px);
+  }
+  100% {
+    transform: translateY(-15px);
+  }
+}
+
+
+.notification.notif-bounce {
+  -webkit-animation-duration: .4s;
+  animation-duration: .4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  /* animation-iteration-count: infinite; */
+  /* -webkit-animation-iteration-count: infinite; */
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+}
+
+
+.notification.notif-bounce-out {
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  /* animation-iteration-count: infinite; */
+  /* -webkit-animation-iteration-count: infinite; */
+  -webkit-animation-name: bounce-out;
+  animation-name: bounce-out;
+}
+
+
 
 .sabetmikonimNotifBody .notifContentBody {
   display: inline-block;
-  width: 235px;
+  /* width: 235px; */
 }
 
 
-.notifKind {
-  background-color: #FFF;
-  border: 1px solid #CCC;
-  border-radius: 100px;
-  padding: 2px 2px 2px 20px;
-  transition: all .3s;
-  -webkit-transition: all .3s;
-  -moz-transition: all .3s;
-  -o-transition: all .3s;
+.sabetmikonimNotifBody .notifMainBody {
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    border-radius: 100px;
+    padding: 2px 2px 2px 20px;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -o-transition: all .3s;
 }
 
-.notifKind:hover {
-    box-shadow: 0 0 0 3px #CCC
+.notification span.notifDesc, .notification .notifName {
+  display: block;
+  text-align: right;
+  line-height: 25px;
 }
 
 .sabetmikonimNotifBody .notifIcon {
     float: right;
-    margin-left: 10px;
+    margin-left: 8px;
     display: inline-block;
 }
 
 .sabetmikonimNotifBody .notifIcon img {
-    width: 73px;
-    height: 73px;
-    border-radius: 100%
+    width: 78px !important;
+    height: 78px !important;
+    border-radius: 100%;
 }
 
 .sabetmikonimNotifBody .notifName {
@@ -125,34 +301,35 @@
   /* border-bottom-left-radius: 5px; */
 }
 
-.sabetmikonimNotifBody .notifDesc {
+.sabetmikonimNotifBody span.notifDesc {
     color: #738c98;
     font-size: 12px;
     font-weight: 300;
-    /* margin-bottom: 5px */
+    margin-bottom: 5px
 }
 
-.sabetmikonimNotifBody .notifDate {
+.sabetmikonimNotifBody span.notifDate {
     color: #738c98;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 300;
     float: right;
     margin-left: 5px;
 }
 
 .sabetmikonimNotifBody span.sabetMikonim {
-    float: left;
+    /* float: left; */
     text-align: left;
     color: #aabcc5;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 300
 }
 
 span.icon {
-  float: right;
+  /* float: right; */
   margin-left: 5px;
-  padding-top: 4px;
+  padding-top: 6px;
   display: inline-grid;
+  width: 12px;
 }
 
 span.icon svg {
@@ -162,7 +339,6 @@ span.icon svg {
 .sabetmikonimNotifBody span.sabetMikonim a {
     color: #08c;
     text-decoration: none;
-    border-bottom: 1px dashed #08c;
     position: relative;
     z-index: 9999;
 }
@@ -177,19 +353,31 @@ span.icon svg {
 
 .hotStreak {
   display: inline-flex;
-  background-color: #FFF;
-  box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.2);
-  /* padding: 2px; */
-  border-radius: 100px;
+  line-height: 2.35;
 }
 
-.notification .hotStreak span.count {
+.notification .hotStreak .count {
+  position: relative;
+  display: inline-block;
   color: #058eee;
-  font-weight: 400;
   line-height: 2.8;
-  font-size: 13px;
+  padding-right: 5px;
+  padding-left: 5px;
   margin-left: 3px;
-  padding: 1px;
+  margin-left: 10px;
+}
+
+.notification .hotStreak .count span {
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.notification .hotStreak .count .counterBg {
+  position: absolute;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
   background-color: rgba(0, 149, 247, 0.1);
 }
@@ -198,6 +386,7 @@ span.icon svg {
   font-weight: 300;
   font-size: 13px;
   color: #058eee;
+  display: inline;
 }
 
 .hotStreak .hotStreakContent {
@@ -227,29 +416,291 @@ span.icon svg {
 
 
 
+
+
+
+
+
+
+
+
+/* conversion box style */
+
+ .conversionBox {
+  display: none;
+  overflow: hidden;
+  font-family: IRANSans, isans !important;
+  background: #fdfdfd;
+  position: fixed;
+  right: 15px;
+  width: 350px;
+  z-index: 99999999999999999999999;
+  height: 310px;
+  bottom: 0;
+  transform: translateY(310px);
+  -webkit-transform: translateY(310px);
+  border-radius: 15px;
+  box-shadow: 0 0 0 2px #CCC;
+  text-align: center;
+  vertical-align: middle;
+  transition: all .3s;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s
+}
+
+.conversionBox.rightNotif {
+  display: flex;
+}
+
+.conversionBox.leftNotif {
+  display: flex;
+  left: 15px !important;
+  right: auto !important;
+}
+
+.conversionBox .conversionBoxContent {
+  /* position: relative; */
+  display: grid;
+  padding: 20px 15px;
+  width: 100%;
+}
+
+.conversionBox.openCB {
+  -webkit-animation-duration: .4s;
+  animation-duration: .4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  /* animation-iteration-count: infinite; */
+  /* -webkit-animation-iteration-count: infinite; */
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+}
+
+.conversionBox.closeCB {
+  -webkit-animation-duration: .4s;
+  animation-duration: .4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  /* animation-iteration-count: infinite; */
+  /* -webkit-animation-iteration-count: infinite; */
+  -webkit-animation-name: bounce-out;
+  animation-name: bounce-out;
+}
+
+.conversionBox .cbIcon img {
+  width: 75px;
+  margin: auto;
+}
+
+.conversionBox .cbDesc {
+  margin: 15px auto;
+  width: 100%;
+}
+
+.conversionBox .cbDesc p {
+  font-size: 18px;
+  color: #5e5d6b;
+  max-height: 110px;
+  overflow: hidden;
+}
+
+.conversionBox .ctaBtn a.sbmCTABTN {
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #377bff;
+  color: #FFF;
+  padding: 5px 10px;
+}
+
+.conversionBox .closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.conversionBox .closeBtn a svg {
+  width: 20px;
+  opacity: 0.3;
+  transition: all .3s;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+}
+
+.conversionBox .closeBtn a:hover svg {
+  opacity: 1;
+}
+
+
+.conversionBox .sbmProgressBar {
+  /* width: 100%; */
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #377bff;
+  height: 5px;
+}
+
+.progressStart {
+  animation: sbmProgressBar-countdown;
+  /* Placeholder, this will be updated using javascript */
+  animation-duration: 40s;
+  /* We stop in the end */
+  animation-iteration-count: 1;
+  /* Stay on pause when the animation is finished finished */
+  animation-fill-mode: forwards;
+  /* We start paused, we start the animation using javascript */
+  animation-play-state: paused;
+  /* We want a linear animation, ease-out is standard */
+  animation-timing-function: linear;
+}
+
+
+
+
 @media screen and (max-width:425px) {
+
+  /* bottom bounce */
+  @-webkit-keyframes bounce {
+    0% {
+      -webkit-transform: translateY(250);
+    }
+    50% {
+      -webkit-transform: translateY(-10px);
+    }
+    100% {
+      -webkit-transform: translateY(0);
+    }
+  }
+  @keyframes bounce {
+    0% {
+      transform: translateY(250);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+
+
     .sabetmikonimNotifBody .notification {
         right: 0;
         left: 0;
         bottom: 0;
         width: 100%;
+        border-radius: 0;
+        padding: 5px;
     }
+
+    .sabetmikonimNotifBody .bottomNotification {
+      display: block;
+      transform: translateY(250px);
+      -webkit-transform: translateY(250px);
+    }
+
     .sabetmikonimNotifBody .topNotification {
+      display: block;
       right: 0;
       left: 0;
       top: 0 !important;
+      transform: translateY(-250px);
+      -webkit-transform: translateY(-250px);
       width: 100%;
       height: 87px;
     }
-    .sabetmikonimNotifBody .notif-bottom.topNotification {
-      top: -250px !important;
+
+    /* top bounce */
+    @-webkit-keyframes top-bounce {
+      0% {
+        -webkit-transform: translateY(-250);
+      }
+      50% {
+        -webkit-transform: translateY(15);
+      }
+      100% {
+        -webkit-transform: translateY(0);
+      }
     }
+    @keyframes top-bounce {
+      0% {
+        transform: translateY(-250);
+      }
+      50% {
+        transform: translateY(15px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .notification.topNotification.notif-bounce {
+        -webkit-animation-duration: .4s;
+      animation-duration: .4s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+      -webkit-animation-timing-function: linear;
+      animation-timing-function: linear;
+      /* animation-iteration-count: infinite; */
+      /* -webkit-animation-iteration-count: infinite; */
+      -webkit-animation-name: top-bounce;
+      animation-name: top-bounce;
+    }
+
+
+
+
+
+    /* top bounce out */
+    @-webkit-keyframes top-bounce-out {
+      0% {
+        -webkit-transform: translateY(15px);
+      }
+      100% {
+        -webkit-transform: translateY(-250px);
+      }
+    }
+    @keyframes top-bounce-out {
+      0% {
+        transform: translateY(15px);
+      }
+      100% {
+        -webkit-transform: translateY(-250px);
+      }
+    }
+
+
+
+    .notification.topNotification.notif-bounce-out {
+      -webkit-animation-duration: .9s;
+      animation-duration: .9s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+      -webkit-animation-timing-function: linear;
+      animation-timing-function: linear;
+      /* animation-iteration-count: infinite; */
+      /* -webkit-animation-iteration-count: infinite; */
+      -webkit-animation-name: top-bounce-out;
+      animation-name: top-bounce-out;
+    }
+
+    /* .sabetmikonimNotifBody .notif-bottom.topNotification {
+      top: -250px !important;
+    } */
     .sabetmikonimNotifBody .mobileDisn {
       display: none;
     }
     .sabetmikonimNotifBody .notifIcon img {
-      width: 75px;
-      height: 75px;
+      width: 78px;
+      height: 78px;
       border-radius: 5px;
     }
     .sabetmikonimNotifBody .notifKind {
@@ -261,14 +712,14 @@ span.icon svg {
       padding: 5px;
     }
     .sabetmikonimNotifBody .notifIcon {
-      margin-left: 15px;
+      margin-left: 8px;
     }
     .sabetmikonimNotifBody span.sabetMikonim {
         margin-left: 10px
     }
 
     .sabetmikonimNotifBody .notifContentBody {
-      width: 310px;
+      /* width: 310px; */
     }
     .notification .hotStreak span.count, .notification .hotStreak span.notifDesc {
       font-size: 16px;

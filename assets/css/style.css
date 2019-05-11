@@ -139,6 +139,10 @@ a.more {
   z-index:999999
 }
 
+.zIndexUp label {
+  color: #FFF !important;
+}
+
 .uiList {
   list-style: none;
   padding-right: 0;
@@ -571,8 +575,6 @@ input:focus {
   font-weight: 200;
   background-size: cover;
   background-position: center center;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
 }
 
 .sidebar .sidebar-wrapper {
@@ -2641,6 +2643,27 @@ span.info.input {
   left: 0;
 }
 
+.tippy-tooltip.sbmToolTip-theme {
+  background-color: #424242;
+  color: #FFF;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.tippy-tooltip.sbmToolTip-theme[data-animatefill] {
+  background-color: #f7f8fb;
+}
+
+.tippy-tooltip.sbmToolTip-theme .tippy-backdrop {
+  background-color: #f7f8fb;
+}
+
+.tippy-tooltip.sbmToolTip-theme .tippy-roundarrow {
+  fill: #424242;
+}
+
 .helpLink {
   color: #FFF;
   border-bottom: 1px dashed #FFF;
@@ -2831,6 +2854,13 @@ span.info.input {
 
 .card-plain .image {
   border-radius: 4px;
+}
+
+.cardFooter {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #ebe9e9;
+  padding: 18px 25px;
 }
 
 .ct-label {
@@ -5260,7 +5290,11 @@ span.irSheba {
   display: none;
 }
 
-.newCampaignBody .card .notifType img {
+.newCampaignBody .card .notifType .notifTypeIcon {
+  height: 90px;
+}
+
+.newCampaignBody .card .notifType .notifMainTypeIcon img {
   width: 70px;
   /* height: 72px; */
 }
@@ -5384,9 +5418,9 @@ span.irSheba {
   -webkit-transition: all .3s;
   -moz-transition: all .3s;
   -o-transition: all .3s;
+  padding-bottom: 85px;
   overflow-y: scroll;
   overflow-x: hidden;
-  padding-bottom: 85px;
 }
 
 .modalOption.campaignModal {
@@ -5462,7 +5496,7 @@ span.irSheba {
 
 .modalOption .section {
   /* border-bottom: 1px solid #e3e4e5; */
-  /*margin-bottom: 50px;*/
+  margin-bottom: auto;
   padding-bottom: 30px;
 }
 
@@ -5481,10 +5515,66 @@ span.irSheba {
 }
 
 .modalOption .notifSection {
-  margin: 1.5em auto;
+  /* margin: 1.5em auto;
   padding: 25px;
-  border-bottom: none;
+  border-bottom: none; */
 }
+
+.modalOption .section input[type="file"] {
+  color: transparent;
+  width: 100%;
+  position: relative;
+  border: none;
+  display: none;
+}
+
+.modalOption .section .fileUpload {
+  width: 100%;
+  text-align: center;
+  color: rgb(143, 143, 143);
+  display: inline-block;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 20px;
+  border-width: 3px;
+  border-style: dashed;
+  border-color: #e3e4e5;
+  border-image: initial;
+  border-radius: 3px;
+  padding: 30px;
+  outline: none;
+  transition: all 0.3s ease 0s;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+}
+
+.modalOption .section .fileUpload:hover, .modalOption .section .fileUpload:focus {
+  border-color: #377bff;
+  color: #377bff;
+}
+
+.modalOption .section .fileUpload .icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+/* .modalOption .section input[type="file"]::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f007";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+} */
 
 .modalOption .section input {
   width: 100%;
@@ -5507,7 +5597,7 @@ span.irSheba {
 }
 
 .modalOption .optionsBody .inlineOption input[type="text"] {
-  width: 50px;
+  width: 100px;
   text-align: center;
   border: 1px solid rgba(0, 0, 0, 0.4);
   margin: auto 10px;
@@ -5633,7 +5723,7 @@ span.irSheba {
   font-weight: 400;
 }
 
-.campaignSteps input[type="text"].ltrInput {
+.ltrInput {
   direction: ltr;
   text-align: left;
 }
@@ -5963,6 +6053,8 @@ select:focus {
 }
 
 .notifPrev .sabetmikonimNotifBody .notification {
+  position: relative;
+  top: auto;
   margin: 90px auto 30px auto;
 }
 
@@ -5971,12 +6063,12 @@ select:focus {
 }
 
 .sabetmikonimNotifBody .notification {
-    position: relative;
-    /* right: 15px; */
+    position: fixed;
+    right: 15px;
     width: 350px;
     direction: rtl;
-    z-index: 99999;
-    bottom: 15px;
+    z-index: 999999999999999;
+    bottom: 95px;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     -o-transition: all .3s
@@ -6097,13 +6189,28 @@ span.icon svg {
   border-radius: 100px;
 }
 
-.notification .hotStreak span.count {
+.notification .hotStreak .count {
+  position: relative;
+  display: inline-block;
   color: #058eee;
-  font-weight: 400;
   line-height: 2.8;
-  font-size: 12px;
+  padding-right: 5px;
+  padding-left: 5px;
   margin-left: 3px;
-  padding: 1px;
+  margin-left: 10px;
+}
+
+.notification .hotStreak .count span {
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.notification .hotStreak .count .counterBg {
+  position: absolute;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
   background-color: rgba(0, 149, 247, 0.1);
 }
@@ -6138,6 +6245,121 @@ span.icon svg {
 }
 
 /* hot streaks */
+
+
+
+/* conversion box style */
+
+ .conversionBox {
+  display: flex;
+  overflow: hidden;
+  font-family: IRANSans, isans !important;
+  background: #fdfdfd;
+  position: fixed;
+  bottom: 95px;
+  right: 15px;
+  width: 350px;
+  z-index: 99999999999999999999999;
+  height: 310px;
+  border-radius: 15px;
+  box-shadow: 0 0 0 2px #CCC;
+  text-align: center;
+  vertical-align: middle;
+  transition: all .3s;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s
+}
+
+.conversionBox.rightNotif {
+  display: flex;
+}
+
+.conversionBox.leftNotif {
+  display: flex;
+  left: 15px !important;
+  right: auto !important;
+}
+
+.conversionBox .conversionBoxContent {
+  /* position: relative; */
+  display: grid;
+  padding: 20px 15px;
+  width: 100%;
+}
+
+.conversionBox.openCB {
+  -webkit-animation-duration: .4s;
+  animation-duration: .4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  /* animation-iteration-count: infinite; */
+  /* -webkit-animation-iteration-count: infinite; */
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+}
+
+.conversionBox.closeCB {
+  -webkit-animation-duration: .4s;
+  animation-duration: .4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  /* animation-iteration-count: infinite; */
+  /* -webkit-animation-iteration-count: infinite; */
+  -webkit-animation-name: bounce-out;
+  animation-name: bounce-out;
+}
+
+.conversionBox .cbIcon img {
+  width: 75px;
+  margin: auto;
+}
+
+.conversionBox .cbDesc {
+  margin: 15px auto;
+  width: 100%;
+}
+
+.conversionBox .cbDesc p {
+  font-size: 18px;
+  color: #5e5d6b;
+  max-height: 110px;
+  overflow: hidden;
+}
+
+.conversionBox .ctaBtn a.sbmCTABTN {
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #377bff;
+  color: #FFF;
+  padding: 5px 10px;
+  word-break: break-all;
+}
+
+.conversionBox .closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.conversionBox .closeBtn a svg {
+  width: 20px;
+  opacity: 0.3;
+  transition: all .3s;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+}
+
+.conversionBox .closeBtn a:hover svg {
+  opacity: 1;
+}
+/* conversion box */
+
 /*notif style*/
 /* integrations page */
 .intgContent .intgHeader {
@@ -6599,6 +6821,47 @@ span.icon svg {
   font-weight: 400;
 }
 
+
+
+
+/* msg box */
+.msgBox {
+  position: relative;
+  box-shadow: 0 1px 3px 0 rgba(36,35,40,.2), 0 4px 6px 0 #d8d9e2;
+  border-radius: 5px;
+  padding: 5px;
+  overflow: hidden;
+  background-color: #357DFD;
+  color: #FFF;
+  margin-bottom: 30px;
+}
+
+.msgBox.success {
+  background-color: #4caf50;
+}
+
+.msgBox.error {
+  background-color: #C00;
+}
+
+.msgBox.helpError {
+  background-color: #C00;
+}
+
+.msgBox .icon {
+  position: absolute;
+  bottom: -15px;
+  left: -20px;
+  font-size: 87px;
+  color: #FFF;
+  opacity: 0.7;
+}
+
+.msgBox p {
+  margin: auto;
+  line-height: 2;
+  font-weight: 400;
+}
 
 
 

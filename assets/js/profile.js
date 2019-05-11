@@ -124,7 +124,7 @@ $(document).ready(function() {
 
   var profileData = { 'cookie' : sbmToken };
 
-  ajaxReq(profileData,'http://api.sabetmikonim.com:8004/panel/get-profile/','getProfileData');
+  ajaxReq(profileData,'https://api.sabetmikonim.com/panel/get-profile/','getProfileData');
 
 
 
@@ -165,7 +165,7 @@ $(document).ready(function() {
 
       var updateProfileData = { 'cookie' : sbmToken, 'userName' : userName, 'userMobile' : userMobile };
 
-      ajaxReq(updateProfileData,'http://api.sabetmikonim.com:8004/panel/update-profile/','updateProfileData');
+      ajaxReq(updateProfileData,'https://api.sabetmikonim.com/panel/update-profile/','updateProfileData');
 
     }
 
@@ -236,7 +236,7 @@ $(document).ready(function() {
 
       var updatePassword = { 'cookie' : sbmToken, 'currentPassword' : oldPass, 'newPassword' : newPass };
 
-      ajaxReq(updatePassword,'http://api.sabetmikonim.com:8004/panel/change-password/','updatePassword');
+      ajaxReq(updatePassword,'https://api.sabetmikonim.com/panel/change-password/','updatePassword');
 
     }
 
@@ -260,7 +260,7 @@ $(document).ready(function() {
     };
 
 
-    ajaxReq(resendActiveData,'http://api.sabetmikonim.com:8004/accounts/resend-email/','resendActiveEmail');
+    ajaxReq(resendActiveData,'https://api.sabetmikonim.com/accounts/resend-email/','resendActiveEmail');
 
 
   });

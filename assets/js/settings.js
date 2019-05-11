@@ -78,7 +78,7 @@ $(document).ready(function() {
 
   var settingsData = { 'cookie' : sbmToken };
 
-  ajaxReq(settingsData,'http://api.sabetmikonim.com:8004/panel/settings/','settings');
+  ajaxReq(settingsData,'https://api.sabetmikonim.com/panel/settings/','settings');
 
 
 

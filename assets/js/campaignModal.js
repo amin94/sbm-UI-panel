@@ -24,6 +24,7 @@ var eachFeaturesData = {};
 var finalFeaturesData = {};
 function saveFeatureSettings(notificationTemplateId) {
 
+	$('.notifSection').html('');
 
 	for (var i = 0; i < notifFormTemplate.length; i++) {
 
@@ -83,7 +84,7 @@ function saveFeatureSettings(notificationTemplateId) {
 
 
 
-				featureData = eachFeaturesData;
+				featureData[notificationTemplateId] = eachFeaturesData[notificationTemplateId];
 				console.log(featureData);
 
 
@@ -105,7 +106,13 @@ function saveFeatureSettings(notificationTemplateId) {
 
 
 // open deactive fetaures Dialog
+var toolSettingsHistory = false;
 function openFeaturesModal(notificationTemplateId) {
+
+	// check edit or setupped tools settings
+	if (typeof featureData[notificationTemplateId]!=="undefined") {
+		toolSettingsHistory = true;
+	}
 
 	$('#featureModal').attr('data-templateId',notificationTemplateId);
 	$('#saveFeatureSettingsBtn').attr('onclick',"saveFeatureSettings('"+ notificationTemplateId +"')");
@@ -116,10 +123,12 @@ function openFeaturesModal(notificationTemplateId) {
 
 	for (var i = 0; i < notifFormTemplate.length; i++) {
 
+
+		// detect which notif selected
 		if (notificationTemplateId === notifFormTemplate[i]['notificationTemplateId']) {
 
 			// add notif demo to modal
-			$('#featureModal .sabetmikonimNotifBody').html(notifFormTemplate[i]['templateData']['template']);
+			$('.notifSection').html(notifFormTemplate[i]['templateData']['template']);
 
 			var notificationSelectTemp = notifFormTemplate[i]['templateData']['formTemplate']['selectTemp'];
 			// add titles to modal
@@ -135,7 +144,36 @@ function openFeaturesModal(notificationTemplateId) {
 
 				if (formTemps[j]['fieldBodyType'] === "section") {
 
-					$('#featureOptionsBody').append('<div class="section"><div class="title"><h5> '+ formTemps[j]['fieldBodyTitle'] +' <span class="info input" id="recentActivityMSG" data-tippy> <i class="fas fa-question"></i> </span><div id="recentActivityMSGHelp" class="disn"><p> این پیام مستقیما در نوتیفیکیشن‌های روی سایت شما مشابه نمونه بالای این صفحه نمایش داده می‌شود.</p></div></h5></div><div class="container"><input type="'+ formTemps[j]['fieldType'] +'" name="'+ formTemps[j]['fieldName'] +'" value="'+ formTemps[j]['fieldValue'] +'" '+ formTemps[j]['fieldFuncs'] +'></div></div>');
+
+					var panelHelp = '';
+					if ((formTemps[j]['inputHelp'] !=='') && (typeof formTemps[j]['inputHelp'] !=='undefined')) {
+
+						panelHelp = '<span class="info tippyInput input" id="'+ formTemps[j]['fieldName'] +'Help" data-tippy-content="'+formTemps[j]['inputHelp']+'" > <i class="fas fa-question"></i> </span>'
+
+					}
+
+
+
+					if (formTemps[j]['fieldType'] === "text") {
+
+						$('#featureOptionsBody').append('<div class="section"><div class="title"><h5> '+ formTemps[j]['fieldBodyTitle'] +' '+ panelHelp +'</h5></div><div class="container"><input type="'+ formTemps[j]['fieldType'] +'" name="'+ formTemps[j]['fieldName'] +'" value="'+ formTemps[j]['fieldValue'] +'" '+ formTemps[j]['fieldFuncs'] +'></div></div>');
+
+						// replace filled data by user in fields automaticaly
+						if ((toolSettingsHistory) && (featureData[notificationTemplateId][formTemps[j]['fieldName']]!=="")) {
+
+								$('input[name='+formTemps[j]['fieldName']+']').val(featureData[notificationTemplateId][formTemps[j]['fieldName']]);
+
+						}
+
+					} else if (formTemps[j]['fieldType'] === "file") {
+
+						$('#featureOptionsBody').append('<div class="section"><div class="title"><h5> '+ formTemps[j]['fieldBodyTitle'] +' '+ panelHelp +' </h5></div><div class="container"> <label class="fileUpload"> <input type="'+ formTemps[j]['fieldType'] +'" name="'+ formTemps[j]['fieldName'] +'" value="'+ formTemps[j]['fieldValue'] +'" '+ formTemps[j]['fieldFuncs'] +'> <div class="icon"> <i class="fa fa-plus-circle"></i> </div> <div> فایل مورد نظر را انتخاب نمایید </div> </label></div></div>');
+
+					} else if (formTemps[j]['fieldType'] === "siteInput") {
+
+							$('#featureOptionsBody').append('<div class="section"><div class="title"><h5> '+ formTemps[j]['fieldBodyTitle'] +' <span class="info input" id="recentActivityMSG" data-tippy> <i class="fas fa-question"></i> </span><div id="recentActivityMSGHelp" class="disn"><p> این پیام مستقیما در نوتیفیکیشن‌های روی سایت شما مشابه نمونه بالای این صفحه نمایش داده می‌شود.</p></div></h5></div><div class="container"><input type="'+ formTemps[j]['fieldType'] +'" class="ltrInput" onclick="inPanelLinkVerify(this.value)" name="'+ formTemps[j]['fieldName'] +'" value="'+ formTemps[j]['fieldValue'] +'" '+ formTemps[j]['fieldFuncs'] +'></div></div>');
+
+					}
 
 				} else if (formTemps[j]['fieldBodyType'] === "option") {
 
@@ -146,12 +184,21 @@ function openFeaturesModal(notificationTemplateId) {
 					var inputHTML = formTemps[j]['fieldHTMLText'];
 					for (var k = 0; k < fieldCount; k++) {
 
-						// textBoxes and other inputs
-						if (eachFormTempField[k]['fieldType'] !== "iphoneCheckbox") {
-
+						// display all inputs
 							if (eachFormTempField[k]['fieldType'] === "text") {
 
-								var inputOption = '<input type="'+ eachFormTempField[k]['fieldType'] +'" name="'+ eachFormTempField[k]['fieldName'] +'" value="'+ eachFormTempField[k]['fieldValue'] +'" '+ eachFormTempField[k]['fieldFuncs'] +'>';
+
+								// replace filled data by user in fields automaticaly
+								if ((toolSettingsHistory) && (featureData[notificationTemplateId][eachFormTempField[k]['fieldName']]!=="")) {
+
+									var inputOption = '<input type="'+ eachFormTempField[k]['fieldType'] +'" name="'+ eachFormTempField[k]['fieldName'] +'" value="'+ featureData[notificationTemplateId][eachFormTempField[k]['fieldName']] +'" '+ eachFormTempField[k]['fieldFuncs'] +'>';
+
+								} else {
+
+									var inputOption = '<input type="'+ eachFormTempField[k]['fieldType'] +'" name="'+ eachFormTempField[k]['fieldName'] +'" value="'+ eachFormTempField[k]['fieldValue'] +'" '+ eachFormTempField[k]['fieldFuncs'] +'>';
+
+								}
+
 
 							} else if (eachFormTempField[k]['fieldType'] === "select") {
 
@@ -160,7 +207,27 @@ function openFeaturesModal(notificationTemplateId) {
 								var optionItem = eachFormTempField[k]['option'];
 								for (var s = 0; s < optionItem.length; s++) {
 
-									options = options + ' <option value="'+ optionItem[s]['value'] +'"> '+ optionItem[s]['text'] +' </option> ';
+
+									// replace filled data by user in fields automaticaly
+									if ((toolSettingsHistory) && (featureData[notificationTemplateId][eachFormTempField[k]['fieldName']]!=="")) {
+
+										if (featureData[notificationTemplateId][eachFormTempField[k]['fieldName']] === optionItem[s]['value']) {
+
+											options = options + ' <option value="'+ optionItem[s]['value'] +'" selected> '+ optionItem[s]['text'] +' </option> ';
+
+										} else {
+
+											options = options + ' <option value="'+ optionItem[s]['value'] +'"> '+ optionItem[s]['text'] +' </option> ';
+
+										}
+
+									} else {
+
+										options = options + ' <option value="'+ optionItem[s]['value'] +'"> '+ optionItem[s]['text'] +' </option> ';
+
+									}
+
+
 
 								}
 
@@ -174,11 +241,31 @@ function openFeaturesModal(notificationTemplateId) {
 								var checkedRadio;
 								for (var s = 0; s < radioItem.length; s++) {
 
-									if (s===0) {
-										checkedRadio = 'checked';
+
+									// replace filled data by user in fields automaticaly
+									if ((toolSettingsHistory) && (featureData[notificationTemplateId][eachFormTempField[k]['fieldName']]!=="")) {
+
+										if (radioItem[s]['value'] === featureData[notificationTemplateId][eachFormTempField[k]['fieldName']]) {
+
+											checkedRadio = 'checked';
+
+										} else {
+
+											checkedRadio = '';
+
+										}
+
 									} else {
-										checkedRadio = '';
+
+										if (s===0) {
+											checkedRadio = 'checked';
+										} else {
+											checkedRadio = '';
+										}
+
 									}
+
+
 
 									radios = radios + ' <input type="radio" name="'+ eachFormTempField[k]['fieldName'] +'" id="'+ radioItem[s]['id'] +'" value="'+ radioItem[s]['value'] +'" '+ checkedRadio +' '+radioItem[s]['fieldFuncs']+'> <label for="'+ radioItem[s]['id'] +'" class="radioInput"> '+ radioItem[s]['text'] +' </label> ';
 
@@ -186,30 +273,74 @@ function openFeaturesModal(notificationTemplateId) {
 
 								var inputOption = radios;
 
+							} else if (eachFormTempField[k]['fieldType'] === "iphoneCheckbox") {
+
+
+								var checkboxStatus;
+
+								// replace filled data by user in fields automaticaly
+								if ((toolSettingsHistory) &&(featureData[notificationTemplateId][eachFormTempField[k]['fieldName']]!=="")) {
+
+									if (featureData[notificationTemplateId][eachFormTempField[k]['fieldName']] === "true") {
+										checkboxStatus = 'checked';
+									} else {
+										checkboxStatus = '';
+									}
+
+								} else {
+
+									if (eachFormTempField[k]['fieldValue'] === "active") {
+										checkboxStatus = 'checked';
+									} else {
+										checkboxStatus = '';
+									}
+
+								}
+
+
+
+								var inputOption = "<input type='checkbox' class='switchdemo' name='"+ eachFormTempField[k]['fieldName'] +"' value='"+ eachFormTempField[k]['fieldValue'] +"' "+ eachFormTempField[k]['fieldFuncs'] +" "+checkboxStatus+">";
+
+								checkBoxCheck = true;
+
 							}
 
+
+
+
+
+							// get Help Contents for inputs in panel
+							var panelHelp = '';
+							if ((eachFormTempField[k]['inputHelp'] !=='') && (typeof eachFormTempField[k]['inputHelp'] !=='undefined')) {
+
+								panelHelp = '<span class="info tippyInput input" id="'+ eachFormTempField[k]['fieldName'] +'Help" data-tippy-content="'+ eachFormTempField[k]['inputHelp'] +'" > <i class="fas fa-question"></i> </span>'
+
+							}
 
 
 
 							// replace in main HTML
 							inputHTML = inputHTML.replace('{{input'+ k +'}}', inputOption);
 
-						} else if (eachFormTempField[k]['fieldType'] === "iphoneCheckbox") {
-
-							checkBoxCheck = true;
-
-						}
-
 
 					}
 
 
 
-					$('#featuresOptionsBody').append('<div class="inlineOption flex-inline"> '+ inputHTML +' <span class="info input" id="lastConversionSelector" data-tippy> <i class="fas fa-question"></i> </span><div id="lastConversionHelp" class="disn"><p> با وارد کردن تعداد، آخرین تعداد نوتیفیکیشن‌هایی که تا الان ثبت شده است، نمایش داده خواهد شد.</p></div></div>');
+					$('#featuresOptionsBody').append('<div class="inlineOption flex-inline"> '+ inputHTML +' '+ panelHelp +'</div>');
 
+					tippy('.tippyInput', {
+					arrow: true,
+					arrowType: 'round',
+					interactive: true,
+					theme: 'sbmToolTip'
+				});
 
 
 				}
+
+
+
 
 			}
 
@@ -393,7 +524,7 @@ function removeLink(cardNumber,formNumber) {
 					// process the form
 					$.ajax({
 						type 		: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-						url 		: 'http://api.sabetmikonim.com:8004/panel/check-form-link/', // the url where we want to POST
+						url 		: 'https://api.sabetmikonim.com/panel/check-form-link/', // the url where we want to POST
 						data 		: sendData, // our data object
 						dataType 	: 'json', // what type of data do we expect back from the server
 						encode 		: true
@@ -469,6 +600,14 @@ function removeLink(cardNumber,formNumber) {
 					if (boxId === 1) {
 						var realTextBoxId = "#notifDesc";
 					}
+				} else if (optionNumber === 3) {
+
+					if (boxId === 1) {
+						var realTextBoxId = "#cbDesc p";
+					} else if (boxId === 2) {
+						var realTextBoxId = "#sbmCTABTN span";
+					}
+
 				}
 
 				$(realTextBoxId).text(notifText);
@@ -949,7 +1088,7 @@ function campaignSteps(stepId, stepDirection) {
 
 	$.ajax({
 		type    : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-		url     : 'http://api.sabetmikonim.com:8004/panel/new-campaign/', // the url where we want to POST
+		url     : 'https://api.sabetmikonim.com/panel/new-campaign/', // the url where we want to POST
 		data    : sendData, // our data object
 		dataType  : 'json', // what type of data do we expect back from the server
 		async: true,

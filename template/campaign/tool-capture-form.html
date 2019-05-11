@@ -17,7 +17,7 @@
 
     var submitCaptureDatas = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'), 'connectionSettings' : customForm, 'operation' : 'submitConnectionSettings' };
 
-    ajaxReq(submitCaptureDatas,'http://api.sabetmikonim.com:8004/panel/complete-information/','submitCaptureDatas');
+    ajaxReq(submitCaptureDatas,'https://api.sabetmikonim.com/panel/complete-information/','submitCaptureDatas');
 
   }
 
@@ -45,7 +45,10 @@
 
       <div class="header notifPrev">
 
-        <h4 class="title"> لینک صفحه وبسایت‌تان را وارد نمایید </h4>
+        <h4 class="title">
+           لینک صفحه وبسایت‌تان را وارد نمایید
+
+        </h4>
 
 
         <div class="clear"></div>
@@ -68,6 +71,8 @@
                       <div class="form-group" id="siteInputFormGroup1" style="margin-bottom: 45px">
                         <label>
                            لینک صفحه حاوی فرم
+
+                           <span class="info input sbmInputHelp" id="campaignNameIdSelector" data-tippy-content=" لینک صفحه‌ای که فرم مورد نظر شما در آن هست را وارد نمایید. "> <i class="fas fa-question"></i> </span>
 
                            <div class="siteStatus" style="display:none" id="status1">
 
@@ -160,7 +165,7 @@
 
       <div class="header notifPrev">
 
-        <h4 class="title"> فیلدهای نام و ایمیل را مشخص نمایید! </h4>
+        <h4 class="title"> فیلدهای نام و ایمیل را مشخص نمایید </h4>
 
 
         <button id="submitCaptureFieldData" onclick="submitCaptureLinks()" class="nextBtn btn btn-success btn-fill pullLeft" disabled> ثبت و ادامه </button>
@@ -188,11 +193,7 @@
 
                          آیدی فیلد ایمیل
 
-                           <span class="info input" id="campaignEmailIdSelector" data-tippy> <i class="fas fa-question"></i> </span>
-
-                           <div id="campaignEmailIdHelp" class="disn">
-                             <p> <a href="#" class="helpLink"> لینک آموزش پیدا کردن آیدی فیلد  </a> </p>
-                           </div>
+                           <span class="info input sbmInputHelp" data-tippy-content="در قسمت زیر شما می‌توانید صفحه مورد نظر از سایت‌تان را مشاهده بفرمایید. سپس فرمی را که می‌خواهید اطلاعات آن توسط ثابت میکنیم جمع آوری شود را پیدا نموده و بر روی فیلد ایمیل کلیک نمایید و آن را مشخص کنید." id="campaignEmailIdSelector"> <i class="fas fa-question"></i> </span>
 
                       </label>
 
@@ -209,11 +210,7 @@
 
                          آیدی فیلد نام (و نام خانوادگی)
 
-                           <span class="info input" id="campaignNameIdSelector" data-tippy> <i class="fas fa-question"></i> </span>
-
-                           <div id="campaignNameIdHelp" class="disn">
-                             <p> <a href="#" class="helpLink"> لینک آموزش پیدا کردن آیدی فیلد  </a> </p>
-                           </div>
+                           <span class="info input sbmInputHelp" id="campaignNameIdSelector" data-tippy-content="در قسمت زیر شما می‌توانید صفحه مورد نظر از سایت‌تان را مشاهده بفرمایید. سپس فرمی را که می‌خواهید اطلاعات آن توسط ثابت میکنیم جمع آوری شود را پیدا نموده و بر روی فیلد نام، نام خانوادگی و یا نام و نام خانوادگی کلیک نمایید و آن را مشخص کنید."> <i class="fas fa-question"></i> </span>
 
                         </label>
 
@@ -290,3 +287,15 @@
 
 <div class="mask"></div>
 <div class="formsMask"></div>
+
+
+<script type="text/javascript">
+
+  tippy('.sbmInputHelp', {
+  arrow: true,
+  arrowType: 'round',
+  interactive: true,
+  theme: 'sbmToolTip'
+});
+
+</script>
