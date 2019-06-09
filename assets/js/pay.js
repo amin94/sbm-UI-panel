@@ -58,6 +58,65 @@ function callbackAjaxReq(getData,reqType) {
 
 
 
+String.prototype.toFaDigit = function() {
+    return this.replace(/\d+/g, function(digit) {
+        var ret = '';
+        for (var i = 0, len = digit.length; i < len; i++) {
+            ret += String.fromCharCode(digit.charCodeAt(i) + 1728);
+        }
+
+        return ret;
+    });
+};
+
+
+
+function changeTab(tab,period) {
+  var parent = '';
+  if (period === "M") {
+    parent = '#monthPackages';
+  } else if (period === "Y") {
+    parent = '#yearPackages';
+  }
+
+  $(parent+' .tabItem').removeClass('tabCurrent');
+  $(parent+' .packageTabItem').fadeOut('fast');
+
+  setTimeout(function(){
+    $(parent+' #'+tab+'.packageTabItem').fadeIn('fast');
+  }, 200);
+
+  $(parent+' #tab'+tab).addClass('tabCurrent');
+
+}
+
+
+function changePeriod(period) {
+
+  $('#periodTabs .tabItem').removeClass('tabCurrent');
+  $('.packagePeriodContent').fadeOut('fast');
+
+  if (period === "M") {
+
+    setTimeout(function(){
+      $('#monthPackages').fadeIn('fast');
+    }, 200);
+
+    $('#periodM').addClass('tabCurrent');
+
+  } else if (period === "Y") {
+
+    setTimeout(function(){
+      $('#yearPackages').fadeIn('fast');
+    }, 200);
+
+    $('#periodY').addClass('tabCurrent');
+
+  }
+
+}
+
+
 
 $(document).ready(function() {
 

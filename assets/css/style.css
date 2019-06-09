@@ -759,6 +759,7 @@ input:focus {
 
 .sidebar .logo,
 body>.navbar-collapse .logo {
+  background-color: #FFF;
   padding: 20px 15px 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -4728,7 +4729,7 @@ label {
 }
 
 .priceListBody input[type="radio"]:checked+label {
-  box-shadow: 0 1px 40px #ED8D00;
+  box-shadow: 0 1px 40px 5px rgba(102, 130, 188, 0.5);
 }
 
 .priceListBody input[type="radio"]:checked+label .btn {
@@ -5211,7 +5212,7 @@ span.irSheba {
 }
 
 .newCampaignBodyPanel .card .toolCardsSettingsBody label {
-  height: 100%;
+  height: 300px;
   position: relative;
 }
 
@@ -5276,6 +5277,11 @@ span.irSheba {
   position: relative;
 }
 
+.newCampaignBody .card .notifType .notifCardBody img {
+  width: 150px;
+  height: 150px;
+}
+
 .newCampaignBody .card .notifType .notifCardBody .selectTick {
   position: absolute;
   top: 15px;
@@ -5294,9 +5300,9 @@ span.irSheba {
   height: 90px;
 }
 
-.newCampaignBody .card .notifType .notifMainTypeIcon img {
-  width: 70px;
-  /* height: 72px; */
+.newCampaignBody.toolPage .card .notifType img {
+  width: auto !important;
+  height: auto !important;
 }
 
 .newCampaignBody .card .notifType h4 {
@@ -5330,7 +5336,11 @@ span.irSheba {
   position: relative;
 }
 
-.newCampaignBody input[type="radio"]+label.card::after, .newCampaignBody input[type="checkbox"]+label.card::after {
+.newCampaignBody input[type="radio"]:disabled+label.card {
+  opacity: 0.7;
+}
+
+.newCampaignBody.packageAccess input[type="radio"]+label.card::after, .newCampaignBody.packageAccess input[type="checkbox"]+label.card::after {
   content: 'فعال';
   position: absolute;
   top: 10px;
@@ -5345,11 +5355,26 @@ span.irSheba {
   z-index: 2;
 }
 
-.newCampaignBody input[type="checkbox"]:disabled+label .selectTick {
+.newCampaignBody.packageAccess input[type="radio"]+label.card.disabled::after, .newCampaignBody.packageAccess input[type="checkbox"]+label.card.disabled::after {
+  content: 'غیرفعال';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  margin: auto;
+  background-color: #C00;
+  padding: 5px 10px;
+  color: #FFF;
+  height: auto;
+  text-align: center;
+  border-radius: 500px;
+  z-index: 2;
+}
+
+.newCampaignBody.packageAccess input[type="checkbox"]:disabled+label .selectTick {
   display: none;
 }
 
-.newCampaignBody input[type="checkbox"]:disabled+label.card::before {
+.newCampaignBody.packageAccess input[type="checkbox"]:disabled+label.card::before {
   /* content: '\f128'; */
   /* font-family: "Font Awesome 5 Free"; */
   position: absolute;
@@ -5370,7 +5395,7 @@ span.irSheba {
   height: 31px;
 }
 
-.newCampaignBody input[type="checkbox"]:disabled+label.card::after {
+.newCampaignBody.packageAccess input[type="checkbox"]:disabled+label.card::after {
   content: 'غیرفعال';
   position: absolute;
   top: 10px;
@@ -5582,6 +5607,10 @@ span.irSheba {
   border-radius: 5px;
   padding: 10px;
   font-weight: 300;
+}
+
+select {
+  width: 100%;
 }
 
 .modalOption .optionsBody {
@@ -5933,7 +5962,7 @@ span.irSheba {
 }
 
 /* options box style */
-select {
+select, .chosen-container {
   margin: 0 !important;
   padding: 0 1.3rem 0 0.9rem;
   height: 30px;
@@ -5975,6 +6004,22 @@ select:focus {
   outline: none;
 }
 
+.chosen-container-single .chosen-single {
+  background: #F8F8F8 !important;
+  border: none !important;
+  height: 100% !important;
+  line-height: 34px !important;
+  box-shadow: none !important;
+}
+
+.chosen-container-single .chosen-single div {
+  top: 6px !important;
+}
+
+.chosen-container .chosen-drop {
+  width: 98% !important;
+}
+
 /* options box style */
 .optionsBody .inlineOption input[type="radio"] {
   display: none;
@@ -6005,6 +6050,30 @@ select:focus {
 /*new campaign page*/
 /*notif style*/
 
+.closeNotifs {
+  top: 10px;
+  left: 20px;
+  position: absolute;
+  z-index: 9999999999;
+  width: 15px;
+  height: 15px;
+  opacity: .5;
+  cursor: pointer;
+  transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  -webkit-transition: all .3s;
+}
+
+.closeNotifs:hover {
+  opacity: 1;
+}
+
+.closeNotifs svg {
+  width: 13px;
+  height: 13px;
+}
+
 .sabetmikonimNotifBody span.sabetMikonim {
     font-family: IRANSans !important;
 }
@@ -6020,7 +6089,7 @@ select:focus {
 .recentActivity span.notifDesc,
 .recentActivity .notifName {
     font-family: IRANSans !important;
-    display: block;
+    display: inline-block;
     text-align: right;
     line-height: 25px
 }
@@ -6054,8 +6123,9 @@ select:focus {
 
 .notifPrev .sabetmikonimNotifBody .notification {
   position: relative;
-  top: auto;
-  margin: 90px auto 30px auto;
+  top: 0;
+  right: auto;
+  margin: 30px auto;
 }
 
 .notifPrev h6.notifPrevTitle {
@@ -6138,11 +6208,12 @@ select:focus {
   /* border-bottom-left-radius: 5px; */
 }
 
-.sabetmikonimNotifBody span.notifDesc {
+.sabetmikonimNotifBody .notifDescContents span {
     color: #738c98;
     font-size: 12px;
     font-weight: 300;
-    margin-bottom: 5px
+    margin-bottom: 5px;
+    display: block;
 }
 
 .sabetmikonimNotifBody span.notifDate {
@@ -6216,9 +6287,10 @@ span.icon svg {
 }
 
 .notification .hotStreak span.notifDesc {
-  font-weight: 300;
+  font-weight: 400;
   font-size: 12px;
-  color: #058eee;
+  /* color: #058eee; */
+  color: #333;
 }
 
 .hotStreak .hotStreakContent {
@@ -7071,3 +7143,173 @@ span.icon svg {
   border-color: #4caf50;
   color: #4caf50;
 }
+
+
+
+
+
+
+
+/* package price */
+.packageTab {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(102, 130, 188, 0.2);
+  background-color: #FFF;
+  margin-bottom: 25px; }
+  .packageTab a {
+    display: inline-block;
+    font-size: 16px;
+    padding: 9px 30px;
+    text-align: center;
+    color: #0564ff;
+    font-family: 'isans';
+    width: 16.66%;
+    padding: 16px;
+    background-color: #fff;
+    float: right; }
+    .packageTab a:hover {
+      color: #FFF !important;
+      background-color: rgba(5, 100, 255, 0.6); }
+    .packageTab a.tabCurrent {
+      color: #FFF !important;
+      background-color: #0564ff; }
+
+.periodTabsBody {
+  text-align: center; }
+  .periodTabsBody .periodTabs {
+    display: inline-block;
+    overflow: hidden;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 500px;
+    box-shadow: 0 10px 40px rgba(102, 130, 188, 0.2);
+    background-color: #FFF;
+    margin-bottom: 25px; }
+    .periodTabsBody .periodTabs a {
+      display: inline-block;
+      font-size: 16px;
+      padding: 9px 30px;
+      text-align: center;
+      color: #0564ff;
+      font-family: 'isans';
+      width: 50%;
+      padding: 16px;
+      background-color: #fff;
+      float: right; }
+      .periodTabsBody .periodTabs a:hover {
+        color: #FFF !important;
+        background-color: rgba(5, 100, 255, 0.6); }
+      .periodTabsBody .periodTabs a.tabCurrent {
+        color: #FFF !important;
+        background-color: #0564ff; }
+
+#yearPackages {
+  display: none; }
+
+.packageListBody h3 {
+  font-size: 23px;
+}
+
+.packageListBody .packageTabItem {
+  display: none; }
+.packageListBody .packageGrid {
+  margin-bottom: 50px; }
+  .packageListBody .packageGrid:nth-child(2) .packageBody h3 {
+    color: #605de6 !important; }
+  .packageListBody .packageGrid:nth-child(2) .packagePrice:after {
+    box-shadow: 0 15px 35px rgba(96, 93, 230, 0.06) !important;
+    border-bottom: 1px solid rgba(96, 93, 230, 0.2) !important; }
+  .packageListBody .packageGrid:nth-child(2) .packageContent .packageList .packageItem .icon {
+    color: #605de6 !important; }
+  .packageListBody .packageGrid:nth-child(3) .packageBody h3 {
+    color: #ff9f27 !important; }
+  .packageListBody .packageGrid:nth-child(3) .packagePrice:after {
+    box-shadow: 0 15px 35px rgba(255, 159, 39, 0.06) !important;
+    border-bottom: 1px solid rgba(255, 159, 39, 0.2) !important; }
+  .packageListBody .packageGrid:nth-child(3) .packageContent .packageList .packageItem .icon {
+    color: #ff9f27 !important; }
+  .packageListBody .packageGrid .packageBody {
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 25px;
+    background-color: #FFF;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 10px 40px rgba(102, 130, 188, 0.2);
+    width: 100%;
+    height: 515px;
+  }
+    .packageListBody .packageGrid .packageBody.recommendPackage:before {
+      content: 'پکیج پیشنهادی ما';
+      position: absolute;
+      width: 100%;
+      top: -25px;
+      right: 0;
+      background-color: #605de6;
+      padding: 10px;
+      color: #FFF;
+      text-align: center;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px; }
+    .packageListBody .packageGrid .packageBody .packagePrice {
+      text-align: center;
+      position: relative;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+    }
+      .packageListBody .packageGrid .packageBody .packagePrice:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 20px;
+        box-shadow: 0 15px 35px rgba(5, 100, 255, 0.06);
+        border-bottom: 1px solid rgba(5, 100, 255, 0.2);
+        z-index: 0; }
+      .packageListBody .packageGrid .packageBody .packagePrice .icon {
+        margin-bottom: 25px; }
+        .packageListBody .packageGrid .packageBody .packagePrice .icon img {
+          width: 110px;
+          height: auto; }
+      .packageListBody .packageGrid .packageBody .packagePrice h3 {
+        color: #0564ff; }
+      .packageListBody .packageGrid .packageBody .packagePrice span.priceNumber {
+        font-size: 31px; }
+      .packageListBody .packageGrid .packageBody .packagePrice span.paymentPeriod {
+        font-family: 'isans'; }
+      .packageListBody .packageGrid .packageBody .packagePrice .ctaBtn {
+        margin-top: 35px;
+        position: relative;
+        z-index: 1; }
+        .packageListBody .packageGrid .packageBody .packagePrice .ctaBtn a:hover {
+          background-color: #FFF; }
+    .packageListBody .packageGrid .packageBody .packageContent .packageList .packageItem {
+      font-size: 14px;
+      margin-bottom: 15px; }
+      .packageListBody .packageGrid .packageBody .packageContent .packageList .packageItem.last-child {
+        margin-bottom: auto; }
+      .packageListBody .packageGrid .packageBody .packageContent .packageList .packageItem .icon {
+        margin-left: 10px;
+        font-size: 14px;
+        color: #0564ff; }
+    .packageListBody .packageGrid .packageBody .divider {
+      width: 100%;
+      height: 1px;
+      background-color: rgba(204, 204, 204, 0.4);
+      margin-bottom: 15px; }
+      .packageList {
+        text-align: right;
+      }
+
+
+
+  .couponBody {
+    text-align: right;
+  }

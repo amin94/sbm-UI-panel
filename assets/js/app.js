@@ -14,8 +14,8 @@ var State = History.getState(); // Note: We are using History.getState() instead
           'campaigns' : {'title' : 'لیست کمپین‌ها', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaigns.html', 'crumb' : 2},
           'add-domain' : {'title' : 'افزودن دامنه جدید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/add-domain-panel.html', 'crumb' : 3},
           'websiteIntg' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/website-intg-panel.html', 'crumb' : 4},
-          'settings' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/settings-panel.html', 'crumb' : 5},
-          'profile' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/profile-panel.html', 'crumb' : 6},
+          'settings' : {'title' : 'تنظیمات و پگیج‌های شما', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/settings-panel.html', 'crumb' : 5},
+          'profile' : {'title' : 'پروفایل کاربری شما در ثابت می‌کنیم', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/profile-panel.html', 'crumb' : 6},
           'campaignDetails' : {'title' : 'جزئیات کمپین را مشاهده نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/campaign-details-panel.html', 'crumb' : 7},
           'pay' : {'title' : 'خرید پکیج جدید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/pay-panel.html', 'crumb' : 8},
         };
@@ -184,6 +184,17 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
                           managePanelMenu('notDomain');
 
+                          if ((checkCookie('dId')==="cookieSet") && (getCookie('dId') !== "null")) {
+
+                          	ajaxReq('','https://api.sabetmikonim.com/get-packages-data/','getPackagesData');
+
+                          } else {
+
+                            createViewPanel({contentId : 'domains'},true);
+
+                          }
+
+
                             break;
 
 
@@ -217,9 +228,9 @@ function createViewPanel(stateObject, pushHistory) {
 		'campaigns' : {'title' : 'لیست کمپین‌ها', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaigns.html', 'crumb' : 2},
     'add-domain' : {'title' : 'افزودن دامنه جدید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/add-domain-panel.html', 'crumb' : 3},
     'websiteIntg' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/website-intg-panel.html', 'crumb' : 4},
-    'settings' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/settings-panel.html', 'crumb' : 5},
-    'profile' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/profile-panel.html', 'crumb' : 6},
-    'campaignDetails' : {'title' : 'وبسایت‌تان را متصل نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/campaign-details-panel.html', 'crumb' : 7},
+    'settings' : {'title' : 'تنظیمات و پگیج‌های شما', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/settings-panel.html', 'crumb' : 5},
+    'profile' : {'title' : 'پروفایل کاربری شما در ثابت می‌کنیم', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/profile-panel.html', 'crumb' : 6},
+    'campaignDetails' : {'title' : 'جزئیات کمپین را مشاهده نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/campaign-details-panel.html', 'crumb' : 7},
     'pay' : {'title' : 'خرید پکیج جدید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/panel/pay-panel.html', 'crumb' : 8},
 	};
 
@@ -588,7 +599,7 @@ function callbackAjaxReq(getData,reqType) {
 			}).then((isConfirm) => {
 				if (isConfirm) {
 
-				 window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/pay.php";
+				 createViewPanel({contentId : 'pay'},true);
 
 				}
 			});
@@ -603,7 +614,7 @@ function callbackAjaxReq(getData,reqType) {
 			}).then((isConfirm) => {
 				if (isConfirm) {
 
-				 window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/pay.php";
+				 createViewPanel({contentId : 'pay'},true);
 
 				}
 			});
@@ -854,7 +865,29 @@ function callbackAjaxReq(getData,reqType) {
 
     if (getData.status === "packageSubmitted") {
 
-      window.location.href = "https://api.sabetmikonim.com/request/zarinpal?bp-id="+getData.BPId;
+      if (getData.couponUsedStatus) {
+
+        window.location.href = "https://sabetmikonim.com/panel/app.php?bp-id="+getData.BPId;
+
+      } else {
+
+        window.location.href = "https://api.sabetmikonim.com/request/zarinpal?bp-id="+getData.BPId;
+
+      }
+
+    } else if (getData.status === "couponExpired") {
+
+      swal({
+        title: "هشدار!",
+        text: " شما قبلا یک بار از این کوپن استفاده کرده‌اید و امکان استفاده مجدد وجود ندارد. ",
+        icon: "warning",
+        button: " در صورت وجود مشکل تماس بگیرید: ۰۲۱۲۸۴۲۵۷۳۳ ",
+      });
+
+    } else if (getData.status === "couponInvalid") {
+
+      $('#couponGroup').addClass('has-error'); // add the error class to show red input
+      $('#couponGroup').append('<div class="help-block"> کوپن وارد شده نامعتبر است. </div>'); // add the actual error message under our input
 
     } else {
 
@@ -866,6 +899,90 @@ function callbackAjaxReq(getData,reqType) {
       });
 
     }
+
+  } else if (reqType === "getPackagesData") {
+
+    if (getData.status === "packagesDataGot") {
+
+        for (var i = 0; i < getData['data'].length; i++) {
+
+          if (getData['data'][i]['title'] === 'ماهیانه') {
+
+            var dataContent = getData['data'][i]['data'];
+            var dataTab = '';
+            var dataPackage = '';
+            for (var j = 0; j < dataContent.length; j++) {
+
+              var packageID = "'M"+dataContent[j]['id']+"'";
+              var period = "'"+"M"+"'";
+
+              dataTab = dataTab + '<a href="javascript:;" class="tabItem" id="tabM'+ dataContent[j]['id'] +'" onclick="changeTab('+ packageID +','+period+')" data-p-tab="'+ dataContent[j]['id'] +'"> '+ dataContent[j]['title'] +' </a>';
+
+
+
+              var allPackageData = dataContent[j]['data'];
+              // select packages content
+              var packageFeature = ['','<div class="packageItem"><span class="icon"> <i class="fas fa-check"></i> </span> پشتیبانی از کلیه سرویس‌های خبرنامه پیامکی و ایمیلی</div>','<div class="packageItem"><span class="icon"> <i class="fas fa-check"></i> </span> پشتیبانی از کلیه سرویس‌های خبرنامه پیامکی و ایمیلی</div><div class="packageItem"><span class="icon"> <i class="fas fa-check"></i> </span> پشتیبانی از کلیه شبکه‌های اجتماعی ایرانی و خارجی</div>'];
+              dataPackage = '<div class="packageTabItem displayFlex" id="M'+ dataContent[j]['id'] +'">';
+              for (var k = 0; k < allPackageData.length; k++) {
+
+                var price = allPackageData[k]['data']['price']/1000 + '';
+                dataPackage = dataPackage + '<div class="col-xs-12 col-md-4 packageGrid displayFlex"><input type="radio" name="packageOption" value="'+allPackageData[k]['data']['id']+'" id="packageItem'+allPackageData[k]['data']['id']+'"><label for="packageItem'+allPackageData[k]['data']['id']+'" class="packageBody"><div class="packagePrice"><div class="icon"> <img src="https://sabetmikonim.com/wp-content/themes/sbm%20landing/img/packages/standard.jpg" alt="standard"></div><div class="title"><h3> '+ allPackageData[k]['title'] +' </h3></div><h3> <span class="priceNumber"> '+ price.toFaDigit() +' </span> <span class="paymentPeriod"> هزار تومان / ماهیانه </span></h3></div><div class="packageContent"><div class="packageList"><div class="packageItem"><span class="icon"> <i class="fas fa-check"></i> </span> پشتیبانی از کلیه فروشگاه‌های آنلاین</div><div class="packageItem"><span class="icon"> <i class="fas fa-check"></i> </span> پشتیبانی از کلیه فرم‌های ثبت نام، خرید و ...</div> '+ packageFeature[k] +' </div></div></label></div>';
+
+              }
+
+              dataPackage = dataPackage + '</div>';
+
+              $('#monthPackages .packageListBody').prepend(dataPackage);
+
+            }
+
+            // append tabs
+            $('#monthPackages .packageTab').prepend(dataTab);
+
+            changeTab('M2','M');
+
+          } else if (getData['data'][i]['title'] === 'سالیانه') {
+
+            var dataContent = getData['data'][i]['data'];
+            var dataTab = '';
+            var dataPackage = '';
+            for (var j = 0; j < dataContent.length; j++) {
+
+              var packageID = "'Y"+dataContent[j]['id']+"'";
+              var period = "'"+"Y"+"'";
+
+              dataTab = dataTab + '<a href="javascript:;" class="tabItem" id="tabY'+ dataContent[j]['id'] +'" onclick="changeTab('+ packageID +','+period+')" data-p-tab="'+ dataContent[j]['id'] +'"> '+ dataContent[j]['title'] +' </a>';
+
+
+
+              var allPackageData = dataContent[j]['data'];
+              // select packages content
+              var packageFeature = ['','<div class="packageItem"><span class="icon"> <i class="fas fa-check"></i> </span> پشتیبانی از کلیه سرویس‌های خبرنامه پیامکی و ایمیلی</div>','<div class="packageItem"><span class="icon"> <i class="fas fa-check"></i> </span> پشتیبانی از کلیه سرویس‌های خبرنامه پیامکی و ایمیلی</div><div class="packageItem"><span class="icon"> <i class="fas fa-check"></i> </span> پشتیبانی از کلیه شبکه‌های اجتماعی ایرانی و خارجی</div>'];
+              dataPackage = '<div class="packageTabItem displayFlex" id="Y'+ dataContent[j]['id'] +'">';
+              for (var k = 0; k < allPackageData.length; k++) {
+
+                var price = allPackageData[k]['data']['price']/1000 + '';
+                dataPackage = dataPackage + '<div class="col-xs-12 col-md-4 packageGrid displayFlex"><input type="radio" name="packageOption" value="'+allPackageData[k]['data']['id']+'" id="packageItem'+allPackageData[k]['data']['id']+'"><label for="packageItem'+allPackageData[k]['data']['id']+'" class="packageBody"><div class="packagePrice"><div class="icon"> <img src="https://sabetmikonim.com/wp-content/themes/sbm%20landing/img/packages/standard.jpg" alt="standard"></div><div class="title"><h3> '+ allPackageData[k]['title'] +' </h3></div><h3> <span class="priceNumber"> '+ price.toFaDigit() +' </span> <span class="paymentPeriod"> هزار تومان / ماهیانه </span></h3></div><div class="packageContent"><div class="packageList"><div class="packageItem"><span class="icon"> <i class="fas fa-check"></i> </span> پشتیبانی از کلیه فروشگاه‌های آنلاین</div><div class="packageItem"><span class="icon"> <i class="fas fa-check"></i> </span> پشتیبانی از کلیه فرم‌های ثبت نام، خرید و ...</div> '+ packageFeature[k] +' </div></div></label></div>';
+
+              }
+
+              dataPackage = dataPackage + '</div>';
+
+              $('#yearPackages .packageListBody').prepend(dataPackage);
+
+            }
+
+            // append tabs
+            $('#yearPackages .packageTab').prepend(dataTab);
+
+            changeTab('Y2','Y');
+
+          }
+
+        }
+
+      }
 
   }
 

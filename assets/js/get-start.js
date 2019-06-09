@@ -17,6 +17,7 @@ var State = History.getState(); // Note: We are using History.getState() instead
           'subType' : {'title' : 'نحوه اتصال سرویس ثابت میکنیم را انتخاب نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/cType.html', 'crumb' : 4},
           'toolDesc' : {'title' : 'درباره ابزار انتخاب شده برای اتصال به سرویس ثابت میکنیم', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/tool-description.html', 'crumb' : 5},
           'toolConnectionSettings' : {'title' : 'تنظیمات ابزار اتصال به سرویس ثابت میکنیم', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/tool-connection-settings.html', 'crumb' : 6},
+          'toolVerifyConnectionSettings' : {'title' : 'تایید و انجام تنظیمات نهایی ابزار ثابت میکنیم', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/tool-verify-connection-settings.html', 'crumb' : 6},
           'toolCustomForm' : {'title' : 'لینک صفحه حاوی فرم برای دریافت اطلاعات را وارد نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/tool-capture-form.html', 'crumb' : 6},
           'toolSettings' : {'title' : 'نوع نوتیفیکیشن‌ها و تنظیمات مرتبط با آن‌ها را انجام دهید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/tool-settings.html', 'crumb' : 7},
           'toolDisplayPages' : {'title' : 'لینک صفحاتی که می‌خواهید نوتیفیکیشن‌ها را در آن‌ها نمایش دهید را وارد نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/tool-display-pages.html', 'crumb' : 8},
@@ -205,6 +206,32 @@ var State = History.getState(); // Note: We are using History.getState() instead
 
 
 
+
+
+                            case 'toolVerifyConnectionSettings':
+
+                            $('.campaignTypeItem').remove();
+
+                            if ((checkCookie('dId')==="cookieSet") && (getCookie('dId') !== "null")) {
+
+                              var gettoolVerifyConnectionSettingsData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
+
+                              ajaxReq(gettoolVerifyConnectionSettingsData,'https://api.sabetmikonim.com/panel/get-subtype-template/','gettoolVerifyConnectionSettings');
+
+
+                            } else {
+
+                              createView({contentId : 'add-domain'},true);
+
+                            }
+
+                              break;
+
+
+
+
+
+
                             case 'toolCustomForm':
 
                             $('#helpBoxBody').append('<div class="helpBox"><span class="icon"> <i class="fas fa-info-circle"></i> </span><div class="content" id="helpBoxContent"><p>اگر فرمی دارید که خارج از هر ابزاری است که لیست آن را مشاهده کردید، </br>باید آدرس صفحه حاوی فرم را در فیلد زیر وارد نمایید و فرم و فیلدها را برای ما مشخص نمایید.</p></div></div>');
@@ -324,6 +351,7 @@ function createView(stateObject, pushHistory) {
     'subType' : {'title' : 'نحوه اتصال سرویس ثابت میکنیم را انتخاب نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/cType.html', 'crumb' : 4},
     'toolDesc' : {'title' : 'درباره ابزار انتخاب شده برای اتصال به سرویس ثابت میکنیم', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/tool-description.html', 'crumb' : 5},
     'toolConnectionSettings' : {'title' : 'تنظیمات ابزار اتصال به سرویس ثابت میکنیم', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/tool-connection-settings.html', 'crumb' : 6},
+    'toolVerifyConnectionSettings' : {'title' : 'تایید و انجام تنظیمات نهایی ابزار ثابت میکنیم', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/tool-verify-connection-settings.html', 'crumb' : 6},
     'toolCustomForm' : {'title' : 'لینک صفحه حاوی فرم برای دریافت اطلاعات را وارد نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/tool-capture-form.html', 'crumb' : 7},
     'toolDisplayPages' : {'title' : 'لینک صفحاتی که می‌خواهید نوتیفیکیشن‌ها را در آن‌ها نمایش دهید را وارد نمایید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/tool-display-pages.html', 'crumb' : 8},
     'toolSettings' : {'title' : 'نوع نوتیفیکیشن‌ها و تنظیمات مرتبط با آن‌ها را انجام دهید', 'tmp' : 'http://amins-macbook-pro.local:5757/sabetmikonimv2/template/campaign/tool-settings.html', 'crumb' : 9},
@@ -362,6 +390,32 @@ function createView(stateObject, pushHistory) {
 
 
 }
+
+
+
+function openDeactiveFeatureModal() {
+
+	// $('#deactiveFeatures').addClass('openModal');
+	//
+	// $('.mask').fadeIn();
+
+	swal({
+		title: "توجه!",
+		text: " پکیج خریداری شده توسط شما، این نوع نوتیفیکیشن را پشتیبانی نمی‌کند. لطفا جهت استفاده از این نوع نوتیفیکیشن، پکیج دیگری را تهیه بفرمایید. ",
+		icon: "warning",
+		button: "خرید پکیج",
+	})
+	.then((isConfirm) => {
+		if (isConfirm) {
+
+		 window.location.href = "http://amins-macbook-pro.local:5757/sabetmikonimv2/app.php?page=pay";
+
+		}
+	});
+
+}
+
+
 
 
 function checkSwitchData(inputName,parentTag,checkStatus) {
@@ -421,7 +475,7 @@ function checkCookie(cname) {
 
 
 
-function callbackAjaxReq(getData,reqType) {
+function callbackAjaxReq(getData,reqType,moreData) {
 
   if (reqType === "checkDomain") {
 
@@ -451,9 +505,9 @@ function callbackAjaxReq(getData,reqType) {
 
     if ((getData.status === "domainSet") || (getData.status === "domainWasSet")) {
 
-      Cookies.set('dId', getData.dId, { expires: 7, path: '/' });
-
       // setCookie('dId',getData.dId,360);
+
+      Cookies.set('dId',getData.dId, { expires: 1, path: '/' });
 
       createView({contentId : 'websiteIntg'},true);
 
@@ -549,9 +603,21 @@ function callbackAjaxReq(getData,reqType) {
 
       var campaignTypes = getData.campaignTypes;
 
+      var campaignTypeAccess = '';
+      var onClickCampaignType = '';
       for (var i = 0; i < campaignTypes.length; i++) {
 
-        $('#campaignTypesBody').append('<div class="col-xs-12 col-md-4 campaignTypeItem"><input type="radio" name="campaignMainType" onclick="submitMainType(this.value)" id="campaignMainType'+ campaignTypes[i]['id'] +'" value="'+ campaignTypes[i]['id'] +'"><label for="campaignMainType'+ campaignTypes[i]['id'] +'" class="card"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ campaignTypes[i]['image'] +'" alt="'+ campaignTypes[i]['title'] +'"><h4> '+ campaignTypes[i]['title'] +'</h4><p> '+ campaignTypes[i]['description'] +'</p></div></div></label></div>');
+        if (!campaignTypes[i]['accessStatus']) {
+          campaignTypeAccess = 'disabled';
+          onClickCampaignType = "openDeactiveFeatureModal()";
+        } else {
+          campaignTypeAccess = '';
+          onClickCampaignType = 'submitMainType('+ campaignTypes[i]['id'] +')';
+        }
+
+        $('#mainCampaignBody').addClass('packageAccess');
+
+        $('#campaignTypesBody').append('<div class="col-xs-12 col-md-4 campaignTypeItem"><input '+ campaignTypeAccess +' type="radio" name="campaignMainType" id="campaignMainType'+ campaignTypes[i]['id'] +'" value="'+ campaignTypes[i]['id'] +'"><label onclick="'+ onClickCampaignType +'" for="campaignMainType'+ campaignTypes[i]['id'] +'" class="card '+ campaignTypeAccess +'"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><div class="notifMainTypeIcon"> <img src="'+ campaignTypes[i]['image'] +'" alt="'+ campaignTypes[i]['title'] +'"> </div><h4> '+ campaignTypes[i]['title'] +'</h4><p> '+ campaignTypes[i]['description'] +'</p></div></div></label></div>');
 
       }
 
@@ -569,8 +635,9 @@ function callbackAjaxReq(getData,reqType) {
 
       createView({contentId: 'subType'},true);
 
-      Cookies.set('cId', getData.cId, { expires: 1, path: '/' });
       // setCookie('cId',getData.cId,1);
+
+      Cookies.set('cId',getData.cId, { expires: 1, path: '/' });
 
     }
 
@@ -582,7 +649,7 @@ function callbackAjaxReq(getData,reqType) {
 
       for (var i = 0; i < campaignSubTypes.length; i++) {
 
-        $('#campaignTypesBody').append('<div class="col-xs-12 col-md-4 campaignTypeItem"><input type="radio" name="campaignSubType" onclick="submitSubType(this.value)" id="campaignSubType'+ campaignSubTypes[i]['id'] +'" value="'+ campaignSubTypes[i]['id'] +'"><label for="campaignSubType'+ campaignSubTypes[i]['id'] +'" class="card"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ campaignSubTypes[i]['image'] +'" alt="'+ campaignSubTypes[i]['title'] +'"><h4> '+ campaignSubTypes[i]['title'] +'</h4><p> '+ campaignSubTypes[i]['description'] +'</p></div></div></label></div>');
+        $('#campaignTypesBody').append('<div class="col-xs-12 col-md-4 campaignTypeItem"><input type="radio" name="campaignSubType" onclick="submitSubType(this.value)" id="campaignSubType'+ campaignSubTypes[i]['id'] +'" value="'+ campaignSubTypes[i]['id'] +'"><label for="campaignSubType'+ campaignSubTypes[i]['id'] +'" class="card"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><div class="notifMainTypeIcon"> <img src="'+ campaignSubTypes[i]['image'] +'" alt="'+ campaignSubTypes[i]['title'] +'"> </div><h4> '+ campaignSubTypes[i]['title'] +'</h4><p> '+ campaignSubTypes[i]['description'] +'</p></div></div></label></div>');
 
       }
 
@@ -665,7 +732,60 @@ function callbackAjaxReq(getData,reqType) {
 
       $('#toolTitle').html(toolTemplate.connectionSettings.metas.title);
 
+
+      // check progress
+      window.connectionSettingsProgress = '';
+      if (getData.connectionSettingsProgress!=="NOT") {
+
+        window.subTypeId = getData.campaignSubTypeInformation.subTypeId;
+        var apiData = getData['connectionSettingsProgress'][subTypeId][0];
+
+        var checkApiData = {'cookie' : getCookie('sbm_token'), 'cId': getCookie('cId'), 'dId' : getCookie('dId'), 'apiData': apiData, 'operation' : 'checkApi'};
+
+        // add delay to check api because we don't want confilit with other requests and have loading in requesting
+        setTimeout(function(){
+          ajaxReq(checkApiData,'https://api.sabetmikonim.com/panel/api-connection/','checkApiData');
+        },1000);
+
+      connectionSettingsProgress = getData.connectionSettingsProgress;
+
+    } else {
+      var getEnteredDomainData = { 'cookie' : getCookie('sbm_token'), 'dId' : getCookie('dId'), 'cId' : getCookie('cId'),'pageProgressKey' : 'setDomain' };
+
+      ajaxReq(getEnteredDomainData,'https://api.sabetmikonim.com/panel/get-progress/','getEnteredDomain');
+    }
+
       createConnectionForm(toolTemplate.connectionSettings.fields);
+
+      $('#helpDocLink').attr('href',toolTemplate['connectionSettings']['metas']['docUrl']);
+
+    }
+
+  } else if (reqType === "gettoolVerifyConnectionSettings") {
+
+    if (getData.status === "campaignSubTypeTemplateGot") {
+
+      var toolTemplate = getData.campaignSubTypeInformation.template;
+      var toolLogo = toolTemplate.connectionSettings.metas.image;
+
+      $('#toolLogo').attr('src',toolLogo);
+
+      $('#toolTitle').html(toolTemplate.connectionSettings.metas.title);
+
+
+      // check progress
+      window.connectionSettingsProgress = '';
+      if (getData.connectionSettingsProgress!=="NOT") {
+
+        window.subTypeId = getData.campaignSubTypeInformation.subTypeId;
+
+        connectionSettingsProgress = getData.connectionSettingsProgress;
+
+    }
+
+      createConnectionForm(toolTemplate.connectionSettings.approveFields);
+
+      $('#helpDocLink').attr('href',toolTemplate['connectionSettings']['metas']['docUrl']);
 
     }
 
@@ -681,11 +801,12 @@ function callbackAjaxReq(getData,reqType) {
 
     if (getData.status ==="progressGot") {
 
+      
       if (getData.pageProgress!== "NOT") {
 
-        $('input[name=siteInput1]').val(getData.pageProgress.customForm.formLink);
-        $('input[name=emailField1]').val(getData.pageProgress.customForm.emailField);
-        $('input[name=nameField1]').val(getData.pageProgress.customForm.nameField);
+        $('input[name=siteInput1]').val(getData['pageProgress']['customForm'][0]['formLink']);
+        $('input[name=emailField1]').val(getData['pageProgress']['customForm'][0]['emailField']);
+        $('input[name=nameField1]').val(getData['pageProgress']['customForm'][0]['nameField']);
         test(1,1,1);
         $('#submitCaptureFieldData').prop('disabled',false);
 
@@ -697,29 +818,6 @@ function callbackAjaxReq(getData,reqType) {
   } else if (reqType === "getNotificationTypes") {
 
     if (getData.status === "campaignSubTypeTemplateGot") {
-
-      // var notifTypesStyle = {
-      //   "recentActivity": {
-      //     "title": "فعالیت‌های اخیر",
-      //     "desc": "نمایش افرادی که از خدمات شما در سایت استفاده کرده‌اند.",
-      //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/raIcon.jpg"
-      //   },
-      //   "hotStreaks": {
-      //     "title": "آمار داغ",
-      //     "desc": "نمایش افرادی که در یک مدت زمان خاص از خدمات شما استفاده کرده‌اند.",
-      //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/hot-streak-sabetmikonim.jpg"
-      //   },
-      //   "liveNotif": {
-      //     "title": "آمار لحظه‌ای",
-      //     "desc": "نمایش لحظه‌ای کاربرانی که صفحه‌ای را مشاهده می‌کنند.",
-      //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/live-option-sabetmikonim.svg"
-      //   },
-      //   "conversionBox": {
-      //     "title": "کارت‌های تبدیل",
-      //     "desc": "تبدیل نرخ بیشتر کاربران به خریدار با نوتیفیکیشن‌های قابل کلیک",
-      //     "icon": "http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/img/campaignType/conversion-box-sabetmikonim.svg"
-      //   }
-      // }
 
 
       // check campaignNotifTypes and display them
@@ -736,7 +834,7 @@ function callbackAjaxReq(getData,reqType) {
 
         var notificationSelectTemp = notificationTemplates[i]['templateData']['formTemplate']['selectTemp'];
 
-        $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" id="'+notificationTemplateId+'" name="notifTypeOption" value="'+ notificationTemplateId +'"><label for="'+notificationTemplateId+'" class="card" id="label'+notificationTemplateId+'"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notificationSelectTemp['icon'] +'" alt=" '+ notificationSelectTemp['title'] +' "><h4> '+ notificationSelectTemp['title'] +'</h4><p> '+ notificationSelectTemp['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTemplateIdFunc +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
+        $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" id="'+notificationTemplateId+'" name="notifTypeOption" value="'+ notificationTemplateId +'"><label for="'+notificationTemplateId+'" class="card" id="label'+notificationTemplateId+'"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><div class="notifTypeIcon"> <img src="'+ notificationSelectTemp['icon'] +'" alt=" '+ notificationSelectTemp['title'] +' "> </div><h4> '+ notificationSelectTemp['title'] +'</h4><p> '+ notificationSelectTemp['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTemplateIdFunc +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
 
 
 
@@ -751,49 +849,9 @@ function callbackAjaxReq(getData,reqType) {
           }
 
           featureData = toolSettingsProgress;
-          console.log(featureData);
 
         }
 
-
-
-
-        // if (notificationTypeId === "recentActivity") {
-        //
-        //   notificationTypeModal = "'raModal'";
-        //
-        //   $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" data-ntempid="'+notificationTemplateId+'" name="notifTypeOption" value="'+ notificationTypeId +'"><label for="raOption" class="card" id="raOptionLabel"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt=" '+ notifTypesStyle[notificationTypeId]['title'] +' "><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTypeModal +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
-        //
-        //
-        //   // add notif style to modal
-        //   $('#raModal .sabetmikonimNotifBody').append(notificationTemplates[i]['templateData']['template']);
-        //
-        //   var notifText = $("#notifDesc").text();
-        //   $('input[name=raMessage]').val(notifText);
-        //
-        //
-        // } else if (notificationTypeId === "hotStreaks") {
-        //
-        //   notificationTypeModal = "'hsModal'";
-        //
-        //   $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" data-ntempid="'+notificationTemplateId+'" name="notifTypeOption" id="hsOption" value="'+ notificationTypeId +'"><label for="hsOption" class="card" id="hsOptionLabel"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt=" '+ notifTypesStyle[notificationTypeId]['title'] +'غ "><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" name="modalLink" onclick="openFeaturesModal('+ notificationTypeModal +')" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
-        //
-        //   // add notif style to modal
-        //   $('#hsModal .sabetmikonimNotifBody').append(notificationTemplates[i]['templateData']['template']);
-        //
-        // } else if (notificationTypeId === "liveNotif") {
-        //
-        //   notificationTypeModal = "'lvModal'";
-        //
-        //   $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" data-ntempid="'+notificationTemplateId+'" name="notifTypeOption" id="lvOption" value="'+ notificationTypeId +'"><label for="lvOption" class="card" id="lvOptionLabel"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt="'+ notifTypesStyle[notificationTypeId]['title'] +'"><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTypeModal +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
-        //
-        // } else if (notificationTypeId === "conversionBox") {
-        //
-        //   notificationTypeModal = "'cbModal'";
-        //
-        //   $('#notifTypesBody').append('<div class="col-xs-12 col-md-4"><input type="checkbox" data-ntempid="'+notificationTemplateId+'" name="notifTypeOption" id="cbOption" value="'+ notificationTypeId +'"><label for="cbOption" class="card"><div class="notifType"><div class="notifCardBody"><div class="selectTick"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-tick-1{fill:#00e640}.cls-2{fill:#fff}</style></defs><title>if_success_1646004</title><circle class="cls-tick-1" cx="256" cy="256" r="256"/><path class="cls-2" d="M375,154,194.2,334.8,137,277.7a10.89,10.89,0,1,0-15.4,15.4L186.5,358a10.86,10.86,0,0,0,15.4,0L390.4,169.5A10.93,10.93,0,0,0,375,154Z"/></svg></div><img src="'+ notifTypesStyle[notificationTypeId]['icon'] +'" alt=" '+ notifTypesStyle[notificationTypeId]['title'] +' "><h4> '+ notifTypesStyle[notificationTypeId]['title'] +'</h4><p> '+ notifTypesStyle[notificationTypeId]['desc'] +'</p></div><footer class="setting"><a href="javascript:;" onclick="openFeaturesModal('+ notificationTypeModal +')" name="modalLink" class="btn btn-wd"> تنظیمات </a></footer></div></label></div>');
-        //
-        // }
 
       }
 
@@ -816,48 +874,29 @@ function callbackAjaxReq(getData,reqType) {
 
 
 
-
-
-
-
-
-
-
-
-
-        // if (toolSettingsProgress.recentActivity.status === "true") {
-        //
-        //   $('#raOption').prop('checked',true);
-        //
-        //
-        //
-        // }
-        //
-        // if (toolSettingsProgress.hotStreaks.status === "true") {
-        //
-        //   $('#hsOption').prop('checked',true);
-        //
-        // }
-        //
-        // if (toolSettingsProgress.liveNotif.status === "true") {
-        //
-        //   $('#lvOption').prop('checked',true);
-        //
-        // }
-        //
-        // if (toolSettingsProgress.conversionBox.status === "true") {
-        //
-        //   $('#cbOption').prop('checked',true);
-        //
-        // }
-
-
-
     }
 
   } else if (reqType === "submitToolSettings") {
 
     if (getData.status === "toolSettingsSubmitted") {
+
+      if (getData.apiUpdateStatus) {
+
+        var updateAPIData = { 'cookie' : getCookie('sbm_token'), 'dId' : getCookie('dId'), 'cId' : getCookie('cId') };
+
+        var verifyData = JSON.stringify(updateAPIData);
+
+        var sendData = { 'x' : verifyData };
+
+        $.ajax({
+        	type    : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        	url     : 'https://api.sabetmikonim.com/panel/update-campaign-api/', // the url where we want to POST
+        	data    : sendData, // our data object
+        	async: true,
+        	encode    : true
+        });
+
+      }
 
       createView({contentId: 'toolDisplayPages'}, true);
 
@@ -896,15 +935,16 @@ function callbackAjaxReq(getData,reqType) {
 
       var campaignSettings = getData.progressPage.finalSettings;
 
-      checkSwitchData('mobileDisplay','mobileDisplayOption',campaignSettings['mobileDisplay']);
-			checkSwitchData('topOfMobileDisplay','topOfMobileDisplayOption',campaignSettings['topOfMobileDisplay']);
+      checkSwitchData('mobileDisplay','mobileDisplayOption',campaignSettings['mobDisplay']);
+			checkSwitchData('topOfMobileDisplay','topOfMobileDisplayOption',campaignSettings['topOfMobDisplay']);
 			checkSwitchData('notifPosition','notifPositionOption',campaignSettings['notifPosition']);
 
 
-      $('input[name=deskNotifTime]').val(campaignSettings['desktopNotifTime']);
-      $('input[name=mobileNotifTime]').val(campaignSettings['mobileNotifTime']);
-      $('input[name=deskBetweenNotifTime]').val(campaignSettings['deskBetweenNotifTime']);
-      $('input[name=notifLink1]').val(campaignSettings['finalNotifLink']);
+      $('input[name=deskNotifTime]').val(campaignSettings['deskNTime']);
+      $('input[name=mobileNotifTime]').val(campaignSettings['mobNTime']);
+      $('input[name=deskBetweenNotifTime]').val(campaignSettings['deskBetNTime']);
+      $('input[name=mobileBetweenNotifTime]').val(campaignSettings['mobBetNTime']);
+      $('input[name=notifLink1]').val(campaignSettings['finalNLink']);
 
     }
 
@@ -914,7 +954,7 @@ function callbackAjaxReq(getData,reqType) {
 
       document.getElementById('campaignType').innerHTML = getData.campaignSubTypeTitle;
 
-      if (getData.progressPage !== "NOT") {
+      if ((getData.progressPage !== "NOT") && (getData.progressPage !== "")) {
 
         $('input[name=campaignName]').val(getData.progressPage);
 
@@ -926,11 +966,13 @@ function callbackAjaxReq(getData,reqType) {
 
     if (getData.status === "campaignNameSubmitted") {
 
+      Cookies.remove('cId', {path: '/'});
+
       swal({
         title: "تبریک!",
-        text: "اولین کمپین شما با موفقیت ساخته شد!",
+        text: "کمپین شما با موفقیت ایجاد شد!",
         icon: "success",
-        button: "ورود به داشبورد",
+        button: "مرسی",
       })
       .then((isConfirm) => {
         if (isConfirm) {
@@ -946,6 +988,100 @@ function callbackAjaxReq(getData,reqType) {
 
     }
 
+  } else if (reqType === "submitApiData") {
+
+    if (getData.status === "connectionSettingsSubmitted") {
+
+      swal({
+        title: "تبریک!",
+        text: "ثابت میکنیم با موفقیت به سایت شما متصل گردید.",
+        icon: "success",
+        button: "بریم مرحله بعد",
+      })
+      .then((isConfirm) => {
+        if (isConfirm) {
+
+          if (getData.apiSetMoreDataStatus) {
+
+            createView({contentId: 'toolVerifyConnectionSettings'},true);
+
+          } else {
+
+            createView({contentId: 'toolSettings'},true);
+
+          }
+
+        }
+      });
+
+
+    } else {
+
+      swal({
+        title: "خطا!",
+        text: " ارتباط با سایت شما برقرار نشد! لطفا اطلاعات اتصال به API سایت‌تان را بررسی بفرمایید. ",
+        icon: "error",
+        button: "تلاش مجدد",
+      });
+
+    }
+
+  } else if (reqType === "submitApiVerifyData") {
+
+    if (getData.status === "connectionSettingsSubmitted") {
+
+      createView({contentId: 'toolSettings'},true);
+
+
+    } else {
+
+      swal({
+        title: "خطا!",
+        text: " ارتباط با سایت شما برقرار نشد! لطفا اطلاعات اتصال به API سایت‌تان را بررسی بفرمایید. ",
+        icon: "error",
+        button: "تلاش مجدد",
+      });
+
+    }
+
+  } else if (reqType === "checkApiData") {
+
+    if (getData.status === "apiDataChecked") {
+
+      // check main api status
+      if (getData.apiStatus) {
+
+        $('#connectionBody').prepend('<div class="msgBox success"><div class="content" id="helpBoxContent"><p> سایت شما با موفقیت به ثابت میکنیم متصل شده است. </p></div></div>');
+
+      } else {
+
+        $('#connectionBody').prepend('<div class="msgBox error"><div class="content" id="helpBoxContent"><p> متاسفانه ارتباط سایت شما با ثابت میکنیم قطع شده است! لطفا از طریق فرم زیر مجددا سایت‌تان را متصل نمایید. </p></div></div>');
+
+      }
+
+    }
+
+  } else if (reqType === "getListData") {
+
+    if (getData.status === "apiDataGot") {
+
+      for (var i = 0; i < getData.apiData.length; i++) {
+
+        var pItem = new Option(getData['apiData'][i]['title'],getData['apiData'][i]['id']);
+        $("select[name="+ moreData['inputField'] +"]").append(pItem);
+
+      }
+
+      $("select[name="+ moreData['inputField'] +"]").chosen(
+        {
+          rtl: true,
+          no_results_text: "متاسفانه محصول مورد نظر شما یافت نشد! عبارت شما:",
+          allow_single_deselect:true,
+        }
+      );
+
+    }
+
   }
 
 }
@@ -955,14 +1091,98 @@ function callbackAjaxReq(getData,reqType) {
 
 function createConnectionForm(formData) {
 
+  window.connectionApiFormData = formData;
+
   var mainFormElements = '<form method="post">';
 
   for (var i = 0; i < formData.length; i++) {
 
 
+    // read functions of fields
+    var inputFunctions = '';
+    if ((formData[i]['fieldFuncs']!=='') && (typeof formData[i]['fieldFuncs'] !== "undefined")) {
+
+      for (var fc = 0; fc < formData[i]['fieldFuncs'].length; fc++) {
+
+        inputFunctions = inputFunctions + ' ' +formData[i]['fieldFuncs'][fc] + '=' + formData[i]['fieldFuncsValue'][fc];
+
+      }
+
+    } else {
+      inputFunctions = '';
+    }
+
+
+
+
     if (formData[i]['type'] === "text") {
 
-      mainFormElements = mainFormElements + '<div class="form-group"> <label> '+ formData[i]['placeholder'] +'  </label>  <input type="'+formData[i]['type']+'" class="form-control" id="'+ formData[i]['id'] +'" placeholder=""> </div>';
+      var inputValue = '';
+      if (connectionSettingsProgress!=="") {
+
+        inputValue = connectionSettingsProgress[subTypeId][0][formData[i]['name']];
+
+      }
+
+      var inputHelpElement = '';
+      if ((formData[i]['inputHelp'] !=="") && (typeof formData[i]['inputHelp'] !=="undefined")) {
+        inputHelpElement = '<span class="info tippyInput input" data-tippy-content="'+ formData[i]['inputHelp'] +'" tabindex="0"> <i class="fas fa-question"></i>  </span>';
+      } else {
+        inputHelpElement = '';
+      }
+
+      mainFormElements = mainFormElements + '<div class="form-group" id="'+formData[i]['name']+'Group"> <label> '+ formData[i]['placeholder'] +' '+ inputHelpElement +' </label>  <input type="'+formData[i]['type']+'" class="form-control ltrInput" id="'+ formData[i]['id'] +'" name="'+ formData[i]['name'] +'" value="'+inputValue+'" '+ inputFunctions +'> </div>';
+
+    } else if (formData[i]['type'] === "select") {
+
+      // get options
+      var options='';
+      var optionItem = formData[i]['option'];
+      for (var s = 0; s < optionItem.length; s++) {
+
+        if (connectionSettingsProgress!=="") {
+
+          var selectStatus = '';
+          if (connectionSettingsProgress[subTypeId][0][connectionApiFormData[i]['name']] === optionItem[s]['value']) {
+            selectStatus = 'selected';
+          } else {
+            selectStatus = '';
+          }
+
+        }
+
+        options = options + ' <option '+ selectStatus +' value="'+ optionItem[s]['value'] +'"> '+ optionItem[s]['text'] +' </option> ';
+
+      }
+
+
+      var inputHelpElement = '';
+      if ((formData[i]['inputHelp'] !=="") && (typeof formData[i]['inputHelp'] !=="undefined")) {
+        inputHelpElement = '<span class="info tippyInput input" data-tippy-content="'+ formData[i]['inputHelp'] +'" tabindex="0"> <i class="fas fa-question"></i>  </span>';
+      } else {
+        inputHelpElement = '';
+      }
+
+      // create main select field
+      var inputOption = '<div class="form-group" id="'+formData[i]['name']+'Group"> <label for="'+formData[i]['id']+'"> '+ formData[i]['placeholder'] +' '+ inputHelpElement +' </label> <select name="'+ formData[i]['name'] +'" id="'+formData[i]['id']+'" '+ inputFunctions +'> ' + options + '</select></div>';
+
+      mainFormElements = mainFormElements + inputOption;
+
+
+    } else if (formData[i]['type'] === "bestSelect") {
+
+      var inputHelpElement = '';
+      if ((formData[i]['inputHelp'] !=="") && (typeof formData[i]['inputHelp'] !=="undefined")) {
+        inputHelpElement = '<span class="info tippyInput input" data-tippy-content="'+ formData[i]['inputHelp'] +'" tabindex="0"> <i class="fas fa-question"></i>  </span>';
+      } else {
+        inputHelpElement = '';
+      }
+
+      // create main select field
+      var inputOption = '<div class="form-group" id="'+formData[i]['name']+'Group"> <label for="'+formData[i]['id']+'"> '+ formData[i]['placeholder'] +' '+ inputHelpElement +' </label> <select name="'+ formData[i]['name'] +'" id="'+formData[i]['id']+'" '+inputFunctions+'></select></div>';
+
+      mainFormElements = mainFormElements + inputOption;
+
 
     } else if (formData[i]['type'] === "submit") {
 
@@ -979,6 +1199,13 @@ function createConnectionForm(formData) {
   }
 
   $('#connectionBody').append(mainFormElements);
+
+  tippy('.tippyInput', {
+  arrow: true,
+  arrowType: 'round',
+  interactive: true,
+  theme: 'sbmToolTip'
+});
 
 }
 
@@ -1049,9 +1276,7 @@ function checkDomain(domain) {
 
     var checkDomainData = { 'cookie' : sbmToken, 'formLink' : domain, 'dId' : dId };
 
-    delay(function(){
-        ajaxReq(checkDomainData,'https://api.sabetmikonim.com/panel/check-form-link/','checkDomain');
-      }, 2000 );
+    ajaxReq(checkDomainData,'https://api.sabetmikonim.com/panel/check-form-link/','checkDomain');
 
   }
 
@@ -1120,16 +1345,20 @@ function copyToClipboard(elem) {
 
 $(document).ready(function() {
 
-  Cookies.remove('cId', {path: '/'});
-  Cookies.remove('remember_edit', {path: '/'});
-
-
   var refreshPageStatus = false;
 
   var currentUrl = window.location.href;
 
 	var url = new URL(currentUrl);
 	var page = url.searchParams.get("page");
+  var mode = url.searchParams.get("mode");
+
+  if (mode === "newGetStart") {
+
+    Cookies.remove('cId', {path: '/'});
+    Cookies.remove('remember_edit', {path: '/'});
+
+  }
 
   if (page!==null) {
     createView({contentId: page}, true);

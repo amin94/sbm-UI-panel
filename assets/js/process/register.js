@@ -143,6 +143,16 @@ function registerTabs(stepId) {
 
 $(document).ready(function() {
 
+  var currentUrl = window.location.href;
+
+	var url = new URL(currentUrl);
+	var email = url.searchParams.get("email");
+  if ((email!=="") && (typeof email !=="undefined")) {
+
+    $('input[name=email]').val(email);
+
+  }
+
 
   $('#registerForm').submit(function(event) {
 

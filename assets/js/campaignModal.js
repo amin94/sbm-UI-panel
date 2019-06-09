@@ -1,3 +1,11 @@
+// import feature functions file
+var js = document.createElement("script");
+
+js.type = "text/javascript";
+js.src = 'http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/campaign/campaign-feature-funcs.js';
+
+document.body.appendChild(js);
+
 // functions
 function timeRadioValue(timeRadioValue) {
 	var realTime;
@@ -39,7 +47,15 @@ function saveFeatureSettings(notificationTemplateId) {
 
 					if (formTemps[j]['fieldBodyType'] === "section") {
 
-						eachFeaturesData[notificationTemplateId][formTemps[j]['fieldName']] = $('input[name='+formTemps[j]['fieldName']+']').val();
+						if (formTemps[j]['fieldType'] === "text") {
+
+							eachFeaturesData[notificationTemplateId][formTemps[j]['fieldName']] = $('input[name='+formTemps[j]['fieldName']+']').val();
+
+						} else if (formTemps[j]['fieldType'] === "bestSelect") {
+
+							eachFeaturesData[notificationTemplateId][formTemps[j]['fieldName']] = $('select[name='+formTemps[j]['fieldName']+']').val();
+
+						}
 
 					} else if (formTemps[j]['fieldBodyType'] === "option") {
 
@@ -142,6 +158,24 @@ function openFeaturesModal(notificationTemplateId) {
 			var checkBoxCheck = false;
 			for (var j = 0; j < formTemps.length; j++) {
 
+
+
+				// read functions of fields
+		    var inputFunctions = '';
+		    if ((formTemps[j]['fieldFuncs']!=='') && (typeof formTemps[j]['fieldFuncs'] !== "undefined")) {
+
+		      for (var fc = 0; fc < formTemps[j]['fieldFuncs'].length; fc++) {
+
+		        inputFunctions = inputFunctions + ' ' +formTemps[j]['fieldFuncs'][fc] + '=' + formTemps[j]['fieldFuncsValue'][fc];
+
+		      }
+
+		    } else {
+		      inputFunctions = '';
+		    }
+
+
+
 				if (formTemps[j]['fieldBodyType'] === "section") {
 
 
@@ -156,7 +190,7 @@ function openFeaturesModal(notificationTemplateId) {
 
 					if (formTemps[j]['fieldType'] === "text") {
 
-						$('#featureOptionsBody').append('<div class="section"><div class="title"><h5> '+ formTemps[j]['fieldBodyTitle'] +' '+ panelHelp +'</h5></div><div class="container"><input type="'+ formTemps[j]['fieldType'] +'" name="'+ formTemps[j]['fieldName'] +'" value="'+ formTemps[j]['fieldValue'] +'" '+ formTemps[j]['fieldFuncs'] +'></div></div>');
+						$('#featureOptionsBody').append('<div class="section"><div class="title"><h5> '+ formTemps[j]['fieldBodyTitle'] +' '+ panelHelp +'</h5></div><div class="container"><input type="'+ formTemps[j]['fieldType'] +'" name="'+ formTemps[j]['fieldName'] +'" value="'+ formTemps[j]['fieldValue'] +'" '+ inputFunctions +'></div></div>');
 
 						// replace filled data by user in fields automaticaly
 						if ((toolSettingsHistory) && (featureData[notificationTemplateId][formTemps[j]['fieldName']]!=="")) {
@@ -167,13 +201,17 @@ function openFeaturesModal(notificationTemplateId) {
 
 					} else if (formTemps[j]['fieldType'] === "file") {
 
-						$('#featureOptionsBody').append('<div class="section"><div class="title"><h5> '+ formTemps[j]['fieldBodyTitle'] +' '+ panelHelp +' </h5></div><div class="container"> <label class="fileUpload"> <input type="'+ formTemps[j]['fieldType'] +'" name="'+ formTemps[j]['fieldName'] +'" value="'+ formTemps[j]['fieldValue'] +'" '+ formTemps[j]['fieldFuncs'] +'> <div class="icon"> <i class="fa fa-plus-circle"></i> </div> <div> فایل مورد نظر را انتخاب نمایید </div> </label></div></div>');
+						$('#featureOptionsBody').append('<div class="section"><div class="title"><h5> '+ formTemps[j]['fieldBodyTitle'] +' '+ panelHelp +' </h5></div><div class="container"> <label class="fileUpload"> <input type="'+ formTemps[j]['fieldType'] +'" name="'+ formTemps[j]['fieldName'] +'" value="'+ formTemps[j]['fieldValue'] +'" '+ inputFunctions +'> <div class="icon"> <i class="fa fa-plus-circle"></i> </div> <div> فایل مورد نظر را انتخاب نمایید </div> </label></div></div>');
 
 					} else if (formTemps[j]['fieldType'] === "siteInput") {
 
 							$('#featureOptionsBody').append('<div class="section"><div class="title"><h5> '+ formTemps[j]['fieldBodyTitle'] +' <span class="info input" id="recentActivityMSG" data-tippy> <i class="fas fa-question"></i> </span><div id="recentActivityMSGHelp" class="disn"><p> این پیام مستقیما در نوتیفیکیشن‌های روی سایت شما مشابه نمونه بالای این صفحه نمایش داده می‌شود.</p></div></h5></div><div class="container"><input type="'+ formTemps[j]['fieldType'] +'" class="ltrInput" onclick="inPanelLinkVerify(this.value)" name="'+ formTemps[j]['fieldName'] +'" value="'+ formTemps[j]['fieldValue'] +'" '+ formTemps[j]['fieldFuncs'] +'></div></div>');
 
-					}
+				} else if (formTemps[j]['fieldType'] === "bestSelect") {
+
+						$('#featureOptionsBody').append('<div class="section"><div class="title"><h5> '+ formTemps[j]['fieldBodyTitle'] +' '+ panelHelp +'</h5></div><div class="container"><select class="chosen-select" name="'+ formTemps[j]['fieldName'] +'" data-placeholder="محصول‌ مورد نظرتان را انتخاب نمایید" '+ inputFunctions +'></select></div></div>');
+
+				}
 
 				} else if (formTemps[j]['fieldBodyType'] === "option") {
 
@@ -184,6 +222,27 @@ function openFeaturesModal(notificationTemplateId) {
 					var inputHTML = formTemps[j]['fieldHTMLText'];
 					for (var k = 0; k < fieldCount; k++) {
 
+
+
+						// read functions of text and other fields
+				    var eachInputFunctions = '';
+				    if ((eachFormTempField[k]['fieldFuncs']!=='') && (typeof eachFormTempField[k]['fieldFuncs'] !== "undefined")) {
+
+				      for (var fec = 0; fec < eachFormTempField[k]['fieldFuncs'].length; fec++) {
+
+				        eachInputFunctions = eachInputFunctions + ' ' +eachFormTempField[k]['fieldFuncs'][fec] + '=' + eachFormTempField[k]['fieldFuncsValue'][fec];
+
+				      }
+
+				    } else {
+				      eachInputFunctions = '';
+				    }
+
+
+
+
+
+
 						// display all inputs
 							if (eachFormTempField[k]['fieldType'] === "text") {
 
@@ -191,21 +250,38 @@ function openFeaturesModal(notificationTemplateId) {
 								// replace filled data by user in fields automaticaly
 								if ((toolSettingsHistory) && (featureData[notificationTemplateId][eachFormTempField[k]['fieldName']]!=="")) {
 
-									var inputOption = '<input type="'+ eachFormTempField[k]['fieldType'] +'" name="'+ eachFormTempField[k]['fieldName'] +'" value="'+ featureData[notificationTemplateId][eachFormTempField[k]['fieldName']] +'" '+ eachFormTempField[k]['fieldFuncs'] +'>';
+									var inputOption = '<input type="'+ eachFormTempField[k]['fieldType'] +'" name="'+ eachFormTempField[k]['fieldName'] +'" value="'+ featureData[notificationTemplateId][eachFormTempField[k]['fieldName']] +'" '+ eachInputFunctions +'>';
 
 								} else {
 
-									var inputOption = '<input type="'+ eachFormTempField[k]['fieldType'] +'" name="'+ eachFormTempField[k]['fieldName'] +'" value="'+ eachFormTempField[k]['fieldValue'] +'" '+ eachFormTempField[k]['fieldFuncs'] +'>';
+									var inputOption = '<input type="'+ eachFormTempField[k]['fieldType'] +'" name="'+ eachFormTempField[k]['fieldName'] +'" value="'+ eachFormTempField[k]['fieldValue'] +'" '+ eachInputFunctions +'>';
 
 								}
 
 
 							} else if (eachFormTempField[k]['fieldType'] === "select") {
 
+
+
 								// get options
 								var options='';
 								var optionItem = eachFormTempField[k]['option'];
 								for (var s = 0; s < optionItem.length; s++) {
+
+
+									// read functions of select and option fields
+							    var eachInputFunctions = '';
+							    if ((optionItem[s]['fieldFuncs']!=='') && (typeof optionItem[s]['fieldFuncs'] !== "undefined")) {
+
+							      for (var fec = 0; fec < optionItem[s]['fieldFuncs'].length; fec++) {
+
+							        eachInputFunctions = eachInputFunctions + ' ' + optionItem[s]['fieldFuncs'][fec] + '=' + optionItem[s]['fieldFuncsValue'][fec];
+
+							      }
+
+							    } else {
+							      eachInputFunctions = '';
+							    }
 
 
 									// replace filled data by user in fields automaticaly
@@ -232,7 +308,7 @@ function openFeaturesModal(notificationTemplateId) {
 								}
 
 								// create main select field
-								var inputOption = ' <select name="'+ eachFormTempField[k]['fieldName'] +'" id=""> ' + options + '</select>';
+								var inputOption = ' <select name="'+ eachFormTempField[k]['fieldName'] +'" id="" '+ eachInputFunctions +'> ' + options + '</select>';
 
 							} else if (eachFormTempField[k]['fieldType'] === "radio") {
 
@@ -240,6 +316,20 @@ function openFeaturesModal(notificationTemplateId) {
 								var radioItem = eachFormTempField[k]['option'];
 								var checkedRadio;
 								for (var s = 0; s < radioItem.length; s++) {
+
+									// read functions of select and option fields
+							    var eachInputFunctions = '';
+							    if ((radioItem[s]['fieldFuncs']!=='') && (typeof radioItem[s]['fieldFuncs'] !== "undefined")) {
+
+							      for (var fec = 0; fec < radioItem[s]['fieldFuncs'].length; fec++) {
+
+							        eachInputFunctions = eachInputFunctions + ' ' + radioItem[s]['fieldFuncs'][fec] + '=' + radioItem[s]['fieldFuncsValue'][fec];
+
+							      }
+
+							    } else {
+							      eachInputFunctions = '';
+							    }
 
 
 									// replace filled data by user in fields automaticaly
@@ -267,7 +357,7 @@ function openFeaturesModal(notificationTemplateId) {
 
 
 
-									radios = radios + ' <input type="radio" name="'+ eachFormTempField[k]['fieldName'] +'" id="'+ radioItem[s]['id'] +'" value="'+ radioItem[s]['value'] +'" '+ checkedRadio +' '+radioItem[s]['fieldFuncs']+'> <label for="'+ radioItem[s]['id'] +'" class="radioInput"> '+ radioItem[s]['text'] +' </label> ';
+									radios = radios + ' <input type="radio" name="'+ eachFormTempField[k]['fieldName'] +'" id="'+ radioItem[s]['id'] +'" value="'+ radioItem[s]['value'] +'" '+ checkedRadio +' '+ eachInputFunctions +'> <label for="'+ radioItem[s]['id'] +'" class="radioInput"> '+ radioItem[s]['text'] +' </label> ';
 
 								}
 
@@ -299,7 +389,7 @@ function openFeaturesModal(notificationTemplateId) {
 
 
 
-								var inputOption = "<input type='checkbox' class='switchdemo' name='"+ eachFormTempField[k]['fieldName'] +"' value='"+ eachFormTempField[k]['fieldValue'] +"' "+ eachFormTempField[k]['fieldFuncs'] +" "+checkboxStatus+">";
+								var inputOption = "<input type='checkbox' class='switchdemo' name='"+ eachFormTempField[k]['fieldName'] +"' value='"+ eachFormTempField[k]['fieldValue'] +"' "+ eachInputFunctions +" "+checkboxStatus+">";
 
 								checkBoxCheck = true;
 
@@ -358,15 +448,6 @@ function openFeaturesModal(notificationTemplateId) {
 	$('#featureModal').addClass('openModal');
 
 	$('.mask').fadeIn();
-}
-
-
-function openDeactiveFeatureModal() {
-
-	$('#deactiveFeatures').addClass('openModal');
-
-	$('.mask').fadeIn();
-
 }
 
 
@@ -588,90 +669,7 @@ function removeLink(cardNumber,formNumber) {
 
 
 
-			function realNotif(notifText,optionNumber,boxId) {
 
-				if (optionNumber === 2) {
-					if (boxId === 1) {
-						var realTextBoxId = "#hsOptionAction";
-					} else if (boxId === 2) {
-						var realTextBoxId = "#hsOptionCount";
-					}
-				} else if (optionNumber === 1) {
-					if (boxId === 1) {
-						var realTextBoxId = "#notifDesc";
-					}
-				} else if (optionNumber === 3) {
-
-					if (boxId === 1) {
-						var realTextBoxId = "#cbDesc p";
-					} else if (boxId === 2) {
-						var realTextBoxId = "#sbmCTABTN span";
-					}
-
-				}
-
-				$(realTextBoxId).text(notifText);
-
-			}
-
-
-
-			// real typing
-			function realType(string,dataNumber,currentFormId) {
-
-				var siteInput,status,siteInputLink,selectLink;
-
-				if (currentFormId===1) {
-					siteInput = "siteInput";
-					status = "status";
-					siteInputLink = "siteInputLink";
-					selectLink = "selectLink";
-				} else if (currentFormId==2) {
-					siteInput = "displaySiteInput";
-					status = "displayStatus";
-					siteInputLink = "displaySiteInputLink";
-					selectLink = "displaySelectLink";
-				} else if (currentFormId==3) {
-					siteInput = "notifLink";
-					status = "notifLinkStatus";
-					siteInputLink = "notifLinkInput";
-					selectLink = "notifLinkSelectLink";
-				}
-
-				$('#'+siteInput+dataNumber).addClass('loading');
-
-				$('.'+selectLink+dataNumber).fadeIn();
-
-				$('#'+siteInputLink+dataNumber).text(string);
-
-			}
-
-			// clear all changes from card and link connection and checker
-			function clearActions(dataNumber,currentFormId) {
-
-				$('.formsMask').fadeIn();
-
-				var siteInput,status,formGroup;
-
-				if (currentFormId===1) {
-					siteInput = "siteInput";
-					status = "status";
-					formGroup = "siteInputFormGroup";
-				} else if (currentFormId==2) {
-					siteInput = "displaySiteInput";
-					status = "displayStatus";
-					formGroup = "displaySiteInputFormGroup";
-				} else if (currentFormId==3) {
-					siteInput = "notifLink";
-					status = "notifLinkStatus";
-					formGroup = "notifLinkStatusFormGroup";
-				}
-
-				$('#'+formGroup+dataNumber).addClass("zIndexUp");
-				$('#'+status+dataNumber+' .statusText').css("display","none");
-				$('#'+status+dataNumber+' .siteStatus').css("display","none");
-				$('#'+status+dataNumber).css("display","none");
-			}
 
 
 

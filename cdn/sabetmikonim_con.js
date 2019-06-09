@@ -1,7 +1,7 @@
 // ajax functions
 
 // callBack function to handle ajax reqs
-function callbackHandler(httpRequest, rqType) {
+function callbackHandler(httpRequest, rqType, getData) {
 
 // response has been received so handle it now
 if (httpRequest.readyState === 4) {
@@ -27,6 +27,12 @@ if (httpRequest.readyState === 4) {
 
         } else if (rqType === "campaignEngage") {
 
+            console.log('getData'+getData);
+            if (getData.operation === "hoverNotification") {
+
+              setCookie('hvrOK',true,1);
+
+            }
 
         }
     }
@@ -57,12 +63,13 @@ if (!httpRequest) {
     return false;
 }
 httpRequest.onreadystatechange = (function () {
-    return callbackHandler(httpRequest,reqType);
+    return callbackHandler(httpRequest,reqType,data);
 });
 if (method && method.toUpperCase() == 'POST') {
     httpRequest.open(method, url, true);
     httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    httpRequest.send("x=" + data);
+    var verifyData = JSON.stringify(data);
+    httpRequest.send("x=" + verifyData);
     console.log(data);
 } else {
     httpRequest.open(method, url);
@@ -321,11 +328,11 @@ xmlhttp.onreadystatechange = function() {
               var ipRegion = getCookie('ipRegion');
 
               var formData = { "sId" : acc ,"cId":cid, "emailField":userEmail, "nameField":userName, "ip":ipNumber, "location":ipRegion };
-              verifyData1 = JSON.stringify(formData);
+              // verifyData1 = JSON.stringify(formData);
               console.log(verifyData1);
               var action = "https://api.sabetmikonim.com/cdn/get-form-data/";
               var method = "POST";
-              makeAjaxRequest(action,method,verifyData1,"formSubmit");
+              makeAjaxRequest(action,method,formData,"formSubmit");
 
           }
 
@@ -366,11 +373,17 @@ xmlhttp.onreadystatechange = function() {
       // get All HTML Templates and append them
       if ((campaign.displayPageStatus === "True") && (campaign.notificationStatus=="True")) {
 
+        var el = document.getElementsByTagName("BODY")[0];
+          // Make a new div
+          var sbmElem = document.createElement('div');
+          sbmElem.setAttribute("class", 'sbmNotifs');
+          el.appendChild(sbmElem);
+
         for (var i = 0; i < campaign['notificationTemplateData']['nHtmlList'].length; i++) {
 
-          // Grab an element
-          var el = document.getElementsByTagName("BODY")[0],
-              // Make a new div
+              // get main SBMNOTIFS div
+              var mainSBMElem = document.getElementsByClassName("sbmNotifs")[0];
+
               elChild = document.createElement('div');
 
               elChild.setAttribute("id", campaign['notificationTemplateData']['nHtmlList'][i][0]);
@@ -382,42 +395,31 @@ xmlhttp.onreadystatechange = function() {
               elChild.innerHTML = sabetmikonimElements;
 
               // Jug it into the parent element
-              el.appendChild(elChild);
+              mainSBMElem.appendChild(elChild);
 
         }
 
-
-
-        // check conversionBoxes Status and add those templates
         if (campaign['conversionStatus']) {
 
-          for (var i = 0; i < campaign['conversionData'].length; i++) {
+          // get main SBMNOTIFS div
+          var mainSBMElem = document.getElementsByClassName("sbmNotifs")[0];
 
-            // Grab an element
-            var el = document.getElementsByTagName("BODY")[0],
-                // Make a new div
-                elChild = document.createElement('div');
+          elChild = document.createElement('div');
 
-                elChild.setAttribute("id", campaign['conversionData'][i]['motherId']);
-                // add notification elements
-                var conversionBoxContent = campaign['conversionData'][i]['html'];
+          elChild.setAttribute("class", "sabetmikonimMask");
+          elChild.setAttribute("onclick", "closeConversion()");
 
-                var sabetmikonimElements = conversionBoxContent + "<div class='sabetmikonimMask' onclick='closeConversion()'></div>";
-
-
-                // Give the new div some content
-                elChild.innerHTML = sabetmikonimElements;
-
-                // Jug it into the parent element
-                el.appendChild(elChild);
+          // Jug it into the parent element
+          mainSBMElem.appendChild(elChild);
 
 
 
 
-            // check scroll Function to open conversionBox
-            var cbScroll = true;
 
-              if (cbScroll) {
+          // check scroll Function to open conversionBox
+          for (var cb = 0; cb < campaign['conversionData'].length; cb++) {
+
+              if (campaign['conversionData'][cb]['cbSettings']['cbAutoScroll'] === "true") {
 
                 window.addEventListener('scroll', function() {
 
@@ -425,26 +427,23 @@ xmlhttp.onreadystatechange = function() {
 
                   if (conversionDisplayOnce!=="true") {
 
-                    var scrolled = $(this).scrollTop();
+                    var scrolled = document.documentElement.scrollTop;
 
-                    checkScrollOpenConversonBox(scrolled, 500);
+                    checkScrollOpenConversonBox(scrolled, openedNotifCID);
 
                   }
 
                 });
 
+                break;
+
               }
-
-
 
           }
 
-        } else {
-
-          // add mask
-          var sabetmikonimElements = "<div class='sabetmikonimMask'></div>";
 
         }
+
 
 
       }
@@ -513,156 +512,7 @@ xmlhttp.onreadystatechange = function() {
             setCookie('sbmNewVisitor','True',365);
           }
 
-          // set while to display notifs
-          var notifDisplayPriority = 1;
-          var notifTime;
-          var startPoint = 0;
-          mobile_recursive_func();
-          function mobile_recursive_func()
-          {
-            var i = 0;
-            mobile_recursive_func_next();
-            function mobile_recursive_func_next() {
-
-
-              var displayNotifs = campaign.mobileNotificationData;
-
-              if (displayNotifsCount < displayNotifs.length) {
-
-                var nTemplateId = displayNotifs[displayNotifsCount]['nTemplateId'];
-
-                if (!pauseCampaigns) {
-
-
-                  var nTemplateId = displayNotifs[displayNotifsCount]['nTemplateId'];
-                  var nHTMLContentId = campaign['notificationTemplateData']['idMotherDict'][nTemplateId];
-
-                  // console.log('html'+ nHTMLContentId);
-
-
-                  if (notifDisplayPriority === 1) {
-
-
-
-                    // check display notif time
-                    notifTime = displayNotifs[displayNotifsCount]['nSettings']['mobNTime'];
-
-
-                    // replace data on notifications
-                    for (var notifContentCounter = 0; notifContentCounter < displayNotifs[displayNotifsCount]['data'].length; notifContentCounter++) {
-
-
-                      var notifElm = document.getElementById(nHTMLContentId).querySelector('.'+displayNotifs[displayNotifsCount]['data'][notifContentCounter]['tag']);
-
-                      if (displayNotifs[displayNotifsCount]['data'][notifContentCounter]['tag'] === "notifImg") {
-
-                        notifElm.setAttribute('src',displayNotifs[displayNotifsCount]['data'][notifContentCounter]['content']);
-
-                      } else {
-
-
-                        var dataContent = displayNotifs[displayNotifsCount]['data'][notifContentCounter]['content'];
-
-                        if (dataContent!=="") {
-
-                          var isnum = /^\d+$/.test(dataContent);
-
-                          if (isnum) {
-
-                            animateValue(notifElm, 0, dataContent, 900);
-
-                          } else {
-
-                            notifElm.textContent = dataContent.toFaDigit();
-
-                          }
-
-                        } else {
-
-                          notifElm.textContent = '.';
-
-                        }
-
-
-                      }
-
-
-
-
-                    }
-
-
-
-                    // check display notifications top of the page
-                    if (displayNotifs[displayNotifsCount]['nSettings']['topOfMobDisplay'] === "true") {
-
-                      var els = document.getElementsByClassName('notification');
-                      removeClass(els, 'bottomNotification');
-                      addClass(els, 'topNotification');
-
-                    } else {
-
-                      var els = document.getElementsByClassName('notification');
-                      removeClass(els, 'topNotification');
-                      addClass(els, 'bottomNotification');
-
-                    }
-
-
-
-                    // change notif Link
-                    var finalNotif = document.getElementById(nHTMLContentId).querySelector('.notifLink');
-                    finalNotif.setAttribute('data-link',displayNotifs[displayNotifsCount]['nSettings']['finalNLink']);
-                    finalNotif.setAttribute('data-cid',displayNotifs[displayNotifsCount]['cId']);
-
-
-
-                    var els = document.getElementById(nHTMLContentId).getElementsByClassName('notification');
-                    removeClass(els, 'notif-bounce-out');
-                    addClass(els, 'notif-bounce');
-
-
-
-                    notifDisplayPriority = 0;
-
-                  } else {
-
-
-                    notifTime = displayNotifs[displayNotifsCount]['nSettings']['mobBetNTime'];
-
-                    var els = document.getElementById(nHTMLContentId).getElementsByClassName('notification');
-                    addClass(els,'notif-bounce-out');
-                    setTimeout(function(){
-                      removeClass(els,'notif-bounce');
-                      removeClass(els,'notif-bounce-out');
-                    },500);
-
-                    // first notif displaied
-                    // startPoint = 1;
-
-                    notifDisplayPriority = 1;
-
-                    displayNotifsCount+=1;
-
-
-
-                  }
-
-                }
-
-
-
-                setTimeout(function() {
-                mobile_recursive_func_next();}, 1000*notifTime);
-
-              } else if (displayNotifsCount === displayNotifs.length) {
-
-                  displayNotifsCount=0;
-                  mobile_recursive_func_next();
-
-              }
-            }
-          }
+           mobile_recursive_func();
 
         }
 
@@ -731,14 +581,23 @@ function animateReplace(node, className) {
 
 
 
-function openConversionBox(cbId, cId) {
+function openConversionBox(cbTempId, cId) {
+
+
+  pauseCampaigns = true;
+
+  var notifItem = document.getElementsByClassName('notification');
+  addClass(notifItem,'disn');
 
   var conversionData = campaign['conversionData'];
+
+  // get conversion box mother id with temp id number
+  var cbId = campaign['notificationTemplateData']['idMotherDict'][cbTempId];
 
   // find specific conversionbox data
   for (var i = 0; i < conversionData.length; i++) {
 
-    if (conversionData[i]['motherId'] === cbId) {
+    if (conversionData[i]['cId'] === cId) {
 
       // replace data in conversionBox
       for (var j = 0; j < conversionData[i]['data'].length; j++) {
@@ -798,7 +657,7 @@ function openConversionBox(cbId, cId) {
       var duration = conversionData[i]['cbSettings']['cbDisplayTime']+'s';
 
       addClass(document.getElementById(cbId).getElementsByClassName('conversionBox'), 'openCB');
-      addClass(document.getElementById(cbId).getElementsByClassName('conversionBox'), 'leftNotif');
+      addClass(document.getElementById(cbId).getElementsByClassName('conversionBox'), openedNotifPosition);
 
       var sbmMask = document.getElementsByClassName('sabetmikonimMask');
       addClass(sbmMask, 'open');
@@ -819,14 +678,10 @@ function openConversionBox(cbId, cId) {
       PrefixedEvent(progressStarter, "AnimationEnd", closeConversion);
 
 
-
-
-
     }
 
+
   }
-
-
 
 
 } // open conversion box
@@ -845,6 +700,8 @@ function closeConversion() {
     removeClass(document.getElementsByClassName('conversionBox'),'openCB');
     removeClass(document.getElementsByClassName('conversionBox'),'closeCB');
     removeClass(document.getElementsByClassName('notification'),'disn');
+    removeClass(document.getElementsByClassName('conversionBox'),'rightNotif');
+    removeClass(document.getElementsByClassName('conversionBox'),'leftNotif');
 
   },500);
 
@@ -857,20 +714,34 @@ function closeConversion() {
 
 
 function clickOnNotification(notifClicked){
+  var notifLinkAction = false;
 
-  var campaignCID = notifClicked.getAttribute('data-cid');
+  window.campaignCID = notifClicked.getAttribute('data-cid');
 
   if (campaign['conversionStatus']) {
 
-    var notifItem = document.getElementsByClassName('notification');
     // find specific conversion box and open that
     for (var i = 0; i < campaign['conversionData'].length; i++) {
 
       if (campaign['conversionData'][i]['cId'] === campaignCID ) {
 
-        addClass(notifItem,'disn');
+        notifLinkAction = false;
 
-        openConversionBox(campaign['conversionData'][i]['motherId'], campaignCID);
+        openConversionBox(campaign['conversionData'][i]['nTemplateId'], campaignCID);
+
+
+        // count click when conversion box opened
+        var formData = { "sId" : acc,"cId":campaignCID, 'operation' : 'openConversionBox' };
+        // var campaignLinkVerifyData = JSON.stringify(formData);
+        var action = "https://api.sabetmikonim.com/cdn/submit-engagement/";
+        var method = "POST";
+        makeAjaxRequest(action,method,formData,"justCount");
+
+        break;
+
+      } else {
+
+        notifLinkAction = true;
 
       }
 
@@ -878,16 +749,23 @@ function clickOnNotification(notifClicked){
 
   } else {
 
+    notifLinkAction = true;
+
+  }
+
+
+  if (notifLinkAction) {
+
     // count campaign clicks
     window.finalNotifLink = notifClicked.getAttribute('data-link');
 
     if ((finalNotifLink!='') && (finalNotifLink!='/')) {
 
       var formData = { "sId" : acc,"cId":campaignCID, 'operation' : 'clickNotification' };
-      var campaignLinkVerifyData = JSON.stringify(formData);
+      // var campaignLinkVerifyData = JSON.stringify(formData);
       var action = "https://api.sabetmikonim.com/cdn/submit-engagement/";
       var method = "POST";
-      makeAjaxRequest(action,method,campaignLinkVerifyData,"campaignClick");
+      makeAjaxRequest(action,method,formData,"campaignClick");
 
     }
 
@@ -908,11 +786,11 @@ function clickOnConversionBtn(cbBtnClicked, cbOfCid) {
 
   if ((finalNotifLink!='') && (finalNotifLink!='/')) {
 
-    var formData = { "sId" : acc,"cId":cbOfCid, 'operation' : 'clickConversionBox' };
-    var campaignLinkVerifyData = JSON.stringify(formData);
+    var formData = { "sId" : acc,"cId":cbOfCid, 'operation' : 'clickCbButton' };
+    // var campaignLinkVerifyData = JSON.stringify(formData);
     var action = "https://api.sabetmikonim.com/cdn/submit-engagement/";
     var method = "POST";
-    makeAjaxRequest(action,method,campaignLinkVerifyData,"campaignClick");
+    makeAjaxRequest(action,method,formData,"campaignClick");
 
   }
 
@@ -921,7 +799,7 @@ function clickOnConversionBtn(cbBtnClicked, cbOfCid) {
 
 
 var lastScroll = 0;
-function checkScrollOpenConversonBox(scrolled, scrollPx) {
+function checkScrollOpenConversonBox(scrolled, cbCID) {
 
   var conversionData = campaign['conversionData'];
 
@@ -929,14 +807,30 @@ function checkScrollOpenConversonBox(scrolled, scrollPx) {
 
     for (var i = 0; i < conversionData.length; i++) {
 
-      // if (conversionData[i]['cbSettings']['scroll'] <= scrolled) {
-      if (scrollPx <= scrolled) {
+      if (conversionData[i]['cId'] === cbCID) {
 
-        openConversionBox(conversionData[i]['motherId'], conversionData[i]['cId']);
+        scrollPx = conversionData[i]['cbSettings']['cbAutoScrollPixel'];
 
-        setCookie('sbmDisplayCBOnce','true',1);
+        // if (conversionData[i]['cbSettings']['scroll'] <= scrolled) {
+        if (scrollPx <= scrolled) {
+
+          // console.log(scrollPx);
+
+          openConversionBox(conversionData[i]['nTemplateId'], conversionData[i]['cId']);
+
+          setCookie('sbmDisplayCBOnce','true',1);
+
+          // count click when conversion box opened
+          var formData = { "sId" : acc,"cId":conversionData[i]['cId'], 'operation' : 'scrollOpenConversionBox' };
+          // var campaignLinkVerifyData = JSON.stringify(formData);
+          var action = "https://api.sabetmikonim.com/cdn/submit-engagement/";
+          var method = "POST";
+          makeAjaxRequest(action,method,formData,"justCount");
+
+        }
 
       }
+
 
     }
 
@@ -959,13 +853,20 @@ function checkScrollOpenConversonBox(scrolled, scrollPx) {
 
 
 // display desktop notifications
+window.openedNotifCID = '';
+window.openedNotifPosition = '';
 var displayNotifsCount = 0;
 var notifDisplayPriority = 1;
 var notifTime;
 function recursive_func() {
   var i = 0;
   window.pauseCampaigns = false;
-  recursive_func_next();
+
+  var userPermissionDisplayNotif = getCookie('ndo');
+  if (userPermissionDisplayNotif !== "True") {
+    recursive_func_next();
+  }
+
   function recursive_func_next() {
 
 
@@ -991,11 +892,19 @@ function recursive_func() {
           addClass(els, 'leftNotif');
           removeClass(els, 'rightNotif');
 
+          var notifSetPositionElement = document.getElementById(nHTMLContentId).querySelector('.notifLink');
+          // notifSetPositionElement.setAttribute('data-position','leftNotif');
+          openedNotifPosition = 'leftNotif';
+
         } else {
 
           var els = document.getElementsByClassName('notification');
           removeClass(els, 'leftNotif');
           addClass(els, 'rightNotif');
+
+          var notifSetPositionElement = document.getElementById(nHTMLContentId).querySelector('.notifLink');
+          // notifSetPositionElement.setAttribute('data-position','rightNotif');
+          openedNotifPosition = 'rightNotif';
 
         }
 
@@ -1055,6 +964,7 @@ function recursive_func() {
           finalNotif.setAttribute('data-link',displayNotifs[displayNotifsCount]['nSettings']['finalNLink']);
           finalNotif.setAttribute('data-cid',displayNotifs[displayNotifsCount]['cId']);
 
+          openedNotifCID = displayNotifs[displayNotifsCount]['cId'];
 
 
           var els = document.getElementById(nHTMLContentId).getElementsByClassName('notification');
@@ -1139,10 +1049,14 @@ function recursive_func() {
 
 
       // count mouse hover
-      var campaignCID = this.getAttribute('data-cid');
-      var engageData = { "sId" : acc,"cId":campaignCID, "operation" : "hoverNotification" };
-      var campaignEngageData = JSON.stringify(engageData);
-      makeAjaxRequest("https://api.sabetmikonim.com/cdn/submit-engagement/","POST",campaignEngageData,"campaignEngage");
+      if (!getCookie('hvrOK')) {
+
+        var campaignCID = this.getAttribute('data-cid');
+        var engageData = { "sId" : acc,"cId":campaignCID, "operation" : "hoverNotification" };
+        // var campaignEngageData = JSON.stringify(engageData);
+        makeAjaxRequest("https://api.sabetmikonim.com/cdn/submit-engagement/","POST",engageData,"campaignEngage");
+
+      }
 
       e.preventDefault();
 
@@ -1169,6 +1083,272 @@ function recursive_func() {
 
 
 
+
+
+
+
+
+
+// display mobile notifications
+var mobileDisplayNotifsCount = 0;
+var mobileNotifDisplayPriority = 1;
+var mobileNotifTime;
+function mobile_recursive_func() {
+  var i = 0;
+  window.pauseCampaigns = false;
+
+  var userPermissionDisplayNotif = getCookie('ndo');
+  if (userPermissionDisplayNotif !== "True") {
+    mobile_recursive_func_next();
+  }
+
+  function mobile_recursive_func_next() {
+
+
+    var displayNotifs = campaign['mobileNotificationData'];
+    // var displayMobileNotifs = campaign['mobileNotificationData'];
+
+    if (mobileDisplayNotifsCount < displayNotifs.length) {
+
+      if (!pauseCampaigns) {
+
+        var nTemplateId = displayNotifs[mobileDisplayNotifsCount]['nTemplateId'];
+        var nHTMLContentId = campaign['notificationTemplateData']['idMotherDict'][nTemplateId];
+
+
+
+
+        if (mobileNotifDisplayPriority === 1) {
+
+
+          mobileNotifTime = displayNotifs[mobileDisplayNotifsCount]['nSettings']['mobNTime'];
+
+          // replace data on notifications
+          for (var notifContentCounter = 0; notifContentCounter < displayNotifs[mobileDisplayNotifsCount]['data'].length; notifContentCounter++) {
+
+
+            var notifElm = document.getElementById(nHTMLContentId).querySelector('.'+displayNotifs[mobileDisplayNotifsCount]['data'][notifContentCounter]['tag']);
+
+            if (displayNotifs[mobileDisplayNotifsCount]['data'][notifContentCounter]['tag'] === "notifImg") {
+
+              notifElm.setAttribute('src',displayNotifs[mobileDisplayNotifsCount]['data'][notifContentCounter]['content']);
+
+            } else {
+
+              var dataContent = displayNotifs[mobileDisplayNotifsCount]['data'][notifContentCounter]['content'];
+
+              if (dataContent!=="") {
+
+                var isnum = /^\d+$/.test(dataContent);
+
+                if (isnum) {
+
+                  animateValue(notifElm, 0, dataContent, 900);
+
+                } else {
+
+                  notifElm.textContent = dataContent.toFaDigit();
+
+                }
+
+              } else {
+
+                notifElm.textContent = '.';
+
+              }
+
+            }
+
+
+
+
+          }
+
+
+          // change notif Link
+          var finalNotif = document.getElementById(nHTMLContentId).querySelector('.notifLink');
+          finalNotif.setAttribute('data-link',displayNotifs[mobileDisplayNotifsCount]['nSettings']['finalNLink']);
+          finalNotif.setAttribute('data-cid',displayNotifs[mobileDisplayNotifsCount]['cId']);
+
+
+
+
+
+          // modify notif position - top or down
+          var notifPosition = displayNotifs[mobileDisplayNotifsCount]['nSettings']['topOfMobDisplay'];
+          // check display notifs top or bottom on display
+          if (notifPosition === "true") {
+
+            var els = document.getElementsByClassName('notification');
+            addClass(els, 'topNotification');
+            removeClass(els, 'bottomNotification');
+
+            var notifSetPositionElement = document.getElementById(nHTMLContentId).querySelector('.notifLink');
+            // notifSetPositionElement.setAttribute('data-position','leftNotif');
+            openedNotifPosition = 'topNotif';
+
+          } else {
+
+            var els = document.getElementsByClassName('notification');
+            removeClass(els, 'topNotification');
+            addClass(els, 'bottomNotification');
+
+            var notifSetPositionElement = document.getElementById(nHTMLContentId).querySelector('.notifLink');
+            // notifSetPositionElement.setAttribute('data-position','rightNotif');
+            openedNotifPosition = 'bottomNotif';
+
+          }
+
+
+
+          
+
+
+          var els = document.getElementById(nHTMLContentId).getElementsByClassName('notification');
+          removeClass(els, 'notif-bounce-out');
+          removeClass(els,'disn');
+          setTimeout(function(){
+            addClass(els, 'notif-bounce');
+          },500);
+
+
+          mobileNotifDisplayPriority = 0;
+
+        } else {
+
+
+          var els = document.getElementById(nHTMLContentId).getElementsByClassName('notification');
+
+          addClass(els,'notif-bounce-out');
+          setTimeout(function(){
+            addClass(els,'disn');
+            removeClass(els,'notif-bounce');
+            removeClass(els,'notif-bounce-out');
+          },500);
+
+
+          // first notif displaied
+
+          mobileNotifTime = displayNotifs[mobileDisplayNotifsCount]['nSettings']['deskBetNTime'];
+
+          mobileDisplayNotifsCount+=1;
+
+          mobileNotifDisplayPriority = 1;
+
+
+
+        }
+
+
+
+
+
+      }
+
+
+      // create loop to display all notifications
+      setTimeout(function() {
+        mobile_recursive_func_next();
+      }, 1000*mobileNotifTime);
+
+
+
+    } else if (mobileDisplayNotifsCount === displayNotifs.length) {
+
+        mobileDisplayNotifsCount=0;
+        mobile_recursive_func_next();
+
+    }
+
+
+  }
+
+
+
+
+  // find all campaign links and listen to them when clicked
+  var notifItem = document.getElementsByClassName('notification');
+  var notifLinks = document.querySelectorAll("a[name=campaignLink]");
+  for (var nl = 0; nl < notifLinks.length; nl++) {
+
+    notifLinks[nl].addEventListener('click',function(e){
+
+      e.preventDefault();
+
+      clickOnNotification(this);
+
+    });
+
+
+
+
+
+    // count campaign Engagements and mouse enter
+    notifLinks[nl].addEventListener('mouseenter',function(e){
+
+      pauseCampaigns = true;
+
+
+      // count mouse hover
+      var campaignCID = this.getAttribute('data-cid');
+      var engageData = { "sId" : acc,"cId":campaignCID, "operation" : "hoverNotification" };
+      // var campaignEngageData = JSON.stringify(engageData);
+      makeAjaxRequest("https://api.sabetmikonim.com/cdn/submit-engagement/","POST",engageData,"campaignEngage");
+
+      e.preventDefault();
+
+
+    });
+
+
+    notifLinks[nl].addEventListener('mouseleave',function(e){
+
+        pauseCampaigns = false;
+
+      e.preventDefault();
+
+
+    });
+
+
+
+  }
+
+
+
+}
+// mobile display notifs
+
+
+
+
+
+
+
+function closeAllNotifs() {
+
+  pauseCampaigns = true;
+
+  var els = document.getElementsByClassName('notification');
+
+  addClass(els,'notif-bounce-out');
+  setTimeout(function(){
+    removeClass(els,'notif-bounce');
+    removeClass(els,'notif-bounce-out');
+  },500);
+
+  setCookie('ndo','True',1);
+
+
+
+  // request to submit close counts
+  var formData = { "sId" : acc, "cId": openedNotifCID, 'operation' : 'closeAllNotifs' };
+  // var campaignLinkVerifyData = JSON.stringify(formData);
+  var action = "https://api.sabetmikonim.com/cdn/submit-engagement/";
+  var method = "POST";
+  makeAjaxRequest(action,method,formData,"justCount");
+
+}
 
 
 

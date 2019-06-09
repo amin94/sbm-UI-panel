@@ -40,8 +40,6 @@
 
       var submitToolSettingsData = { 'cookie' : sbmToken, 'dId' : getCookie('dId'), 'cId' : getCookie('cId'), 'operation' : 'submitToolSettings', 'toolSettings' : toolSettings };
 
-      console.log(submitToolSettingsData);
-
       ajaxReq(submitToolSettingsData,'https://api.sabetmikonim.com/panel/complete-information/','submitToolSettings');
 
     }
@@ -65,7 +63,7 @@
 
 
 
-  <div class="section toolPage newCampaignBody">
+  <div class="section toolPage newCampaignBody" id="mainCampaignBody">
 
     <div class="card cardBox">
 

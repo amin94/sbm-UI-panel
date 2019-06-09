@@ -35,6 +35,7 @@
   <!--     Fonts and icons     -->
   <link href="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/css/all.min.css" rel="stylesheet" />
   <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/all.min.js"></script>
+
   <!-- <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous"></script> -->
   <!-- <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7" crossorigin="anonymous"></script> -->
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
@@ -43,8 +44,13 @@
   <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/sweetalert.min.js"></script>
   <!-- <link rel="stylesheet" href="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/css/sweetalert.css"> -->
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> <!-- load jquery via CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <!-- <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/jquery-3.2.1.min.js"></script> -->
   <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/jquery.history.js"></script> <!-- jquery history -->
+
+  <!-- chosen library -->
+  <link href="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/library/chosen/chosen.min.css" rel="stylesheet" />
+
 
   <!-- <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/sabetmikonim.js"></script> -->
   <script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/main-sabetmikonim.js"></script>

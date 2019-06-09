@@ -1,9 +1,11 @@
+<script src="http://amins-macbook-pro.local:5757/sabetmikonimv2/assets/js/campaign/campaign-feature-funcs.js"></script>
+
 <script type="text/javascript">
 
   $(document).ready(function() {
 
     // process the form
-  	$('#submitToolSettingForm').submit(function(event) {
+  	$('#submitToolVerifySettingForm').submit(function(event) {
 
       $('.form-group').removeClass('has-error');
       $('.help-block').remove();
@@ -11,26 +13,18 @@
       var apiData = {};
       var jb = 0;
       var submitStatus = true;
+      apiData = connectionSettingsProgress[subTypeId][0];
       for (var apiInput = 1; apiInput < connectionApiFormData.length; apiInput++) {
 
-        if (connectionApiFormData[jb]['type']=="text") {
+        if (($('select[name='+connectionApiFormData[jb]['name']+'] option:selected').val()!=="") && (typeof $('select[name='+connectionApiFormData[jb]['name']+'] option:selected').val()!=="undefined")) {
+          apiData['formData'][connectionApiFormData[jb]['name']] = $('select[name='+connectionApiFormData[jb]['name']+'] option:selected').val();
 
-          if ($('input[name='+connectionApiFormData[jb]['name']+']').val()!=="") {
+        } else {
 
-            apiData[connectionApiFormData[jb]['name']] = $('input[name='+connectionApiFormData[jb]['name']+']').val();
+          $('#'+connectionApiFormData[jb]['name']+'Group').append('<div class="help-block"> '+connectionApiFormData[jb]['placeholder']+' را وارد نمایید. </div>');
+          $('#'+connectionApiFormData[jb]['name']+'Group').addClass('has-error');
 
-          } else {
-
-            $('#'+connectionApiFormData[jb]['name']+'Group').append('<div class="help-block"> '+connectionApiFormData[jb]['placeholder']+' را وارد نمایید. </div>');
-            $('#'+connectionApiFormData[jb]['name']+'Group').addClass('has-error');
-
-            submitStatus = false;
-          }
-
-        } else if (connectionApiFormData[jb]['type']=="select") {
-
-          apiData[connectionApiFormData[jb]['name']] = $('select[name='+ connectionApiFormData[jb]['name'] +'] option:selected').val();
-          
+          submitStatus = false;
         }
 
         jb = jb + 1;
@@ -42,7 +36,7 @@
 
         var finalApiData = {'cookie' : getCookie('sbm_token'), 'cId': getCookie('cId'), 'dId' : getCookie('dId'), 'apiData': apiData, 'operation' : 'submitApi'};
 
-        ajaxReq(finalApiData,'https://api.sabetmikonim.com/panel/api-connection/','submitApiData');
+        ajaxReq(finalApiData,'https://api.sabetmikonim.com/panel/api-connection/','submitApiVerifyData');
 
       }
 
@@ -61,7 +55,7 @@
   </div> <!-- section -->
 
 
-<form id="submitToolSettingForm">
+<form id="submitToolVerifySettingForm">
 
   <div class="section toolPage toolSettingsBody">
 

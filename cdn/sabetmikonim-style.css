@@ -301,6 +301,18 @@ a:hover, a:focus {
   /* border-bottom-left-radius: 5px; */
 }
 
+.sabetmikonimNotifBody .notifDescContents span {
+    color: #738c98;
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 5px;
+    /* display: inline-block; */
+}
+
+.sabetmikonimNotifBody .notifDescContents .notifMainContent span {
+  display: inline-block;
+}
+
 .sabetmikonimNotifBody span.notifDesc {
     color: #738c98;
     font-size: 12px;
@@ -321,7 +333,8 @@ a:hover, a:focus {
     text-align: left;
     color: #aabcc5;
     font-size: 12px;
-    font-weight: 300
+    font-weight: 300;
+    line-height: 1;
 }
 
 span.icon {
@@ -345,6 +358,29 @@ span.icon svg {
 
 
 
+.closeNotifs {
+  top: 10px;
+  left: 20px;
+  position: absolute;
+  z-index: 9999999999;
+  width: 15px;
+  height: 15px;
+  opacity: .5;
+  cursor: pointer;
+  transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  -webkit-transition: all .3s;
+}
+
+.closeNotifs:hover {
+  opacity: 1;
+}
+
+.closeNotifs svg {
+  width: 13px;
+  height: 13px;
+}
 
 
 
@@ -353,14 +389,14 @@ span.icon svg {
 
 .hotStreak {
   display: inline-flex;
-  line-height: 2.35;
+  line-height: 0;
 }
 
 .notification .hotStreak .count {
   position: relative;
   display: inline-block;
   color: #058eee;
-  line-height: 2.8;
+  line-height: 2.1;
   padding-right: 5px;
   padding-left: 5px;
   margin-left: 3px;
@@ -383,9 +419,10 @@ span.icon svg {
 }
 
 .notification .hotStreak span.notifDesc {
-  font-weight: 300;
+  font-weight: 400;
   font-size: 13px;
-  color: #058eee;
+  /* color: #058eee; */
+  color: #333;
   display: inline;
 }
 
@@ -437,8 +474,8 @@ span.icon svg {
   z-index: 99999999999999999999999;
   height: 310px;
   bottom: 0;
-  transform: translateY(310px);
-  -webkit-transform: translateY(310px);
+  transform: translateY(320px);
+  -webkit-transform: translateY(320px);
   border-radius: 15px;
   box-shadow: 0 0 0 2px #CCC;
   text-align: center;
@@ -449,14 +486,9 @@ span.icon svg {
   -o-transition: all .3s
 }
 
-.conversionBox.rightNotif {
-  display: flex;
-}
-
 .conversionBox.leftNotif {
-  display: flex;
-  left: 15px !important;
-  right: auto !important;
+  left: 15px;
+  right: auto;
 }
 
 .conversionBox .conversionBoxContent {
@@ -467,6 +499,7 @@ span.icon svg {
 }
 
 .conversionBox.openCB {
+  display: flex;
   -webkit-animation-duration: .4s;
   animation-duration: .4s;
   -webkit-animation-fill-mode: both;
@@ -565,6 +598,10 @@ span.icon svg {
 
 
 @media screen and (max-width:425px) {
+
+  .sabetmikonimNotifBody .notification.leftNotif {
+    left: 0 !important;
+  }
 
   /* bottom bounce */
   @-webkit-keyframes bounce {
@@ -723,5 +760,17 @@ span.icon svg {
     }
     .notification .hotStreak span.count, .notification .hotStreak span.notifDesc {
       font-size: 16px;
+    }
+
+
+
+
+
+
+    /* conversion box */
+    .conversionBox {
+      left: 0 !important;
+      right: 0 !important;
+      margin: auto !important;
     }
 }

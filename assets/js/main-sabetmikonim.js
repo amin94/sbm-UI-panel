@@ -33,11 +33,15 @@ function checkCookie(cname) {
 
 
 
-function ajaxReq(formData,url,reqType) {
+function ajaxReq(formData,url,reqType,moreData,maskStatus) {
 
 	var verifyData, sendData;
 
-  $(".loadingBar").addClass('active');
+  if ((maskStatus === "") || (maskStatus) || (typeof maskStatus === "undefined")) {
+
+    $(".loadingBar").addClass('active');
+
+  }
   // $(".loadingMask").fadeIn();
 
 
@@ -130,7 +134,7 @@ $.ajax({
 
   		} else {
 
-  			callbackAjaxReq(data,reqType);
+  			callbackAjaxReq(data,reqType,moreData);
 
   		}
 
